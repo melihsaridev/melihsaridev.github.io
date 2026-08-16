@@ -441,24 +441,24 @@
                         : { top: '50%', left: '46%', xPercent: 0, yPercent: -50 }
                 };
             } else if (sceneIndex === 2) {
-                // SCENE 2: FOCUS (Pushed left: 0% to eliminate left clipping, photo at left: 85% with 0.15 opacity)
+                // SCENE 2: FOCUS (Bigger, fully visible photo with proper contrast and spacing)
                 return {
                     photo: mobile 
-                        ? { width: '70px', height: '70px', top: '12%', left: '50%', xPercent: -50, yPercent: -50, scale: 0.8, opacity: 0.2, borderRadius: '50%', zIndex: 10 }
-                        : { width: '240px', height: '240px', top: '50%', left: '85%', xPercent: -50, yPercent: -50, scale: 0.9, opacity: 0.15, borderRadius: '24px', zIndex: 10 },
+                        ? { width: '100px', height: '100px', top: '15%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 0.9, borderRadius: '20px', zIndex: 20 }
+                        : { width: '320px', height: '320px', top: '50%', left: '78%', xPercent: -50, yPercent: -50, scale: 1, opacity: 0.95, borderRadius: '24px', zIndex: 20 },
                     textPos: mobile
-                        ? { top: '54%', left: '50%', xPercent: -50, yPercent: -50 }
+                        ? { top: '56%', left: '50%', xPercent: -50, yPercent: -50 }
                         : { top: '50%', left: '0%', xPercent: 0, yPercent: -50 }
                 };
             } else if (sceneIndex === 3) {
-                // SCENE 3: CONNECT
+                // SCENE 3: CONNECT (Prominent centered avatar)
                 return {
                     photo: mobile 
-                        ? { width: '110px', height: '110px', top: '16%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%', zIndex: 20 }
-                        : { width: '180px', height: '180px', top: '22%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%', zIndex: 20 },
+                        ? { width: '130px', height: '130px', top: '17%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%', zIndex: 20 }
+                        : { width: '250px', height: '250px', top: '22%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%', zIndex: 20 },
                     textPos: mobile
-                        ? { top: '56%', left: '50%', xPercent: -50, yPercent: -50 }
-                        : { top: '60%', left: '50%', xPercent: -50, yPercent: -50 }
+                        ? { top: '58%', left: '50%', xPercent: -50, yPercent: -50 }
+                        : { top: '62%', left: '50%', xPercent: -50, yPercent: -50 }
                 };
             }
         }

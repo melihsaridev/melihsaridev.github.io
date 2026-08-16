@@ -137,7 +137,7 @@
                 <span id="time-display" class="text-typography-primary font-mono">00:00:00 TRT</span>
             </div>
             
-            <!-- Interactive Cinematic Navigation Jumps -->
+            <!-- Interactive Navigation Jumps -->
             <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-[11px]">
                 <button onclick="goToScene(0)" id="nav-btn-0" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer text-white font-bold">/ 01 HERO</button>
                 <button onclick="goToScene(1)" id="nav-btn-1" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer opacity-70">/ 02 ABOUT</button>
@@ -182,7 +182,7 @@
                     <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-typography-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
-                    <span>COMPUTER ENGINEERING CANDIDATE</span>
+                    <span>01 / COMPUTER ENGINEERING CANDIDATE</span>
                 </div>
 
                 <h1 class="font-display text-4xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight uppercase text-typography-primary leading-tight sm:leading-none">
@@ -215,7 +215,7 @@
 
             <!-- ================= SCENE 1: ABOUT / PHILOSOPHY ================= -->
             <div id="scene-1-text" class="absolute z-20 max-w-2xl opacity-0 pointer-events-none flex flex-col justify-center space-y-3 sm:space-y-6 text-center md:text-left px-2 sm:px-0">
-                <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block">01 / IDENTITY & PHILOSOPHY</span>
+                <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block">02 / IDENTITY & PHILOSOPHY</span>
                 <h2 class="font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
                     ENGINEERING MINDSET
                 </h2>
@@ -248,7 +248,7 @@
             <!-- ================= SCENE 2: ACTIVE ROADMAP ================= -->
             <div id="scene-2-text" class="absolute z-20 w-full max-w-3xl opacity-0 pointer-events-none flex flex-col space-y-3 sm:space-y-6 px-2 sm:px-0">
                 <div class="text-center md:text-left">
-                    <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block mb-1">02 / ACTIVE ROADMAP</span>
+                    <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block mb-1">03 / ACTIVE ROADMAP</span>
                     <h2 class="font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
                         CURRENT FOCUS
                     </h2>
@@ -296,7 +296,7 @@
             <!-- ================= SCENE 3: CONNECT & CONTACT ================= -->
             <div id="scene-3-text" class="absolute z-20 w-full max-w-3xl opacity-0 pointer-events-none text-center flex flex-col items-center justify-center space-y-4 sm:space-y-6 px-2 sm:px-0">
                 
-                <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase">03 / INITIATE CONTACT</span>
+                <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase">04 / INITIATE CONTACT</span>
                 
                 <h2 class="font-display text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase text-typography-primary">
                     LET'S CONNECT & TALK
@@ -356,57 +356,52 @@
     </main>
 
     <script>
-        // Real-time Istanbul Clock
+        // 1. Real-Time Clock (Istanbul / TRT)
         function updateClock() {
-            const timeDisplay = document.getElementById('time-display');
-            if (timeDisplay) {
+            const el = document.getElementById('time-display');
+            if (el) {
                 const now = new Date();
-                const options = {
-                    timeZone: 'Europe/Istanbul',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                };
-                const timeString = new Intl.DateTimeFormat('en-GB', options).format(now);
-                timeDisplay.textContent = `${timeString} TRT`;
+                const options = { timeZone: 'Europe/Istanbul', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                el.textContent = new Intl.DateTimeFormat('en-GB', options).format(now) + ' TRT';
             }
         }
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Email Clipboard Interaction
+        // 2. Email Clipboard Interaction
         const copyBtn = document.getElementById('copy-email-btn');
         const copyText = document.getElementById('copy-btn-text');
-        const targetEmail = "melihsari.dev@gmail.com";
-
         if (copyBtn) {
             copyBtn.addEventListener('click', () => {
-                const tempInput = document.createElement('textarea');
-                tempInput.value = targetEmail;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                
+                const temp = document.createElement('textarea');
+                temp.value = 'melihsari.dev@gmail.com';
+                document.body.appendChild(temp);
+                temp.select();
                 try {
                     document.execCommand('copy');
-                    if (copyText) copyText.textContent = "COPIED TO CLIPBOARD!";
+                    if (copyText) copyText.textContent = 'COPIED TO CLIPBOARD!';
                     copyBtn.classList.add('bg-emerald-400', 'text-black');
-                    
                     setTimeout(() => {
-                        if (copyText) copyText.textContent = "COPY EMAIL ADDRESS";
+                        if (copyText) copyText.textContent = 'COPY EMAIL ADDRESS';
                         copyBtn.classList.remove('bg-emerald-400', 'text-black');
-                    }, 2200);
-                } catch (err) {
-                    console.error('Failed to copy email', err);
+                    }, 2500);
+                } catch(err) {
+                    console.error('Copy failed:', err);
                 }
-                
-                document.body.removeChild(tempInput);
+                document.body.removeChild(temp);
             });
         }
 
-        // ================= SCENE CONTROLLER STATE =================
+        // ================= SCENE CONTROLLER STATE & DEFINITIONS =================
+        const SCENES = [
+            { index: 0, number: "01", name: "HERO" },
+            { index: 1, number: "02", name: "ABOUT" },
+            { index: 2, number: "03", name: "FOCUS" },
+            { index: 3, number: "04", name: "CONNECT" }
+        ];
+
         let currentScene = 0;
-        const totalScenes = 4; // 0, 1, 2, 3
+        const totalScenes = SCENES.length; // 4
         let isAnimating = false;
 
         const photoContainer = document.getElementById('photo-container');
@@ -422,96 +417,51 @@
             return window.innerWidth < 768;
         }
 
-        // Define exact visual target states per scene
+        // Layout specs for photo container per scene
         function getSceneProps(sceneIndex) {
             const mobile = isMobile();
 
-            if (!mobile) {
-                // Desktop Compositions
-                switch (sceneIndex) {
-                    case 0: // HERO
-                        return {
-                            photo: { width: '340px', height: '340px', left: '60%', top: '50%', xPercent: 0, yPercent: -50, opacity: 1 },
-                            text0: { opacity: 1, y: 0, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '50%' },
-                            text1: { opacity: 0, y: 30, left: '42%', top: '50%', xPercent: 0, yPercent: -50, width: '55%' },
-                            text2: { opacity: 0, y: 30, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '70%' },
-                            text3: { opacity: 0, y: 30, left: '50%', top: '60%', xPercent: -50, yPercent: -50, width: '90%' }
-                        };
-                    case 1: // ABOUT
-                        return {
-                            photo: { width: '280px', height: '280px', left: '10%', top: '50%', xPercent: 0, yPercent: -50, opacity: 0.9 },
-                            text0: { opacity: 0, y: -30, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '50%' },
-                            text1: { opacity: 1, y: 0, left: '42%', top: '50%', xPercent: 0, yPercent: -50, width: '55%' },
-                            text2: { opacity: 0, y: 30, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '70%' },
-                            text3: { opacity: 0, y: 30, left: '50%', top: '60%', xPercent: -50, yPercent: -50, width: '90%' }
-                        };
-                    case 2: // FOCUS
-                        return {
-                            photo: { width: '220px', height: '220px', left: '85%', top: '50%', xPercent: -50, yPercent: -50, opacity: 0.25 },
-                            text0: { opacity: 0, y: -30, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '50%' },
-                            text1: { opacity: 0, y: -30, left: '42%', top: '50%', xPercent: 0, yPercent: -50, width: '55%' },
-                            text2: { opacity: 1, y: 0, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '70%' },
-                            text3: { opacity: 0, y: 30, left: '50%', top: '60%', xPercent: -50, yPercent: -50, width: '90%' }
-                        };
-                    case 3: // CONNECT
-                        return {
-                            photo: { width: '170px', height: '170px', left: '50%', top: '20%', xPercent: -50, yPercent: -50, opacity: 0.95 },
-                            text0: { opacity: 0, y: -30, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '50%' },
-                            text1: { opacity: 0, y: -30, left: '42%', top: '50%', xPercent: 0, yPercent: -50, width: '55%' },
-                            text2: { opacity: 0, y: -30, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '70%' },
-                            text3: { opacity: 1, y: 0, left: '50%', top: '60%', xPercent: -50, yPercent: -50, width: '90%' }
-                        };
-                }
-            } else {
-                // Mobile Compositions (< 768px)
-                switch (sceneIndex) {
-                    case 0: // HERO
-                        return {
-                            photo: { width: '150px', height: '150px', left: '50%', top: '25%', xPercent: -50, yPercent: -50, opacity: 1 },
-                            text0: { opacity: 1, y: 0, left: '50%', top: '42%', xPercent: -50, yPercent: 0, width: '92%' },
-                            text1: { opacity: 0, y: 20, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '92%' },
-                            text2: { opacity: 0, y: 20, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '94%' },
-                            text3: { opacity: 0, y: 20, left: '50%', top: '60%', xPercent: -50, yPercent: -50, width: '92%' }
-                        };
-                    case 1: // ABOUT
-                        return {
-                            photo: { width: '100px', height: '100px', left: '50%', top: '16%', xPercent: -50, yPercent: -50, opacity: 0.9 },
-                            text0: { opacity: 0, y: -20, left: '50%', top: '42%', xPercent: -50, yPercent: 0, width: '92%' },
-                            text1: { opacity: 1, y: 0, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '92%' },
-                            text2: { opacity: 0, y: 20, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '94%' },
-                            text3: { opacity: 0, y: 20, left: '50%', top: '60%', xPercent: -50, yPercent: -50, width: '92%' }
-                        };
-                    case 2: // FOCUS
-                        return {
-                            photo: { width: '70px', height: '70px', left: '50%', top: '12%', xPercent: -50, yPercent: -50, opacity: 0.35 },
-                            text0: { opacity: 0, y: -20, left: '50%', top: '42%', xPercent: -50, yPercent: 0, width: '92%' },
-                            text1: { opacity: 0, y: -20, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '92%' },
-                            text2: { opacity: 1, y: 0, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '94%' },
-                            text3: { opacity: 0, y: 20, left: '50%', top: '60%', xPercent: -50, yPercent: -50, width: '92%' }
-                        };
-                    case 3: // CONNECT
-                        return {
-                            photo: { width: '100px', height: '100px', left: '50%', top: '18%', xPercent: -50, yPercent: -50, opacity: 1 },
-                            text0: { opacity: 0, y: -20, left: '50%', top: '42%', xPercent: -50, yPercent: 0, width: '92%' },
-                            text1: { opacity: 0, y: -20, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '92%' },
-                            text2: { opacity: 0, y: -20, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '94%' },
-                            text3: { opacity: 1, y: 0, left: '50%', top: '60%', xPercent: -50, yPercent: -50, width: '92%' }
-                        };
-                }
+            if (sceneIndex === 0) {
+                // HERO
+                return {
+                    photo: mobile 
+                        ? { width: '180px', height: '180px', top: '15%', left: '50%', xPercent: -50, yPercent: 0, scale: 1, opacity: 1, borderRadius: '16px' }
+                        : { width: '360px', height: '360px', top: '50%', left: '72%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '24px' },
+                    textPos: mobile
+                        ? { top: '48%', left: '50%', xPercent: -50, yPercent: 0 }
+                        : { top: '50%', left: '26%', xPercent: -50, yPercent: -50 }
+                };
+            } else if (sceneIndex === 1) {
+                // ABOUT
+                return {
+                    photo: mobile 
+                        ? { width: '130px', height: '130px', top: '12%', left: '50%', xPercent: -50, yPercent: 0, scale: 1, opacity: 0.9, borderRadius: '20px' }
+                        : { width: '380px', height: '380px', top: '50%', left: '24%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '24px' },
+                    textPos: mobile
+                        ? { top: '34%', left: '50%', xPercent: -50, yPercent: 0 }
+                        : { top: '50%', left: '70%', xPercent: -50, yPercent: -50 }
+                };
+            } else if (sceneIndex === 2) {
+                // FOCUS
+                return {
+                    photo: mobile 
+                        ? { width: '90px', height: '90px', top: '10%', left: '50%', xPercent: -50, yPercent: 0, scale: 0.8, opacity: 0.3, borderRadius: '50%' }
+                        : { width: '300px', height: '300px', top: '50%', left: '80%', xPercent: -50, yPercent: -50, scale: 0.85, opacity: 0.2, borderRadius: '24px' },
+                    textPos: mobile
+                        ? { top: '22%', left: '50%', xPercent: -50, yPercent: 0 }
+                        : { top: '50%', left: '42%', xPercent: -50, yPercent: -50 }
+                };
+            } else if (sceneIndex === 3) {
+                // CONNECT
+                return {
+                    photo: mobile 
+                        ? { width: '110px', height: '110px', top: '12%', left: '50%', xPercent: -50, yPercent: 0, scale: 1, opacity: 1, borderRadius: '50%' }
+                        : { width: '220px', height: '220px', top: '22%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%' },
+                    textPos: mobile
+                        ? { top: '32%', left: '50%', xPercent: -50, yPercent: 0 }
+                        : { top: '60%', left: '50%', xPercent: -50, yPercent: -50 }
+                };
             }
-        }
-
-        // Initialize elements to Scene 0
-        function initScene() {
-            const props = getSceneProps(currentScene);
-            
-            gsap.set(photoContainer, props.photo);
-            gsap.set(scene0Text, props.text0);
-            gsap.set(scene1Text, props.text1);
-            gsap.set(scene2Text, props.text2);
-            gsap.set(scene3Text, props.text3);
-
-            updateNavState(currentScene);
         }
 
         function updateNavState(index) {
@@ -542,123 +492,136 @@
             });
         }
 
-        // Animate smoothly to target scene index
-        window.goToScene = function(targetIndex) {
+        function goToScene(targetIndex) {
             if (targetIndex < 0 || targetIndex >= totalScenes) return;
+            if (targetIndex === currentScene && gsap.getProperty(photoContainer, "xPercent") !== undefined && photoContainer.dataset.init === "true") return;
             if (isAnimating) return;
-            if (targetIndex === currentScene) return;
 
             isAnimating = true;
+            photoContainer.dataset.init = "true";
+
+            const prevIndex = currentScene;
             currentScene = targetIndex;
+
             updateNavState(currentScene);
 
+            const prevText = scenesText[prevIndex];
+            const nextText = scenesText[currentScene];
             const props = getSceneProps(currentScene);
-            const duration = 0.75;
-            const ease = "power3.inOut";
 
             const tl = gsap.timeline({
                 onComplete: () => {
-                    // Short cooldown to consume remaining trackpad / mousewheel inertia
                     setTimeout(() => {
                         isAnimating = false;
-                    }, 250);
+                    }, 150); // Short debounce lock
                 }
             });
 
-            tl.to(photoContainer, { ...props.photo, duration, ease }, 0)
-              .to(scene0Text, { ...props.text0, duration, ease }, 0)
-              .to(scene1Text, { ...props.text1, duration, ease }, 0)
-              .to(scene2Text, { ...props.text2, duration, ease }, 0)
-              .to(scene3Text, { ...props.text3, duration, ease }, 0);
-        };
+            // 1. Animate Out Previous Text
+            if (prevText && prevIndex !== currentScene) {
+                tl.to(prevText, {
+                    opacity: 0,
+                    y: (currentScene > prevIndex) ? -24 : 24,
+                    duration: 0.4,
+                    ease: "power2.in"
+                }, 0);
+            }
 
-        function nextScene() {
-            if (currentScene < totalScenes - 1) {
-                goToScene(currentScene + 1);
+            // 2. Animate Photo Frame Transformation
+            tl.to(photoContainer, {
+                width: props.photo.width,
+                height: props.photo.height,
+                top: props.photo.top,
+                left: props.photo.left,
+                xPercent: props.photo.xPercent,
+                yPercent: props.photo.yPercent,
+                scale: props.photo.scale,
+                opacity: props.photo.opacity,
+                borderRadius: props.photo.borderRadius,
+                duration: 0.75,
+                ease: "power3.inOut"
+            }, 0);
+
+            // 3. Position & Animate In Next Text
+            if (nextText) {
+                gsap.set(nextText, {
+                    top: props.textPos.top,
+                    left: props.textPos.left,
+                    xPercent: props.textPos.xPercent,
+                    yPercent: props.textPos.yPercent
+                });
+
+                tl.fromTo(nextText, 
+                    { opacity: 0, y: (currentScene > prevIndex) ? 28 : -28 },
+                    { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" },
+                    0.35
+                );
             }
         }
 
-        function prevScene() {
-            if (currentScene > 0) {
-                goToScene(currentScene - 1);
-            }
-        }
-
-        // ================= GESTURE & INPUT LISTENERS =================
-
-        // 1. Mouse Wheel / Trackpad Controller
-        let wheelAcc = 0;
-        let wheelTimeout = null;
-
+        // ================= GESTURE & INPUT EVENT LISTENERS =================
+        let wheelThreshold = 0;
         window.addEventListener('wheel', (e) => {
             e.preventDefault();
             if (isAnimating) return;
 
-            wheelAcc += e.deltaY;
+            wheelThreshold += e.deltaY;
 
-            clearTimeout(wheelTimeout);
-            wheelTimeout = setTimeout(() => {
-                wheelAcc = 0;
-            }, 200);
-
-            if (Math.abs(wheelAcc) > 30) {
-                if (wheelAcc > 0) {
-                    nextScene();
-                } else {
-                    prevScene();
-                }
-                wheelAcc = 0;
+            if (wheelThreshold > 35) {
+                wheelThreshold = 0;
+                goToScene(currentScene + 1);
+            } else if (wheelThreshold < -35) {
+                wheelThreshold = 0;
+                goToScene(currentScene - 1);
             }
+
+            // Reset threshold decay
+            clearTimeout(window.wheelTimer);
+            window.wheelTimer = setTimeout(() => { wheelThreshold = 0; }, 200);
         }, { passive: false });
 
-        // 2. Mobile Touch Swipe Controller
+        // Touch Swipe Handling for Mobile Devices
         let touchStartY = 0;
-        let touchStartX = 0;
-
         window.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
                 touchStartY = e.touches[0].clientY;
-                touchStartX = e.touches[0].clientX;
             }
         }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
-            if (isAnimating) return;
-            if (e.changedTouches.length === 1) {
-                const deltaY = e.changedTouches[0].clientY - touchStartY;
-                const deltaX = e.changedTouches[0].clientX - touchStartX;
+            if (isAnimating || !e.changedTouches.length) return;
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffY = touchStartY - touchEndY;
 
-                // Vertical swipe threshold check (ignore mostly horizontal swipes)
-                if (Math.abs(deltaY) > 40 && Math.abs(deltaY) > Math.abs(deltaX)) {
-                    if (deltaY < 0) {
-                        nextScene();
-                    } else {
-                        prevScene();
-                    }
+            if (Math.abs(diffY) > 40) {
+                if (diffY > 0) {
+                    goToScene(currentScene + 1); // Swipe Up -> Next
+                } else {
+                    goToScene(currentScene - 1); // Swipe Down -> Prev
                 }
             }
         }, { passive: true });
 
-        // 3. Keyboard Arrow Navigation
+        // Keyboard Arrow Navigation
         window.addEventListener('keydown', (e) => {
             if (isAnimating) return;
             if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
                 e.preventDefault();
-                nextScene();
+                goToScene(currentScene + 1);
             } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                 e.preventDefault();
-                prevScene();
+                goToScene(currentScene - 1);
             }
         });
 
-        // Initialize on load
-        window.addEventListener('DOMContentLoaded', () => {
-            initScene();
+        // Window Resize Handling
+        window.addEventListener('resize', () => {
+            goToScene(currentScene);
         });
 
-        // Handle responsive resize gracefully
-        window.addEventListener('resize', () => {
-            initScene();
+        // Initialize Scene 0 on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            goToScene(0);
         });
     </script>
 </body>

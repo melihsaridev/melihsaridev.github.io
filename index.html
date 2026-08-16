@@ -113,7 +113,7 @@
     </header>
 
     <!-- MAIN CONTENT WRAPPER -->
-    <main class="max-w-7xl mx-auto px-6 md:px-10 w-full flex-grow">
+    <main class="max-w-7xl mx-auto px-6 md:px-10 w-full flex-grow pb-16 md:pb-24">
 
         <!-- ================= HERO SECTION ================= -->
         <section class="py-16 sm:py-24 lg:py-28 relative border-b border-surface-border/60">
@@ -243,21 +243,21 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
                             </svg>
                             <h3 class="text-typography-primary font-semibold mb-1.5">SYSTEMS</h3>
-                            <p class="text-typography-muted leading-normal">Developing understanding of low-level execution and computing fundamentals.</p>
+                            <p class="text-typography-secondary font-light leading-normal">Developing understanding of low-level execution and computing fundamentals.</p>
                         </div>
                         <div class="p-5 rounded-xl bg-surface-card border border-surface-border">
                             <svg class="w-5 h-5 text-typography-primary mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
                             </svg>
                             <h3 class="text-typography-primary font-semibold mb-1.5">CRAFT</h3>
-                            <p class="text-typography-muted leading-normal">Focusing on readable code, disciplined practice & steady improvement.</p>
+                            <p class="text-typography-secondary font-light leading-normal">Focusing on readable code, disciplined practice & steady improvement.</p>
                         </div>
                         <div class="p-5 rounded-xl bg-surface-card border border-surface-border">
                             <svg class="w-5 h-5 text-typography-primary mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                             </svg>
                             <h3 class="text-typography-primary font-semibold mb-1.5">CURIOSITY</h3>
-                            <p class="text-typography-muted leading-normal">Actively exploring diverse computer science topics and tools.</p>
+                            <p class="text-typography-secondary font-light leading-normal">Actively exploring diverse computer science topics and tools.</p>
                         </div>
                     </div>
                 </div>
@@ -285,7 +285,7 @@
                                 </div>
                                 <p class="text-typography-secondary text-sm font-light">Studying foundational courses, programming fundamentals, and discrete mathematics.</p>
                             </div>
-                            <span class="text-xs font-mono text-typography-muted bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">ACTIVE</span>
+                            <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">ACTIVE</span>
                         </div>
 
                         <div class="p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-surface-borderHover transition-colors">
@@ -296,7 +296,7 @@
                                 </div>
                                 <p class="text-typography-secondary text-sm font-light">Practicing algorithmic thinking and practicing code implementations.</p>
                             </div>
-                            <span class="text-xs font-mono text-typography-muted bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">ONGOING</span>
+                            <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">ONGOING</span>
                         </div>
 
                         <div class="p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-surface-borderHover transition-colors">
@@ -307,7 +307,7 @@
                                 </div>
                                 <p class="text-typography-secondary text-sm font-light">Building clean, small-scale personal projects and learning version control practices.</p>
                             </div>
-                            <span class="text-xs font-mono text-typography-muted bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">EXPLORING</span>
+                            <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">EXPLORING</span>
                         </div>
 
                     </div>
@@ -316,7 +316,7 @@
         </section>
 
         <!-- ================= 03. CONNECT SECTION ================= -->
-        <section id="connect" class="py-20 lg:py-28 reveal-on-scroll">
+        <section id="connect" class="pt-20 lg:pt-28 reveal-on-scroll">
             <div class="max-w-3xl mx-auto text-center space-y-8">
                 
                 <span class="text-xs font-mono tracking-widest text-typography-muted uppercase">03 / INITIATE CONTACT</span>
@@ -376,17 +376,6 @@
 
     </main>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="w-full max-w-7xl mx-auto px-6 md:px-10 py-8 border-t border-surface-border/60 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-typography-muted gap-4">
-        <div>
-            &copy; <span id="year-display">2026</span> MELİH SARI. ALL RIGHTS RESERVED.
-        </div>
-        <div class="flex items-center gap-2">
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-typography-muted"></span>
-            <span>COMPUTER ENGINEERING DIGITAL IDENTITY</span>
-        </div>
-    </footer>
-
     <!-- INTERACTION LOGIC -->
     <script>
         // 1. Live Time Update (Istanbul TRT / UTC+3)
@@ -407,9 +396,6 @@
         }
         setInterval(updateTime, 1000);
         updateTime();
-
-        // Dynamic Year
-        document.getElementById('year-display').textContent = new Date().getFullYear();
 
         // 2. Email Clipboard Interaction
         const copyBtn = document.getElementById('copy-email-btn');

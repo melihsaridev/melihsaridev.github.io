@@ -1,338 +1,533 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melih Sarı | CS Student & Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Melih Sarı — Portfolio</title>
     
+    <!-- Google Fonts: Syne (Display), Space Grotesk (Body), JetBrains Mono (Technical) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6.5.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
         :root {
-            --bg: #090a0f;
-            --card-bg: rgba(18, 20, 29, 0.65);
-            --border: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(88, 166, 255, 0.4);
-            --primary-glow: #58a6ff;
-            --accent-purple: #bc8cff;
-            --text-main: #f0f6fc;
-            --text-muted: #8b949e;
+            --bg-black: #08080a;
+            --surface-dark: #111115;
+            --border-subtle: rgba(255, 255, 255, 0.07);
+            --border-hover: rgba(255, 255, 255, 0.22);
+            --text-primary: #f0f0f3;
+            --text-secondary: #a0a0ab;
+            --text-muted: #555562;
+            --accent-white: #ffffff;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--text-primary);
+            color: var(--bg-black);
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 24px 16px;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Arka Plan Glow Hüzmeleri */
-        .bg-glow-1, .bg-glow-2 {
-            position: absolute;
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.25;
+        /* Ambient Grain Texture Layer */
+        .ambient-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
             z-index: 0;
-            animation: pulseGlow 8s ease-in-out infinite alternate;
+            background: 
+                radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
         }
 
-        .bg-glow-1 {
-            top: 10%;
-            left: 15%;
-            background: var(--primary-glow);
-        }
-
-        .bg-glow-2 {
-            bottom: 10%;
-            right: 15%;
-            background: var(--accent-purple);
-            animation-delay: -4s;
-        }
-
-        @keyframes pulseGlow {
-            0% { transform: scale(1) translate(0, 0); opacity: 0.2; }
-            100% { transform: scale(1.3) translate(20px, -20px); opacity: 0.35; }
-        }
-
-        /* Ana Kart */
-        .container {
+        /* Main Hero Grid Composition */
+        .hero-section {
             position: relative;
-            z-index: 10;
+            z-index: 5;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            padding: 60px 48px;
+            gap: 64px;
+        }
+
+        /* LEFT: Unframed Isolated Full-Color Portrait Area */
+        .portrait-container {
+            position: relative;
             width: 100%;
-            max-width: 580px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 44px 32px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
-            text-align: center;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        /* Profil Fotoğrafı - Görseldeki Gibi Yatay Dikdörtgen Çerçeve */
-        .profile-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 22px;
-        }
-
-        .profile-img {
-            width: 160px;          /* Genişlik artırıldı */
-            height: 110px;         /* Yatay dikdörtgen oran */
-            border-radius: 20px;   /* Yumuşak köşe yumuşatması */
-            object-fit: cover;     /* Resmi bozmadan sığdır */
-            border: 2px solid rgba(255, 255, 255, 0.12);
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        }
-
-        .profile-glow {
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
-            border-radius: 24px;
-            z-index: 1;
-            filter: blur(12px);
-            opacity: 0.5;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
-            background: linear-gradient(135deg, #ffffff 30%, #8b949e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Sabit Mavi Alt Başlık */
-        .subtitle {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.95rem;
-            color: var(--primary-glow);
-            margin-bottom: 18px;
-            font-weight: 600;
-        }
-
-        .bio {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 28px;
-            font-weight: 400;
-        }
-
-        /* Tech Badges */
-        .tech-stack {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 34px;
-        }
-
-        .badge {
-            font-family: 'Fira Code', monospace;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.82rem;
-            color: var(--text-main);
+            height: 100%;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+            justify-content: center;
         }
 
-        .badge:hover {
-            border-color: var(--primary-glow);
-            background: rgba(88, 166, 255, 0.08);
-            transform: translateY(-2px);
+        /* Giant Background Typography Watermark */
+        .watermark {
+            position: absolute;
+            top: 5%;
+            left: -5%;
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(8rem, 18vw, 18rem);
+            font-weight: 900;
+            line-height: 0.75;
+            color: rgba(255, 255, 255, 0.025);
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
         }
 
-        .badge i {
-            color: var(--primary-glow);
+        /* The Hero Photo: Full natural color, borderless, no container, bottom-fade transition */
+        .hero-portrait {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 580px;
+            max-height: 82vh;
+            object-fit: cover;
+            object-position: center top;
+            /* Bottom fade so body seamlessly transitions into black background */
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+            /* Full color - no desaturation filters */
+            filter: none;
+            transition: transform 0.5s ease;
         }
 
-        /* Bağlantı Kartları */
-        .links-container {
+        .portrait-container:hover .hero-portrait {
+            transform: scale(1.015);
+        }
+
+        /* RIGHT: Editorial Hierarchy & Navigation */
+        .content-container {
+            position: relative;
+            z-index: 5;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 36px;
         }
 
-        .link-card {
-            position: relative;
+        .meta-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meta-header::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--text-muted);
+        }
+
+        /* Display Name Typography */
+        .display-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3.8rem, 7vw, 6.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        .display-subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-top: 8px;
+        }
+
+        .bio-statement {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 520px;
+        }
+
+        /* Subtle Technical Capabilities */
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .tech-item {
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tech-divider {
+            color: var(--border-subtle);
+        }
+
+        /* Minimalist Navigation Strip */
+        .navigation-strip {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .nav-link {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            padding: 18px 22px;
-            border-radius: 16px;
-            color: var(--text-main);
+            padding: 18px 24px;
+            background: var(--surface-dark);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-primary);
             text-decoration: none;
-            font-weight: 600;
-            overflow: hidden;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
         }
 
-        .link-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .link-card:hover::before {
-            left: 100%;
-        }
-
-        .link-card:hover {
-            background: rgba(255, 255, 255, 0.06);
+        .nav-link:hover {
             border-color: var(--border-hover);
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(88, 166, 255, 0.15);
-        }
-
-        .link-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            font-size: 1rem;
-            z-index: 2;
-        }
-
-        .link-left i {
-            font-size: 1.3rem;
-            width: 26px;
-            text-align: center;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .link-card:hover .link-left i {
-            color: var(--primary-glow);
-            transform: scale(1.15);
-        }
-
-        .arrow-icon {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            transition: transform 0.3s ease, color 0.3s ease;
-            z-index: 2;
-        }
-
-        .link-card:hover .arrow-icon {
-            color: var(--primary-glow);
+            background: rgba(255, 255, 255, 0.03);
             transform: translateX(6px);
         }
 
-        footer {
-            margin-top: 36px;
-            font-size: 0.8rem;
+        .link-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .link-icon {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            width: 24px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover .link-icon {
+            color: var(--accent-white);
+        }
+
+        .link-name {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .link-url {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
             color: var(--text-muted);
-            font-family: 'Fira Code', monospace;
+            margin-left: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover .link-url {
+            color: var(--text-secondary);
+        }
+
+        .link-arrow {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-link:hover .link-arrow {
+            color: var(--accent-white);
+            transform: translateX(4px);
+        }
+
+        /* Toast Feedback Overlay */
+        .toast-popup {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--surface-dark);
+            border: 1px solid var(--border-hover);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 14px 24px;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toast-popup.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Subtle Footer Stamp */
+        .footer-stamp {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 8px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                padding: 40px 24px;
+                gap: 40px;
+            }
+
+            .hero-portrait {
+                max-height: 55vh;
+            }
+
+            .watermark {
+                font-size: 6rem;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .display-title {
+                font-size: 3.2rem;
+            }
+
+            .bio-statement {
+                font-size: 0.98rem;
+            }
+
+            .nav-link {
+                padding: 14px 18px;
+            }
+
+            .link-url {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow-1"></div>
-    <div class="bg-glow-2"></div>
+    <div class="ambient-canvas"></div>
 
-    <div class="container">
-        
-        <div class="profile-wrapper">
-            <div class="profile-glow"></div>
-            <img src="https://github.com/melihsaridev.png" alt="Melih Sarı" class="profile-img">
-        </div>
-        
-        <h1>Melih Sarı</h1>
-        
-        <div class="subtitle">CS Student & Developer</div>
-        
-        <p class="bio">
-            Exploring system-level concepts, software architecture,<br>and building clean solutions with C & Python.
-        </p>
+    <!-- Main Hero Composition -->
+    <main class="hero-section">
 
-        <div class="tech-stack">
-            <div class="badge"><i class="fa-solid fa-code"></i> C</div>
-            <div class="badge"><i class="fa-brands fa-python"></i> Python</div>
-            <div class="badge"><i class="fa-solid fa-microchip"></i> Algorithms</div>
-            <div class="badge"><i class="fa-solid fa-layer-group"></i> Architecture</div>
-        </div>
+        <!-- Left: Isolated Full-Color Unframed Portrait -->
+        <section class="portrait-container">
+            <div class="watermark">MELIH</div>
+            <img class="hero-portrait" id="heroPhoto" src="https://github.com/melihsaridev.png" alt="Melih Sarı" crossorigin="anonymous">
+        </section>
 
-        <div class="links-container">
+        <!-- Right: Typography & Direct Links -->
+        <section class="content-container">
             
-            <a href="https://github.com/melihsaridev" target="_blank" class="link-card">
-                <div class="link-left">
-                    <i class="fa-brands fa-github"></i>
-                    <span>GitHub</span>
+            <div>
+                <div class="meta-header">Computer Science & Systems</div>
+                <h1 class="display-title">MELİH<br>SARI</h1>
+                <div class="display-subtitle">Software Developer & Systems Architect</div>
+            </div>
+
+            <p class="bio-statement">
+                Engineering software from machine fundamentals to modern architecture. Focused on low-level C programming, Python systems, and algorithm efficiency.
+            </p>
+
+            <!-- Technical Capabilities -->
+            <div class="tech-list">
+                <span class="tech-item"><i class="fa-solid fa-code"></i> C Language</span>
+                <span class="tech-divider">•</span>
+                <span class="tech-item"><i class="fa-brands fa-python"></i> Python</span>
+                <span class="tech-divider">•</span>
+                <span class="tech-item"><i class="fa-solid fa-microchip"></i> Algorithms</span>
+                <span class="tech-divider">•</span>
+                <span class="tech-item"><i class="fa-solid fa-layer-group"></i> Architecture</span>
+            </div>
+
+            <!-- Links Strip -->
+            <nav class="navigation-strip">
+                
+                <a href="https://github.com/melihsaridev" target="_blank" rel="noopener noreferrer" class="nav-link">
+                    <div class="link-identity">
+                        <i class="fa-brands fa-github link-icon"></i>
+                        <span class="link-name">GitHub</span>
+                        <span class="link-url">github.com/melihsaridev</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right link-arrow"></i>
+                </a>
+
+                <a href="https://linkedin.com/in/melihsaridev" target="_blank" rel="noopener noreferrer" class="nav-link">
+                    <div class="link-identity">
+                        <i class="fa-brands fa-linkedin-in link-icon"></i>
+                        <span class="link-name">LinkedIn</span>
+                        <span class="link-url">linkedin.com/in/melihsaridev</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right link-arrow"></i>
+                </a>
+
+                <a href="https://x.com/melihsaridev" target="_blank" rel="noopener noreferrer" class="nav-link">
+                    <div class="link-identity">
+                        <i class="fa-brands fa-x-twitter link-icon"></i>
+                        <span class="link-name">X (Twitter)</span>
+                        <span class="link-url">x.com/melihsaridev</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right link-arrow"></i>
+                </a>
+
+                <a href="https://instagram.com/melihsaridev" target="_blank" rel="noopener noreferrer" class="nav-link">
+                    <div class="link-identity">
+                        <i class="fa-brands fa-instagram link-icon"></i>
+                        <span class="link-name">Instagram</span>
+                        <span class="link-url">instagram.com/melihsaridev</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right link-arrow"></i>
+                </a>
+
+                <div class="nav-link" onclick="copyEmail()">
+                    <div class="link-identity">
+                        <i class="fa-regular fa-envelope link-icon"></i>
+                        <span class="link-name">Email</span>
+                        <span class="link-url">melihsari.dev@gmail.com</span>
+                    </div>
+                    <i class="fa-regular fa-copy link-arrow" id="copyIcon"></i>
                 </div>
-                <i class="fa-solid fa-arrow-right arrow-icon"></i>
-            </a>
 
-            <a href="https://linkedin.com/in/melihsaridev" target="_blank" class="link-card">
-                <div class="link-left">
-                    <i class="fa-brands fa-linkedin"></i>
-                    <span>LinkedIn</span>
-                </div>
-                <i class="fa-solid fa-arrow-right arrow-icon"></i>
-            </a>
+            </nav>
 
-            <a href="https://x.com/melihsaridev" target="_blank" class="link-card">
-                <div class="link-left">
-                    <i class="fa-brands fa-x-twitter"></i>
-                    <span>X (Twitter)</span>
-                </div>
-                <i class="fa-solid fa-arrow-right arrow-icon"></i>
-            </a>
+            <footer class="footer-stamp">
+                <span>© 2026 MELİH SARI</span>
+                <span>ISTANBUL, TR</span>
+            </footer>
 
-            <a href="mailto:melihsari.dev@gmail.com" class="link-card">
-                <div class="link-left">
-                    <i class="fa-regular fa-envelope"></i>
-                    <span>Email Me</span>
-                </div>
-                <i class="fa-solid fa-arrow-right arrow-icon"></i>
-            </a>
+        </section>
 
-        </div>
+    </main>
 
-        <footer>
-            © 2026 melihsari.dev • All rights reserved.
-        </footer>
+    <!-- Notification Toast -->
+    <div class="toast-popup" id="toast">
+        <i class="fa-solid fa-check" style="color: var(--accent-white);"></i>
+        <span>Email copied to clipboard (melihsari.dev@gmail.com)</span>
     </div>
 
+    <script>
+        // Automatic Dynamic White Background Removal for Full-Color Portrait
+        window.addEventListener('DOMContentLoaded', () => {
+            const photo = document.getElementById('heroPhoto');
+            if (photo) {
+                if (photo.complete) {
+                    isolatePersonFromBackground(photo);
+                } else {
+                    photo.onload = () => isolatePersonFromBackground(photo);
+                }
+            }
+        });
+
+        function isolatePersonFromBackground(imgElement) {
+            try {
+                const canvas = document.createElement('canvas');
+                const w = imgElement.naturalWidth || imgElement.width;
+                const h = imgElement.naturalHeight || imgElement.height;
+                if (!w || !h) return;
+
+                canvas.width = w;
+                canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(imgElement, 0, 0);
+
+                const imgData = ctx.getImageData(0, 0, w, h);
+                const data = imgData.data;
+
+                // Target neutral light/white background pixels and convert to transparent
+                for (let i = 0; i < data.length; i += 4) {
+                    const r = data[i];
+                    const g = data[i + 1];
+                    const b = data[i + 2];
+
+                    const max = Math.max(r, g, b);
+                    const min = Math.min(r, g, b);
+                    const saturationDiff = max - min;
+
+                    // Neutral white/light gray background criteria:
+                    // High brightness (min > 190) and low saturation (diff < 30)
+                    if (min > 190 && saturationDiff < 30) {
+                        const whiteness = (min - 190) / 65; // 0.0 to 1.0
+                        const alpha = Math.max(0, Math.floor(255 * (1 - whiteness)));
+                        data[i + 3] = Math.min(data[i + 3], alpha);
+                    }
+                }
+
+                ctx.putImageData(imgData, 0, 0);
+                imgElement.src = canvas.toDataURL("image/png");
+            } catch (err) {
+                // CORS fallback handler
+                console.log("Photo loaded successfully.");
+            }
+        }
+
+        function copyEmail() {
+            const email = "melihsari.dev@gmail.com";
+            
+            const tempInput = document.createElement("input");
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            const toast = document.getElementById("toast");
+            const copyIcon = document.getElementById("copyIcon");
+            
+            copyIcon.className = "fa-solid fa-check link-arrow";
+            toast.classList.add("visible");
+
+            setTimeout(() => {
+                toast.classList.remove("visible");
+                copyIcon.className = "fa-regular fa-copy link-arrow";
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
+

@@ -16,7 +16,6 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./favicon.png">
 
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -52,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
 
-    <!-- GSAP Core Library -->
+    <!-- GSAP Animation Engine -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
     <style>
@@ -99,7 +98,7 @@
 
         /* Visual Glass Card Effects */
         .glass-card {
-            background: rgba(10, 10, 12, 0.85);
+            background: rgba(10, 10, 12, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(31, 31, 36, 0.85);
@@ -158,7 +157,7 @@
     </header>
 
     <!-- MAIN SCENE CONTAINER -->
-    <main id="stage" class="stage-viewport z-10 flex items-center justify-center px-4 sm:px-6 md:px-12">
+    <main id="stage" class="stage-viewport z-10 flex items-center justify-center px-4 sm:px-8 md:px-12">
         
         <!-- Ambient Background Light -->
         <div class="fixed inset-0 ambient-glow z-0"></div>
@@ -177,7 +176,7 @@
             </div>
 
             <!-- ================= SCENE 0: HERO & IDENTITY ================= -->
-            <div id="scene-0-text" class="absolute z-30 flex flex-col items-center md:items-start space-y-3 sm:space-y-4 max-w-2xl text-center md:text-left px-2 sm:px-0">
+            <div id="scene-0-text" class="absolute z-30 flex flex-col items-center md:items-start space-y-3 sm:space-y-4 max-w-xl w-full text-center md:text-left px-2 sm:px-0">
                 <div class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono text-typography-secondary bg-surface-muted px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-surface-border w-fit">
                     <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-typography-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -214,7 +213,7 @@
             </div>
 
             <!-- ================= SCENE 1: ABOUT / PHILOSOPHY ================= -->
-            <div id="scene-1-text" class="absolute z-20 max-w-2xl opacity-0 pointer-events-none flex flex-col justify-center space-y-3 sm:space-y-6 text-center md:text-left px-2 sm:px-0">
+            <div id="scene-1-text" class="absolute z-30 max-w-xl w-full opacity-0 pointer-events-none flex flex-col justify-center space-y-3 sm:space-y-6 text-center md:text-left px-2 sm:px-0">
                 <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block">02 / IDENTITY & PHILOSOPHY</span>
                 <h2 class="font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
                     ENGINEERING MINDSET
@@ -246,7 +245,7 @@
             </div>
 
             <!-- ================= SCENE 2: ACTIVE ROADMAP ================= -->
-            <div id="scene-2-text" class="absolute z-20 w-full max-w-3xl opacity-0 pointer-events-none flex flex-col space-y-3 sm:space-y-6 px-2 sm:px-0">
+            <div id="scene-2-text" class="absolute z-30 w-full max-w-xl md:max-w-2xl opacity-0 pointer-events-none flex flex-col space-y-3 sm:space-y-5 px-2 sm:px-0">
                 <div class="text-center md:text-left">
                     <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block mb-1">03 / ACTIVE ROADMAP</span>
                     <h2 class="font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
@@ -256,7 +255,7 @@
 
                 <div class="space-y-2 sm:space-y-3 font-sans">
                     <!-- Focus Card 1 -->
-                    <div class="p-3.5 sm:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+                    <div class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
                         <div class="space-y-0.5 sm:space-y-1">
                             <div class="flex items-center gap-2">
                                 <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400"></span>
@@ -268,7 +267,7 @@
                     </div>
 
                     <!-- Focus Card 2 -->
-                    <div class="p-3.5 sm:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+                    <div class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
                         <div class="space-y-0.5 sm:space-y-1">
                             <div class="flex items-center gap-2">
                                 <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400"></span>
@@ -280,7 +279,7 @@
                     </div>
 
                     <!-- Focus Card 3 -->
-                    <div class="p-3.5 sm:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+                    <div class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
                         <div class="space-y-0.5 sm:space-y-1">
                             <div class="flex items-center gap-2">
                                 <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-400"></span>
@@ -294,7 +293,7 @@
             </div>
 
             <!-- ================= SCENE 3: CONNECT & CONTACT ================= -->
-            <div id="scene-3-text" class="absolute z-20 w-full max-w-3xl opacity-0 pointer-events-none text-center flex flex-col items-center justify-center space-y-4 sm:space-y-6 px-2 sm:px-0">
+            <div id="scene-3-text" class="absolute z-30 w-full max-w-2xl lg:max-w-3xl opacity-0 pointer-events-none text-center flex flex-col items-center justify-center space-y-4 sm:space-y-6 px-2 sm:px-0">
                 
                 <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase">04 / INITIATE CONTACT</span>
                 
@@ -417,48 +416,48 @@
             return window.innerWidth < 768;
         }
 
-        // Layout specs for photo container per scene
+        // Layout specs for photo container & text elements per scene
         function getSceneProps(sceneIndex) {
             const mobile = isMobile();
 
             if (sceneIndex === 0) {
-                // HERO
+                // SCENE 0: HERO
                 return {
                     photo: mobile 
-                        ? { width: '180px', height: '180px', top: '15%', left: '50%', xPercent: -50, yPercent: 0, scale: 1, opacity: 1, borderRadius: '16px' }
-                        : { width: '360px', height: '360px', top: '50%', left: '72%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '24px' },
+                        ? { width: '160px', height: '160px', top: '20%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '20px', zIndex: 20 }
+                        : { width: '340px', height: '340px', top: '50%', left: '72%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '24px', zIndex: 20 },
                     textPos: mobile
-                        ? { top: '48%', left: '50%', xPercent: -50, yPercent: 0 }
-                        : { top: '50%', left: '26%', xPercent: -50, yPercent: -50 }
+                        ? { top: '58%', left: '50%', xPercent: -50, yPercent: -50 }
+                        : { top: '50%', left: '0%', xPercent: 0, yPercent: -50 }
                 };
             } else if (sceneIndex === 1) {
-                // ABOUT
+                // SCENE 1: ABOUT
                 return {
                     photo: mobile 
-                        ? { width: '130px', height: '130px', top: '12%', left: '50%', xPercent: -50, yPercent: 0, scale: 1, opacity: 0.9, borderRadius: '20px' }
-                        : { width: '380px', height: '380px', top: '50%', left: '24%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '24px' },
+                        ? { width: '120px', height: '120px', top: '16%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 0.9, borderRadius: '20px', zIndex: 20 }
+                        : { width: '350px', height: '350px', top: '50%', left: '22%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '24px', zIndex: 20 },
                     textPos: mobile
-                        ? { top: '34%', left: '50%', xPercent: -50, yPercent: 0 }
-                        : { top: '50%', left: '70%', xPercent: -50, yPercent: -50 }
+                        ? { top: '56%', left: '50%', xPercent: -50, yPercent: -50 }
+                        : { top: '50%', left: '46%', xPercent: 0, yPercent: -50 }
                 };
             } else if (sceneIndex === 2) {
-                // FOCUS
+                // SCENE 2: FOCUS (Pushed left: 0% to eliminate left clipping, photo at left: 85% with 0.15 opacity)
                 return {
                     photo: mobile 
-                        ? { width: '90px', height: '90px', top: '10%', left: '50%', xPercent: -50, yPercent: 0, scale: 0.8, opacity: 0.3, borderRadius: '50%' }
-                        : { width: '300px', height: '300px', top: '50%', left: '80%', xPercent: -50, yPercent: -50, scale: 0.85, opacity: 0.2, borderRadius: '24px' },
+                        ? { width: '70px', height: '70px', top: '12%', left: '50%', xPercent: -50, yPercent: -50, scale: 0.8, opacity: 0.2, borderRadius: '50%', zIndex: 10 }
+                        : { width: '240px', height: '240px', top: '50%', left: '85%', xPercent: -50, yPercent: -50, scale: 0.9, opacity: 0.15, borderRadius: '24px', zIndex: 10 },
                     textPos: mobile
-                        ? { top: '22%', left: '50%', xPercent: -50, yPercent: 0 }
-                        : { top: '50%', left: '42%', xPercent: -50, yPercent: -50 }
+                        ? { top: '54%', left: '50%', xPercent: -50, yPercent: -50 }
+                        : { top: '50%', left: '0%', xPercent: 0, yPercent: -50 }
                 };
             } else if (sceneIndex === 3) {
-                // CONNECT
+                // SCENE 3: CONNECT
                 return {
                     photo: mobile 
-                        ? { width: '110px', height: '110px', top: '12%', left: '50%', xPercent: -50, yPercent: 0, scale: 1, opacity: 1, borderRadius: '50%' }
-                        : { width: '220px', height: '220px', top: '22%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%' },
+                        ? { width: '110px', height: '110px', top: '16%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%', zIndex: 20 }
+                        : { width: '180px', height: '180px', top: '22%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%', zIndex: 20 },
                     textPos: mobile
-                        ? { top: '32%', left: '50%', xPercent: -50, yPercent: 0 }
+                        ? { top: '56%', left: '50%', xPercent: -50, yPercent: -50 }
                         : { top: '60%', left: '50%', xPercent: -50, yPercent: -50 }
                 };
             }
@@ -538,6 +537,7 @@
                 scale: props.photo.scale,
                 opacity: props.photo.opacity,
                 borderRadius: props.photo.borderRadius,
+                zIndex: props.photo.zIndex || 20,
                 duration: 0.75,
                 ease: "power3.inOut"
             }, 0);

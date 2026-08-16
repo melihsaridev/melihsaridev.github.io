@@ -61,13 +61,15 @@
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
     <style>
-        /* Base Setup & Fine Grain Grid Background */
+        /* Base Setup & Grid Pattern */
         html, body {
             background-color: #050505;
             color: #f4f4f6;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         .bg-grid {
@@ -76,7 +78,7 @@
             background-size: 50px 50px;
         }
 
-        /* Custom Scrollbar */
+        /* Custom Fine Scrollbar */
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -93,13 +95,14 @@
 
         /* Ambient Glow Effect */
         .ambient-glow {
-            background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.04) 0%, rgba(5, 5, 5, 0) 70%);
+            background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.035) 0%, rgba(5, 5, 5, 0) 70%);
             pointer-events: none;
         }
 
-        /* Responsive Canvas Stage Pinned Frame */
+        /* Viewport Stage Frame */
         .pin-viewport {
             height: 100vh;
+            height: 100dvh;
             width: 100%;
             position: relative;
             overflow: hidden;
@@ -107,19 +110,19 @@
 
         /* Visual Glass Card Effects */
         .glass-card {
-            background: rgba(10, 10, 12, 0.75);
+            background: rgba(10, 10, 12, 0.82);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(31, 31, 36, 0.8);
+            border: 1px solid rgba(31, 31, 36, 0.85);
         }
 
         .glass-nav {
-            background: rgba(5, 5, 5, 0.85);
+            background: rgba(5, 5, 5, 0.88);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Progress Bar Indicator */
+        /* Timeline Progress Indicator */
         .timeline-progress {
             transform-origin: left;
             will-change: transform;
@@ -140,12 +143,12 @@
                 <span id="time-display" class="text-typography-primary font-mono hidden sm:inline">00:00:00 TRT</span>
             </div>
             
-            <!-- Interactive Cinematic Timeline Navigation -->
+            <!-- Interactive Cinematic Navigation Jumps -->
             <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-[11px]">
                 <button onclick="jumpToScene(0)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 01 HERO</button>
-                <button onclick="jumpToScene(0.25)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 02 ABOUT</button>
-                <button onclick="jumpToScene(0.55)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 03 FOCUS</button>
-                <button onclick="jumpToScene(0.85)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 04 CONNECT</button>
+                <button onclick="jumpToScene(0.28)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 02 ABOUT</button>
+                <button onclick="jumpToScene(0.58)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 03 FOCUS</button>
+                <button onclick="jumpToScene(0.88)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 04 CONNECT</button>
             </nav>
 
             <!-- Directory Tag -->
@@ -160,21 +163,19 @@
         </div>
     </header>
 
-    <!-- MAIN CINEMATIC SCROLL CONTAINER -->
-    <!-- Total scroll track height gives scroll headroom for continuous timeline scrubbing -->
-    <div id="scroll-track" class="relative w-full" style="height: 500vh;">
+    <!-- MAIN SCROLL CONTAINER CONTAINER -->
+    <!-- GSAP ScrollTrigger pins the inner viewport stage across this container distance -->
+    <div id="scroll-track" class="relative w-full">
 
         <!-- Ambient Background Light -->
         <div class="fixed inset-0 ambient-glow z-0"></div>
 
         <!-- PINNED VIEWPORT STAGE -->
-        <div id="pinned-stage" class="sticky top-0 left-0 w-full pin-viewport z-10 flex items-center justify-center px-6 md:px-12">
+        <div id="pinned-stage" class="pin-viewport z-10 flex items-center justify-center px-6 md:px-12">
             
             <div class="max-w-7xl w-full h-full relative flex items-center justify-center">
 
-                <!-- ================= SCENE 1 & 2: HERO & IDENTITY SHIFT ================= -->
-                
-                <!-- Main Dynamic Portrait Photo Frame -->
+                <!-- ================= PORTRAIT PHOTO FRAME (PERSISTENT ANCHOR) ================= -->
                 <div id="photo-container" class="absolute z-20 rounded-2xl overflow-hidden border border-surface-border bg-surface-card shadow-2xl transition-shadow duration-500">
                     <img id="profile-photo" 
                          src="https://github.com/melihsaridev.png" 
@@ -185,7 +186,7 @@
                     />
                 </div>
 
-                <!-- Hero Name & Lead Subtitle -->
+                <!-- ================= SCENE 1: HERO & IDENTITY ================= -->
                 <div id="hero-text-block" class="absolute z-30 flex flex-col items-start space-y-4 max-w-2xl pointer-events-auto">
                     <div class="inline-flex items-center gap-2 text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1.5 rounded-full border border-surface-border w-fit">
                         <svg class="w-3.5 h-3.5 text-typography-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -202,7 +203,7 @@
                         Building my path through software engineering, computer systems, and technical curiosity. Focused on learning core fundamentals and clean implementation.
                     </p>
 
-                    <!-- Primary Hero Quick Action Links -->
+                    <!-- Hero Links Bar -->
                     <div id="hero-links-bar" class="pt-4 flex flex-wrap items-center gap-3 text-xs font-mono">
                         <a href="https://github.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"
                            class="flex items-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3.5 py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
@@ -366,25 +367,7 @@
     </div>
 
     <script>
-        let lenis;
-        try {
-            lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smoothWheel: true,
-                wheelMultiplier: 1.0,
-                touchMultiplier: 1.5
-            });
-
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-        } catch (e) {
-            console.warn("Lenis initialization skipped", e);
-        }
-
+        // Real-Time Istanbul Clock Handler
         function updateClock() {
             const timeDisplay = document.getElementById('time-display');
             if (timeDisplay) {
@@ -403,6 +386,7 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // Clipboard Copy Email Action Logic
         const copyBtn = document.getElementById('copy-email-btn');
         const copyText = document.getElementById('copy-btn-text');
         const targetEmail = "melihsari.dev@gmail.com";
@@ -431,12 +415,35 @@
             });
         }
 
+        // Lenis Smooth Scroll Initialization
+        let lenis;
+        try {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                wheelMultiplier: 1.0,
+                touchMultiplier: 1.5
+            });
+        } catch (e) {
+            console.warn("Lenis smooth scroll skipped", e);
+        }
+
+        // GSAP & ScrollTrigger Setup
         gsap.registerPlugin(ScrollTrigger);
 
-        // Responsive Dimensions Setup
+        if (lenis) {
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+        }
+
+        // Responsive Breakpoint State
         const isMobile = window.innerWidth < 768;
 
-        // Elements
+        // Visual Elements
         const scrollProgressBar = document.getElementById('scroll-progress-bar');
         const photoContainer = document.getElementById('photo-container');
         const heroTextBlock = document.getElementById('hero-text-block');
@@ -444,7 +451,7 @@
         const focusContentBlock = document.getElementById('focus-content-block');
         const connectContentBlock = document.getElementById('connect-content-block');
 
-        // Initial Responsive Placement
+        // Initial Layout State Placement
         if (isMobile) {
             gsap.set(photoContainer, {
                 width: '180px',
@@ -484,24 +491,28 @@
             });
         }
 
-        // Set pointer-events toggle for active scene blocks
-        function setActivePointerEvents(element) {
+        // Manage Interactive Target Pointer-Events for Active Scene
+        function setActivePointerEvents(activeElement) {
             [heroTextBlock, aboutContentBlock, focusContentBlock, connectContentBlock].forEach(el => {
-                if (el === element) {
+                if (el === activeElement) {
                     el.style.pointerEvents = 'auto';
                 } else {
                     el.style.pointerEvents = 'none';
                 }
             });
         }
+        setActivePointerEvents(heroTextBlock);
 
-        // MAIN GSAP TIMELINE
-        const tl = gsap.timeline({
+        // MASTER SCROLLTRIGGER TIMELINE WITH PERFECT PINNING
+        // Pinning duration set to +=350% to provide optimal scrub spacing with ZERO blank tail space
+        const scrollTl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#scroll-track',
+                pin: '#pinned-stage',
                 start: 'top top',
-                end: 'bottom bottom',
-                scrub: 0.8,
+                end: '+=350%',
+                scrub: 1,
+                anticipatePin: 1,
                 onUpdate: (self) => {
                     if (scrollProgressBar) {
                         gsap.set(scrollProgressBar, { scaleX: self.progress });
@@ -510,20 +521,21 @@
             }
         });
 
-        /* ================= TIMELINE STEP 1 -> 2: HERO TO ABOUT ================= */
-        tl.to(heroTextBlock, {
+        /* ================= TIMELINE STAGE 1 -> 2: HERO TO ABOUT ================= */
+        scrollTl.to(heroTextBlock, {
             opacity: 0,
-            y: -40,
+            y: -30,
             duration: 1,
             ease: "power2.inOut",
             onStart: () => setActivePointerEvents(heroTextBlock),
-            onComplete: () => setActivePointerEvents(aboutContentBlock)
+            onComplete: () => setActivePointerEvents(aboutContentBlock),
+            onReverseComplete: () => setActivePointerEvents(heroTextBlock)
         }, 0);
 
         if (isMobile) {
-            tl.to(photoContainer, {
-                width: '140px',
-                height: '140px',
+            scrollTl.to(photoContainer, {
+                width: '130px',
+                height: '130px',
                 top: '15%',
                 left: '50%',
                 opacity: 0.85,
@@ -531,13 +543,13 @@
                 ease: "power2.inOut"
             }, 0);
 
-            tl.fromTo(aboutContentBlock, 
-                { opacity: 0, y: 50, left: '50%', top: '55%', xPercent: -50, yPercent: -50, width: '90%', textAlign: 'center' },
+            scrollTl.fromTo(aboutContentBlock, 
+                { opacity: 0, y: 40, left: '50%', top: '55%', xPercent: -50, yPercent: -50, width: '90%', textAlign: 'center' },
                 { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-                0.5
+                0.6
             );
         } else {
-            tl.to(photoContainer, {
+            scrollTl.to(photoContainer, {
                 width: '280px',
                 height: '280px',
                 left: '10%',
@@ -547,39 +559,40 @@
                 ease: "power2.inOut"
             }, 0);
 
-            tl.fromTo(aboutContentBlock, 
-                { opacity: 0, y: 40, left: '42%', top: '50%', xPercent: 0, yPercent: -50, width: '55%' },
+            scrollTl.fromTo(aboutContentBlock, 
+                { opacity: 0, y: 35, left: '42%', top: '50%', xPercent: 0, yPercent: -50, width: '55%' },
                 { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-                0.5
+                0.6
             );
         }
 
-        /* ================= TIMELINE STEP 2 -> 3: ABOUT TO FOCUS ================= */
-        tl.to(aboutContentBlock, {
+        /* ================= TIMELINE STAGE 2 -> 3: ABOUT TO FOCUS ================= */
+        scrollTl.to(aboutContentBlock, {
             opacity: 0,
-            y: -30,
+            y: -25,
             duration: 1,
             ease: "power2.inOut",
-            onComplete: () => setActivePointerEvents(focusContentBlock)
+            onComplete: () => setActivePointerEvents(focusContentBlock),
+            onReverseComplete: () => setActivePointerEvents(aboutContentBlock)
         }, 1.8);
 
         if (isMobile) {
-            tl.to(photoContainer, {
-                width: '100px',
-                height: '100px',
+            scrollTl.to(photoContainer, {
+                width: '90px',
+                height: '90px',
                 top: '12%',
-                opacity: 0.3,
+                opacity: 0.35,
                 duration: 1,
                 ease: "power2.inOut"
             }, 1.8);
 
-            tl.fromTo(focusContentBlock,
-                { opacity: 0, y: 40, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '90%' },
+            scrollTl.fromTo(focusContentBlock,
+                { opacity: 0, y: 35, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '90%' },
                 { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-                2.3
+                2.4
             );
         } else {
-            tl.to(photoContainer, {
+            scrollTl.to(photoContainer, {
                 width: '220px',
                 height: '220px',
                 left: '85%',
@@ -590,25 +603,26 @@
                 ease: "power2.inOut"
             }, 1.8);
 
-            tl.fromTo(focusContentBlock,
-                { opacity: 0, y: 40, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '70%' },
+            scrollTl.fromTo(focusContentBlock,
+                { opacity: 0, y: 35, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '70%' },
                 { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-                2.3
+                2.4
             );
         }
 
-        /* ================= TIMELINE STEP 3 -> 4: FOCUS TO CONNECT ================= */
-        tl.to(focusContentBlock, {
+        /* ================= TIMELINE STAGE 3 -> 4: FOCUS TO CONNECT ================= */
+        scrollTl.to(focusContentBlock, {
             opacity: 0,
-            y: -30,
+            y: -25,
             duration: 1,
             ease: "power2.inOut",
-            onComplete: () => setActivePointerEvents(connectContentBlock)
-        }, 3.5);
+            onComplete: () => setActivePointerEvents(connectContentBlock),
+            onReverseComplete: () => setActivePointerEvents(focusContentBlock)
+        }, 3.6);
 
-        tl.to(photoContainer, {
-            width: isMobile ? '120px' : '180px',
-            height: isMobile ? '120px' : '180px',
+        scrollTl.to(photoContainer, {
+            width: isMobile ? '110px' : '170px',
+            height: isMobile ? '110px' : '170px',
             left: '50%',
             top: isMobile ? '18%' : '20%',
             xPercent: -50,
@@ -616,19 +630,19 @@
             opacity: 0.95,
             duration: 1.2,
             ease: "power2.inOut"
-        }, 3.5);
+        }, 3.6);
 
-        tl.fromTo(connectContentBlock,
-            { opacity: 0, y: 50, left: '50%', top: isMobile ? '62%' : '60%', xPercent: -50, yPercent: -50, width: '90%' },
+        scrollTl.fromTo(connectContentBlock,
+            { opacity: 0, y: 40, left: '50%', top: isMobile ? '62%' : '60%', xPercent: -50, yPercent: -50, width: '90%' },
             { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" },
-            4.0
+            4.2
         );
 
-        /* Navigation Jump Helper */
+        /* Exact Navigation Position Jumps */
         window.jumpToScene = function(progressFraction) {
-            const track = document.getElementById('scroll-track');
-            if (!track) return;
-            const targetY = track.offsetTop + (track.offsetHeight - window.innerHeight) * progressFraction;
+            const st = scrollTl.scrollTrigger;
+            if (!st) return;
+            const targetY = st.start + (st.end - st.start) * progressFraction;
             
             if (lenis) {
                 lenis.scrollTo(targetY, { duration: 1.2 });
@@ -637,7 +651,7 @@
             }
         };
 
-        // Window resize recalculation for ultra-responsive experience
+        // Window Resize Listener for Responsive Bounds
         window.addEventListener('resize', () => {
             ScrollTrigger.refresh();
         });

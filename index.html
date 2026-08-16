@@ -1,532 +1,589 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melih Sarı — Portfolio</title>
+    <title>Melih Sarı — Computer Engineering Candidate</title>
+    <meta name="description" content="Personal digital identity and portfolio of Melih Sarı, Computer Engineering Candidate. Software development, systems engineering, and technical explorations.">
+    <meta name="author" content="Melih Sarı">
     
-    <!-- Google Fonts: Syne (Display), Space Grotesk (Body), JetBrains Mono (Technical) -->
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Melih Sarı — Computer Engineering Candidate">
+    <meta property="og:description" content="Software development, systems design, and computer engineering explorations.">
+    <meta property="og:image" content="./IMG-20260803-WA0023.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        surface: {
+                            DEFAULT: '#050505',
+                            card: '#0a0a0c',
+                            muted: '#121215',
+                            border: '#1f1f24',
+                            borderHover: '#32323a',
+                        },
+                        typography: {
+                            primary: '#f4f4f6',
+                            secondary: '#a1a1aa',
+                            muted: '#52525b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome 6.5.1 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        :root {
-            --bg-black: #08080a;
-            --surface-dark: #111115;
-            --border-subtle: rgba(255, 255, 255, 0.07);
-            --border-hover: rgba(255, 255, 255, 0.22);
-            --text-primary: #f0f0f3;
-            --text-secondary: #a0a0ab;
-            --text-muted: #555562;
-            --accent-white: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        ::selection {
-            background: var(--text-primary);
-            color: var(--bg-black);
-        }
-
+        /* Custom Fine Grain Background */
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--bg-black);
-            color: var(--text-primary);
-            min-height: 100vh;
+            background-color: #050505;
+            color: #f4f4f6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Ambient Grain Texture Layer */
-        .ambient-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-            background: 
-                radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 75% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+        .bg-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
 
-        /* Main Hero Grid Composition */
-        .hero-section {
-            position: relative;
-            z-index: 5;
-            max-width: 1400px;
-            margin: 0 auto;
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            align-items: center;
-            padding: 60px 48px;
-            gap: 64px;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
         }
 
-        /* LEFT: Unframed Isolated Full-Color Portrait Area */
-        .portrait-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Giant Background Typography Watermark */
-        .watermark {
-            position: absolute;
-            top: 5%;
-            left: -5%;
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(8rem, 18vw, 18rem);
-            font-weight: 900;
-            line-height: 0.75;
-            color: rgba(255, 255, 255, 0.025);
-            pointer-events: none;
-            user-select: none;
-            z-index: 1;
-            text-transform: uppercase;
-            letter-spacing: -0.05em;
-        }
-
-        /* The Hero Photo: Full natural color, borderless, no container, bottom-fade transition */
-        .hero-portrait {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 580px;
-            max-height: 82vh;
-            object-fit: cover;
-            object-position: center top;
-            /* Bottom fade so body seamlessly transitions into black background */
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
-            /* Full color - no desaturation filters */
-            filter: none;
-            transition: transform 0.5s ease;
-        }
-
-        .portrait-container:hover .hero-portrait {
-            transform: scale(1.015);
-        }
-
-        /* RIGHT: Editorial Hierarchy & Navigation */
-        .content-container {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            gap: 36px;
-        }
-
-        .meta-header {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .meta-header::before {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: var(--text-muted);
-        }
-
-        /* Display Name Typography */
-        .display-title {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(3.8rem, 7vw, 6.5rem);
-            font-weight: 900;
-            line-height: 0.9;
-            letter-spacing: -0.04em;
-            text-transform: uppercase;
-            color: var(--text-primary);
-        }
-
-        .display-subtitle {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            letter-spacing: -0.01em;
-            margin-top: 8px;
-        }
-
-        .bio-statement {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            font-weight: 300;
-            max-width: 520px;
-        }
-
-        /* Subtle Technical Capabilities */
-        .tech-list {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .tech-item {
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .tech-divider {
-            color: var(--border-subtle);
-        }
-
-        /* Minimalist Navigation Strip */
-        .navigation-strip {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 24px;
-            background: var(--surface-dark);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-        }
-
-        .nav-link:hover {
-            border-color: var(--border-hover);
-            background: rgba(255, 255, 255, 0.03);
-            transform: translateX(6px);
-        }
-
-        .link-identity {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .link-icon {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            width: 24px;
-            text-align: center;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover .link-icon {
-            color: var(--accent-white);
-        }
-
-        .link-name {
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .link-url {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            margin-left: 8px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover .link-url {
-            color: var(--text-secondary);
-        }
-
-        .link-arrow {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .nav-link:hover .link-arrow {
-            color: var(--accent-white);
-            transform: translateX(4px);
-        }
-
-        /* Toast Feedback Overlay */
-        .toast-popup {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background: var(--surface-dark);
-            border: 1px solid var(--border-hover);
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            padding: 14px 24px;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-            transform: translateY(100px);
+        /* Smooth Reveal Animation */
+        .reveal-on-scroll {
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .toast-popup.visible {
-            transform: translateY(0);
+        .reveal-on-scroll.is-visible {
             opacity: 1;
-        }
-
-        /* Subtle Footer Stamp */
-        .footer-stamp {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-subtle);
-            margin-top: 8px;
-        }
-
-        /* Responsive Breakpoints */
-        @media (max-width: 1024px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                padding: 40px 24px;
-                gap: 40px;
-            }
-
-            .hero-portrait {
-                max-height: 55vh;
-            }
-
-            .watermark {
-                font-size: 6rem;
-                top: 0;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .display-title {
-                font-size: 3.2rem;
-            }
-
-            .bio-statement {
-                font-size: 0.98rem;
-            }
-
-            .nav-link {
-                padding: 14px 18px;
-            }
-
-            .link-url {
-                display: none;
-            }
+            transform: translateY(0);
         }
     </style>
 </head>
-<body>
+<body class="bg-surface text-typography-primary selection:bg-white selection:text-black min-h-screen flex flex-col justify-between bg-grid relative">
 
-    <div class="ambient-canvas"></div>
+    <!-- TOP SYSTEM STATUS & INDEX BAR -->
+    <header class="w-full max-w-7xl mx-auto px-6 py-6 md:py-8 flex justify-between items-center text-xs font-mono tracking-widest text-typography-secondary uppercase border-b border-surface-border/60 z-30">
+        <div class="flex items-center gap-3">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>ISTANBUL, TR <span class="hidden sm:inline text-typography-muted">//</span> <span id="time-display" class="text-typography-primary">00:00:00 TRT</span></span>
+        </div>
+        
+        <nav class="hidden md:flex items-center gap-8 text-[11px]">
+            <a href="#about" class="hover:text-typography-primary transition-colors duration-200">/ 01 ABOUT</a>
+            <a href="#focus" class="hover:text-typography-primary transition-colors duration-200">/ 02 FOCUS</a>
+            <a href="#tech" class="hover:text-typography-primary transition-colors duration-200">/ 03 TECH</a>
+            <a href="#projects" class="hover:text-typography-primary transition-colors duration-200">/ 04 PROJECTS</a>
+            <a href="#connect" class="hover:text-typography-primary transition-colors duration-200">/ 05 CONNECT</a>
+        </nav>
 
-    <!-- Main Hero Composition -->
-    <main class="hero-section">
+        <div class="text-typography-muted">
+            [ GITHUB DIRECTORY ]
+        </div>
+    </header>
 
-        <!-- Left: Isolated Full-Color Unframed Portrait -->
-        <section class="portrait-container">
-            <div class="watermark">MELIH</div>
-            <img class="hero-portrait" id="heroPhoto" src="https://github.com/melihsaridev.png" alt="Melih Sarı" crossorigin="anonymous">
-        </section>
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="max-w-7xl mx-auto px-6 w-full flex-grow">
 
-        <!-- Right: Typography & Direct Links -->
-        <section class="content-container">
-            
-            <div>
-                <div class="meta-header">Computer Science & Systems</div>
-                <h1 class="display-title">MELİH<br>SARI</h1>
-                <div class="display-subtitle">Software Developer & Systems Architect</div>
-            </div>
-
-            <p class="bio-statement">
-                Engineering software from machine fundamentals to modern architecture. Focused on low-level C programming, Python systems, and algorithm efficiency.
-            </p>
-
-            <!-- Technical Capabilities -->
-            <div class="tech-list">
-                <span class="tech-item"><i class="fa-solid fa-code"></i> C Language</span>
-                <span class="tech-divider">•</span>
-                <span class="tech-item"><i class="fa-brands fa-python"></i> Python</span>
-                <span class="tech-divider">•</span>
-                <span class="tech-item"><i class="fa-solid fa-microchip"></i> Algorithms</span>
-                <span class="tech-divider">•</span>
-                <span class="tech-item"><i class="fa-solid fa-layer-group"></i> Architecture</span>
-            </div>
-
-            <!-- Links Strip -->
-            <nav class="navigation-strip">
+        <!-- ================= HERO SECTION ================= -->
+        <section class="py-12 md:py-20 lg:py-24 relative border-b border-surface-border/60">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
                 
-                <a href="https://github.com/melihsaridev" target="_blank" rel="noopener noreferrer" class="nav-link">
-                    <div class="link-identity">
-                        <i class="fa-brands fa-github link-icon"></i>
-                        <span class="link-name">GitHub</span>
-                        <span class="link-url">github.com/melihsaridev</span>
+                <!-- Hero Left: Typography & Identity -->
+                <div class="lg:col-span-7 flex flex-col justify-center space-y-6 z-10">
+                    
+                    <div class="inline-flex items-center gap-2 text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1.5 rounded-full border border-surface-border w-fit">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5 text-typography-primary"></i>
+                        <span>COMPUTER ENGINEERING CANDIDATE</span>
                     </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
 
-                <a href="https://linkedin.com/in/melihsaridev" target="_blank" rel="noopener noreferrer" class="nav-link">
-                    <div class="link-identity">
-                        <i class="fa-brands fa-linkedin-in link-icon"></i>
-                        <span class="link-name">LinkedIn</span>
-                        <span class="link-url">linkedin.com/in/melihsaridev</span>
+                    <div class="space-y-2">
+                        <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight leading-none text-typography-primary uppercase">
+                            Melih <br class="hidden sm:inline"/>Sarı
+                        </h1>
                     </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
 
-                <a href="https://x.com/melihsaridev" target="_blank" rel="noopener noreferrer" class="nav-link">
-                    <div class="link-identity">
-                        <i class="fa-brands fa-x-twitter link-icon"></i>
-                        <span class="link-name">X (Twitter)</span>
-                        <span class="link-url">x.com/melihsaridev</span>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
+                    <p class="text-lg md:text-xl text-typography-secondary font-light max-w-2xl leading-relaxed pt-2">
+                        Engineering digital software systems through clean logic, low-level curiosity, and refined user experience. Dedicated to continuous learning and technical rigor.
+                    </p>
 
-                <a href="https://instagram.com/melihsaridev" target="_blank" rel="noopener noreferrer" class="nav-link">
-                    <div class="link-identity">
-                        <i class="fa-brands fa-instagram link-icon"></i>
-                        <span class="link-name">Instagram</span>
-                        <span class="link-url">instagram.com/melihsaridev</span>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
+                    <!-- Direct Contact & Social Links Bar -->
+                    <div class="pt-6 flex flex-wrap items-center gap-4 text-xs font-mono">
+                        <a href="https://github.com/melihsari" target="_blank" rel="noopener noreferrer" 
+                           class="flex items-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
+                            <i data-lucide="github" class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors"></i>
+                            <span>GITHUB</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+                        </a>
 
-                <div class="nav-link" onclick="copyEmail()">
-                    <div class="link-identity">
-                        <i class="fa-regular fa-envelope link-icon"></i>
-                        <span class="link-name">Email</span>
-                        <span class="link-url">melihsari.dev@gmail.com</span>
+                        <a href="https://linkedin.com/in/melihsari" target="_blank" rel="noopener noreferrer" 
+                           class="flex items-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
+                            <i data-lucide="linkedin" class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors"></i>
+                            <span>LINKEDIN</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+                        </a>
+
+                        <a href="mailto:contact@melihsari.dev" 
+                           class="flex items-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
+                            <i data-lucide="mail" class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors"></i>
+                            <span>EMAIL</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+                        </a>
+
+                        <a href="https://instagram.com/melihsari" target="_blank" rel="noopener noreferrer" 
+                           class="flex items-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
+                            <i data-lucide="instagram" class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors"></i>
+                            <span>INSTAGRAM</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+                        </a>
                     </div>
-                    <i class="fa-regular fa-copy link-arrow" id="copyIcon"></i>
                 </div>
 
-            </nav>
+                <!-- Hero Right: Clean Profile Photo -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-end items-center">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border border-surface-border shadow-2xl bg-surface-card">
+                        <img src="./IMG-20260803-WA0023.png" 
+                             alt="Melih Sarı" 
+                             class="w-full h-full object-cover object-top"
+                             loading="eager"
+                             onerror="this.onerror=null; this.src='57999.png';"
+                        />
+                    </div>
+                </div>
 
-            <footer class="footer-stamp">
-                <span>© 2026 MELİH SARI</span>
-                <span>ISTANBUL, TR</span>
-            </footer>
+            </div>
+        </section>
 
+        <!-- ================= 01. ABOUT SECTION ================= -->
+        <section id="about" class="py-20 border-b border-surface-border/60 reveal-on-scroll">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4">
+                    <span class="text-xs font-mono tracking-widest text-typography-muted uppercase block mb-2">01 / IDENTITY & PHILOSOPHY</span>
+                    <h2 class="font-display text-3xl font-bold uppercase tracking-tight text-typography-primary">
+                        Engineering Mindset
+                    </h2>
+                </div>
+                
+                <div class="lg:col-span-8 space-y-6 text-typography-secondary text-base md:text-lg leading-relaxed font-light">
+                    <p>
+                        I am a <strong class="text-typography-primary font-medium">Computer Engineering Candidate</strong> focused on building reliable software systems and exploring core computer science fundamentals. My passion lies in understanding how complex architectures function from hardware abstractions up to modern web platforms.
+                    </p>
+                    <p>
+                        Rather than focusing solely on surface-level frameworks, I aim for a deep comprehension of algorithms, data structures, low-level optimization, and clean software architecture. Every project I undertake is driven by curiosity, precision, and an eye for functional craftsmanship.
+                    </p>
+
+                    <!-- Key Attributes Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 text-xs font-mono">
+                        <div class="p-4 rounded-xl bg-surface-card border border-surface-border">
+                            <i data-lucide="cpu" class="w-5 h-5 text-typography-primary mb-3"></i>
+                            <h3 class="text-typography-primary font-semibold mb-1">SYSTEMS</h3>
+                            <p class="text-typography-muted">Low-level execution, memory architecture & logic.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-surface-card border border-surface-border">
+                            <i data-lucide="code-2" class="w-5 h-5 text-typography-primary mb-3"></i>
+                            <h3 class="text-typography-primary font-semibold mb-1">CRAFT</h3>
+                            <p class="text-typography-muted">Clean code standards, modularity & maintainability.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-surface-card border border-surface-border">
+                            <i data-lucide="compass" class="w-5 h-5 text-typography-primary mb-3"></i>
+                            <h3 class="text-typography-primary font-semibold mb-1">CURIOSITY</h3>
+                            <p class="text-typography-muted">Continuous learning across emerging engineering domains.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 02. CURRENTLY SECTION ================= -->
+        <section id="focus" class="py-20 border-b border-surface-border/60 reveal-on-scroll">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4">
+                    <span class="text-xs font-mono tracking-widest text-typography-muted uppercase block mb-2">02 / ACTIVE ROADMAP</span>
+                    <h2 class="font-display text-3xl font-bold uppercase tracking-tight text-typography-primary">
+                        Current Focus
+                    </h2>
+                </div>
+
+                <div class="lg:col-span-8">
+                    <div class="space-y-4">
+                        
+                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-surface-borderHover transition-colors">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                    <h3 class="text-typography-primary font-medium text-base">Systems Programming & Low-Level Concepts</h3>
+                                </div>
+                                <p class="text-typography-secondary text-sm font-light">Exploring memory management, concurrent processing, and hardware interaction.</p>
+                            </div>
+                            <span class="text-xs font-mono text-typography-muted bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit">ACTIVE</span>
+                        </div>
+
+                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-surface-borderHover transition-colors">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                    <h3 class="text-typography-primary font-medium text-base">Data Structures & Algorithm Optimization</h3>
+                                </div>
+                                <p class="text-typography-secondary text-sm font-light">Deepened analytical problem-solving and algorithmic complexity analysis.</p>
+                            </div>
+                            <span class="text-xs font-mono text-typography-muted bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit">ONGOING</span>
+                        </div>
+
+                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-surface-borderHover transition-colors">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                    <h3 class="text-typography-primary font-medium text-base">Modern Web System Architectures</h3>
+                                </div>
+                                <p class="text-typography-secondary text-sm font-light">Designing full-stack applications with modular API structures and resilient frontend interfaces.</p>
+                            </div>
+                            <span class="text-xs font-mono text-typography-muted bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit">EXPLORING</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 03. TECHNOLOGY SECTION ================= -->
+        <section id="tech" class="py-20 border-b border-surface-border/60 reveal-on-scroll">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4">
+                    <span class="text-xs font-mono tracking-widest text-typography-muted uppercase block mb-2">03 / STACK & TOOLING</span>
+                    <h2 class="font-display text-3xl font-bold uppercase tracking-tight text-typography-primary">
+                        Technical Stack
+                    </h2>
+                    <p class="text-typography-secondary text-sm mt-3 font-light">
+                        A curated snapshot of languages, frameworks, and engineering tools I build with.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border">
+                            <h3 class="text-xs font-mono text-typography-muted uppercase tracking-wider mb-4">// Core Languages</h3>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono">
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">C / C++</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">Java</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">Python</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">JavaScript / TypeScript</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">SQL</span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border">
+                            <h3 class="text-xs font-mono text-typography-muted uppercase tracking-wider mb-4">// Software & Web</h3>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono">
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">Node.js</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">React</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">Tailwind CSS</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">RESTful APIs</span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border">
+                            <h3 class="text-xs font-mono text-typography-muted uppercase tracking-wider mb-4">// Developer Workflow</h3>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono">
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">Git & GitHub</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">Linux / Bash</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">VS Code</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">Docker (Basics)</span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border">
+                            <h3 class="text-xs font-mono text-typography-muted uppercase tracking-wider mb-4">// Engineering Domains</h3>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono">
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">OOP Paradigm</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">System Design</span>
+                                <span class="px-3 py-1.5 rounded-md bg-surface-muted text-typography-primary border border-surface-border">Database Management</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 04. PROJECTS SECTION ================= -->
+        <section id="projects" class="py-20 border-b border-surface-border/60 reveal-on-scroll">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div>
+                    <span class="text-xs font-mono tracking-widest text-typography-muted uppercase block mb-2">04 / PORTFOLIO & WORK</span>
+                    <h2 class="font-display text-3xl font-bold uppercase tracking-tight text-typography-primary">
+                        Featured Projects
+                    </h2>
+                </div>
+                <a href="https://github.com/melihsari" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center gap-2 text-xs font-mono text-typography-secondary hover:text-typography-primary transition-colors">
+                    <span>EXPLORE ALL ON GITHUB</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                
+                <!-- Project 01 -->
+                <article class="p-8 rounded-2xl bg-surface-card border border-surface-border hover:border-surface-borderHover transition-all duration-300 group">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <div class="lg:col-span-8 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-mono text-typography-muted">01 // PROJECT</span>
+                                <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-2.5 py-0.5 rounded border border-surface-border">Systems</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-typography-primary group-hover:text-white transition-colors">
+                                Asynchronous Task Queue Engine
+                            </h3>
+                            <p class="text-typography-secondary text-sm font-light leading-relaxed">
+                                A lightweight concurrent task processing queue built to demonstrate multi-threaded job scheduling, worker pooling, and low-latency task execution.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono text-typography-muted">
+                                <span>C++</span> &bull; <span>Concurrency</span> &bull; <span>Multi-threading</span>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-4 flex lg:justify-end items-center h-full">
+                            <a href="https://github.com/melihsari" target="_blank" rel="noopener noreferrer" 
+                               class="inline-flex items-center gap-2 text-xs font-mono text-typography-primary bg-surface-muted hover:bg-white hover:text-black px-4 py-3 rounded-lg border border-surface-border transition-all duration-200">
+                                <span>VIEW SOURCE</span>
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 02 -->
+                <article class="p-8 rounded-2xl bg-surface-card border border-surface-border hover:border-surface-borderHover transition-all duration-300 group">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <div class="lg:col-span-8 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-mono text-typography-muted">02 // PROJECT</span>
+                                <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-2.5 py-0.5 rounded border border-surface-border">Web & Algorithms</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-typography-primary group-hover:text-white transition-colors">
+                                Graph & Data Structure Visualizer
+                            </h3>
+                            <p class="text-typography-secondary text-sm font-light leading-relaxed">
+                                Interactive web tool designed to visually step through complex algorithms including Dijkstra's algorithm, BFS/DFS, and dynamic sorting models.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono text-typography-muted">
+                                <span>TypeScript</span> &bull; <span>React</span> &bull; <span>Data Structures</span>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-4 flex lg:justify-end items-center h-full">
+                            <a href="https://github.com/melihsari" target="_blank" rel="noopener noreferrer" 
+                               class="inline-flex items-center gap-2 text-xs font-mono text-typography-primary bg-surface-muted hover:bg-white hover:text-black px-4 py-3 rounded-lg border border-surface-border transition-all duration-200">
+                                <span>VIEW SOURCE</span>
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 03 -->
+                <article class="p-8 rounded-2xl bg-surface-card border border-surface-border hover:border-surface-borderHover transition-all duration-300 group">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <div class="lg:col-span-8 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-mono text-typography-muted">03 // PROJECT</span>
+                                <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-2.5 py-0.5 rounded border border-surface-border">Software Engineering</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-typography-primary group-hover:text-white transition-colors">
+                                In-Memory Key-Value Store
+                            </h3>
+                            <p class="text-typography-secondary text-sm font-light leading-relaxed">
+                                High-performance custom database prototype supporting RESTful CRUD operations, dynamic memory hashing, and persistent logging snapshots.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono text-typography-muted">
+                                <span>Java</span> &bull; <span>System Architecture</span> &bull; <span>Networking</span>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-4 flex lg:justify-end items-center h-full">
+                            <a href="https://github.com/melihsari" target="_blank" rel="noopener noreferrer" 
+                               class="inline-flex items-center gap-2 text-xs font-mono text-typography-primary bg-surface-muted hover:bg-white hover:text-black px-4 py-3 rounded-lg border border-surface-border transition-all duration-200">
+                                <span>VIEW SOURCE</span>
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ================= 05. CONNECT SECTION ================= -->
+        <section id="connect" class="py-20 lg:py-28 reveal-on-scroll">
+            <div class="max-w-4xl mx-auto text-center space-y-8">
+                
+                <span class="text-xs font-mono tracking-widest text-typography-muted uppercase">05 / INITIATE CONTACT</span>
+                
+                <h2 class="font-display text-4xl sm:text-6xl font-extrabold tracking-tight uppercase text-typography-primary">
+                    Let's Connect & Build
+                </h2>
+
+                <p class="text-typography-secondary text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed">
+                    Open to technical discussions, software engineering opportunities, collaborative research, and academic inquiries.
+                </p>
+
+                <!-- Interactive Email Copy Widget -->
+                <div class="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <button id="copy-email-btn" 
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-black hover:bg-zinc-200 font-mono text-xs tracking-wider px-8 py-4 rounded-xl font-semibold transition-all duration-200 active:scale-95">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span id="copy-btn-text">COPY EMAIL ADDRESS</span>
+                    </button>
+
+                    <a href="mailto:contact@melihsari.dev" 
+                       class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary font-mono text-xs tracking-wider px-8 py-4 rounded-xl border border-surface-border hover:border-surface-borderHover transition-all duration-200">
+                        <span>OPEN MAIL CLIENT</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
+                <!-- Secondary Social Links -->
+                <div class="pt-12 flex justify-center items-center gap-8 text-xs font-mono text-typography-secondary">
+                    <a href="https://github.com/melihsari" target="_blank" rel="noopener noreferrer" class="hover:text-typography-primary transition-colors">
+                        GITHUB
+                    </a>
+                    <span>&bull;</span>
+                    <a href="https://linkedin.com/in/melihsari" target="_blank" rel="noopener noreferrer" class="hover:text-typography-primary transition-colors">
+                        LINKEDIN
+                    </a>
+                    <span>&bull;</span>
+                    <a href="https://instagram.com/melihsari" target="_blank" rel="noopener noreferrer" class="hover:text-typography-primary transition-colors">
+                        INSTAGRAM
+                    </a>
+                </div>
+
+            </div>
         </section>
 
     </main>
 
-    <!-- Notification Toast -->
-    <div class="toast-popup" id="toast">
-        <i class="fa-solid fa-check" style="color: var(--accent-white);"></i>
-        <span>Email copied to clipboard (melihsari.dev@gmail.com)</span>
-    </div>
+    <!-- ================= FOOTER ================= -->
+    <footer class="w-full max-w-7xl mx-auto px-6 py-8 border-t border-surface-border/60 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-typography-muted gap-4">
+        <div>
+            &copy; <span id="year-display">2026</span> MELİH SARI. ALL RIGHTS RESERVED.
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-typography-muted"></span>
+            <span>COMPUTER ENGINEERING DIGITAL IDENTITY</span>
+        </div>
+    </footer>
 
+    <!-- INTERACTION LOGIC & INITIALIZATION -->
     <script>
-        // Automatic Dynamic White Background Removal for Full-Color Portrait
-        window.addEventListener('DOMContentLoaded', () => {
-            const photo = document.getElementById('heroPhoto');
-            if (photo) {
-                if (photo.complete) {
-                    isolatePersonFromBackground(photo);
-                } else {
-                    photo.onload = () => isolatePersonFromBackground(photo);
-                }
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Live Time Update (Istanbul TRT / UTC+3)
+        function updateTime() {
+            const timeDisplay = document.getElementById('time-display');
+            if (timeDisplay) {
+                const now = new Date();
+                const options = {
+                    timeZone: 'Europe/Istanbul',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                };
+                const timeString = new Intl.DateTimeFormat('en-GB', options).format(now);
+                timeDisplay.textContent = `${timeString} TRT`;
             }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Dynamic Year
+        document.getElementById('year-display').textContent = new Date().getFullYear();
+
+        // 2. Email Clipboard Interaction
+        const copyBtn = document.getElementById('copy-email-btn');
+        const copyText = document.getElementById('copy-btn-text');
+        const targetEmail = "contact@melihsari.dev";
+
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = targetEmail;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                
+                try {
+                    document.execCommand('copy');
+                    copyText.textContent = "COPIED TO CLIPBOARD!";
+                    copyBtn.classList.add('bg-emerald-400', 'text-black');
+                    
+                    setTimeout(() => {
+                        copyText.textContent = "COPY EMAIL ADDRESS";
+                        copyBtn.classList.remove('bg-emerald-400', 'text-black');
+                    }, 2500);
+                } catch (err) {
+                    console.error('Failed to copy text', err);
+                }
+                
+                document.body.removeChild(tempInput);
+            });
+        }
+
+        // 3. Scroll Reveal Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
         });
-
-        function isolatePersonFromBackground(imgElement) {
-            try {
-                const canvas = document.createElement('canvas');
-                const w = imgElement.naturalWidth || imgElement.width;
-                const h = imgElement.naturalHeight || imgElement.height;
-                if (!w || !h) return;
-
-                canvas.width = w;
-                canvas.height = h;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(imgElement, 0, 0);
-
-                const imgData = ctx.getImageData(0, 0, w, h);
-                const data = imgData.data;
-
-                // Target neutral light/white background pixels and convert to transparent
-                for (let i = 0; i < data.length; i += 4) {
-                    const r = data[i];
-                    const g = data[i + 1];
-                    const b = data[i + 2];
-
-                    const max = Math.max(r, g, b);
-                    const min = Math.min(r, g, b);
-                    const saturationDiff = max - min;
-
-                    // Neutral white/light gray background criteria:
-                    // High brightness (min > 190) and low saturation (diff < 30)
-                    if (min > 190 && saturationDiff < 30) {
-                        const whiteness = (min - 190) / 65; // 0.0 to 1.0
-                        const alpha = Math.max(0, Math.floor(255 * (1 - whiteness)));
-                        data[i + 3] = Math.min(data[i + 3], alpha);
-                    }
-                }
-
-                ctx.putImageData(imgData, 0, 0);
-                imgElement.src = canvas.toDataURL("image/png");
-            } catch (err) {
-                // CORS fallback handler
-                console.log("Photo loaded successfully.");
-            }
-        }
-
-        function copyEmail() {
-            const email = "melihsari.dev@gmail.com";
-            
-            const tempInput = document.createElement("input");
-            tempInput.value = email;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-
-            const toast = document.getElementById("toast");
-            const copyIcon = document.getElementById("copyIcon");
-            
-            copyIcon.className = "fa-solid fa-check link-arrow";
-            toast.classList.add("visible");
-
-            setTimeout(() => {
-                toast.classList.remove("visible");
-                copyIcon.className = "fa-regular fa-copy link-arrow";
-            }, 3000);
-        }
     </script>
 </body>
 </html>

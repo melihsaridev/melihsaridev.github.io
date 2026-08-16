@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melih Sarı | CS Student & Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
@@ -15,7 +15,6 @@
             --border-hover: rgba(88, 166, 255, 0.4);
             --primary-glow: #58a6ff;
             --accent-purple: #bc8cff;
-            --accent-green: #3fb950;
             --text-main: #f0f6fc;
             --text-muted: #8b949e;
         }
@@ -39,7 +38,7 @@
             position: relative;
         }
 
-        /* Animasyonlu Arka Plan Glow Hüzmeleri */
+        /* Arka Plan Glow Hüzmeleri */
         .bg-glow-1, .bg-glow-2 {
             position: absolute;
             width: 350px;
@@ -69,7 +68,7 @@
             100% { transform: scale(1.3) translate(20px, -20px); opacity: 0.35; }
         }
 
-        /* Ana Kart / Container */
+        /* Ana Kart */
         .container {
             position: relative;
             z-index: 10;
@@ -91,21 +90,22 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Profil Fotoğrafı & Glow Ring */
+        /* Profil Fotoğrafı - Yumuşatılmış Kare (Squircle) */
         .profile-wrapper {
             position: relative;
             display: inline-block;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .profile-img {
             width: 110px;
             height: 110px;
-            border-radius: 50%;
+            border-radius: 24px; /* Yuvarlak yerine estetik kare köşe */
             object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.12);
             position: relative;
             z-index: 2;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .profile-glow {
@@ -115,16 +115,10 @@
             right: -4px;
             bottom: -4px;
             background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
-            border-radius: 50%;
+            border-radius: 28px;
             z-index: 1;
-            filter: blur(10px);
-            opacity: 0.6;
-            animation: rotateGlow 6s linear infinite;
-        }
-
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            filter: blur(12px);
+            opacity: 0.5;
         }
 
         h1 {
@@ -137,24 +131,13 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Typewriter / Dinamik Metin */
-        .typewriter-container {
+        /* Sabit Mavi Alt Başlık */
+        .subtitle {
             font-family: 'Fira Code', monospace;
             font-size: 0.95rem;
             color: var(--primary-glow);
-            margin-bottom: 20px;
-            min-height: 24px;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            background-color: var(--primary-glow);
-            animation: blink 0.8s infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
+            margin-bottom: 18px;
+            font-weight: 600;
         }
 
         .bio {
@@ -198,7 +181,7 @@
             color: var(--primary-glow);
         }
 
-        /* Dinamik Bağlantılar */
+        /* Bağlantı Kartları */
         .links-container {
             display: flex;
             flex-direction: column;
@@ -221,7 +204,6 @@
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Hover Parlaması */
         .link-card::before {
             content: '';
             position: absolute;
@@ -298,9 +280,7 @@
         
         <h1>Melih Sarı</h1>
         
-        <div class="typewriter-container">
-            <span id="typewriter"></span><span class="cursor"></span>
-        </div>
+        <div class="subtitle">CS Student & Developer</div>
         
         <p class="bio">
             Exploring system-level concepts, software architecture,<br>and building clean solutions with C & Python.
@@ -339,14 +319,6 @@
                 <i class="fa-solid fa-arrow-right arrow-icon"></i>
             </a>
 
-            <a href="https://reddit.com/user/melihsaridev" target="_blank" class="link-card">
-                <div class="link-left">
-                    <i class="fa-brands fa-reddit-alien"></i>
-                    <span>Reddit</span>
-                </div>
-                <i class="fa-solid fa-arrow-right arrow-icon"></i>
-            </a>
-
             <a href="mailto:melihsari.dev@gmail.com" class="link-card">
                 <div class="link-left">
                     <i class="fa-regular fa-envelope"></i>
@@ -361,48 +333,6 @@
             © 2026 melihsari.dev • All rights reserved.
         </footer>
     </div>
-
-    <script>
-        const words = ["CS Student & Developer", "C & Python Enthusiast", "System-Level Explorer", "Algorithms & Tech"];
-        let i = 0;
-        let timer;
-
-        function typingEffect() {
-            let word = words[i].split("");
-            var loopTyping = function() {
-                if (word.length > 0) {
-                    document.getElementById('typewriter').innerHTML += word.shift();
-                } else {
-                    setTimeout(deletingEffect, 2000);
-                    return false;
-                }
-                timer = setTimeout(loopTyping, 80);
-            };
-            loopTyping();
-        }
-
-        function deletingEffect() {
-            let word = words[i].split("");
-            var loopDeleting = function() {
-                if (word.length > 0) {
-                    word.pop();
-                    document.getElementById('typewriter').innerHTML = word.join("");
-                } else {
-                    if (words.length > (i + 1)) {
-                        i++;
-                    } else {
-                        i = 0;
-                    }
-                    setTimeout(typingEffect, 500);
-                    return false;
-                }
-                timer = setTimeout(loopDeleting, 40);
-            };
-            loopDeleting();
-        }
-
-        typingEffect();
-    </script>
 
 </body>
 </html>

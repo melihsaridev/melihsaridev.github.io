@@ -50,26 +50,35 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lenis Smooth Scroll CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css">
+
+    <!-- GSAP & ScrollTrigger Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
     <style>
-        /* Custom Fine Grain Background */
-        body {
+        /* Base Setup & Fine Grain Grid Background */
+        html, body {
             background-color: #050505;
             color: #f4f4f6;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            width: 100%;
         }
 
         .bg-grid {
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
+            background-size: 50px 50px;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
         ::-webkit-scrollbar-track {
             background: #050505;
@@ -82,49 +91,102 @@
             background: #3f3f46;
         }
 
-        /* Smooth Reveal Animation */
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        /* Ambient Glow Effect */
+        .ambient-glow {
+            background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.04) 0%, rgba(5, 5, 5, 0) 70%);
+            pointer-events: none;
         }
 
-        .reveal-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* Responsive Canvas Stage Pinned Frame */
+        .pin-viewport {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Visual Glass Card Effects */
+        .glass-card {
+            background: rgba(10, 10, 12, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(31, 31, 36, 0.8);
+        }
+
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Progress Bar Indicator */
+        .timeline-progress {
+            transform-origin: left;
+            will-change: transform;
         }
     </style>
 </head>
-<body class="bg-surface text-typography-primary selection:bg-white selection:text-black min-h-screen flex flex-col justify-between bg-grid relative">
+<body class="bg-surface text-typography-primary selection:bg-white selection:text-black min-h-screen bg-grid relative antialiased">
 
-    <!-- TOP SYSTEM STATUS & INDEX BAR -->
-    <header class="w-full max-w-7xl mx-auto px-6 md:px-10 py-6 md:py-8 flex justify-between items-center text-xs font-mono tracking-widest text-typography-secondary uppercase border-b border-surface-border/60 z-30">
-        <div class="flex items-center gap-3">
-            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>ISTANBUL, TR <span class="hidden sm:inline text-typography-muted">//</span> <span id="time-display" class="text-typography-primary">00:00:00 TRT</span></span>
+    <!-- FIXED SYSTEM HEADER & REAL-TIME CLOCK -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-surface-border/50 px-6 md:px-10 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center text-xs font-mono tracking-widest text-typography-secondary uppercase">
+            
+            <!-- Real-Time Istanbul Clock -->
+            <div class="flex items-center gap-3">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="font-medium text-typography-primary">ISTANBUL, TR</span>
+                <span class="text-typography-muted hidden sm:inline">//</span>
+                <span id="time-display" class="text-typography-primary font-mono hidden sm:inline">00:00:00 TRT</span>
+            </div>
+            
+            <!-- Interactive Cinematic Timeline Navigation -->
+            <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-[11px]">
+                <button onclick="jumpToScene(0)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 01 HERO</button>
+                <button onclick="jumpToScene(0.25)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 02 ABOUT</button>
+                <button onclick="jumpToScene(0.55)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 03 FOCUS</button>
+                <button onclick="jumpToScene(0.85)" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer">/ 04 CONNECT</button>
+            </nav>
+
+            <!-- Directory Tag -->
+            <div class="text-typography-muted text-[10px] sm:text-xs">
+                [ MELIHSARI.DEV ]
+            </div>
         </div>
-        
-        <nav class="hidden md:flex items-center gap-8 text-[11px]">
-            <a href="#about" class="hover:text-typography-primary transition-colors duration-200">/ 01 ABOUT</a>
-            <a href="#focus" class="hover:text-typography-primary transition-colors duration-200">/ 02 FOCUS</a>
-            <a href="#connect" class="hover:text-typography-primary transition-colors duration-200">/ 03 CONNECT</a>
-        </nav>
 
-        <div class="text-typography-muted">
-            [ GITHUB DIRECTORY ]
+        <!-- Scroll Timeline Indicator Bar -->
+        <div class="absolute bottom-0 left-0 w-full h-[2px] bg-surface-border">
+            <div id="scroll-progress-bar" class="h-full bg-white w-full timeline-progress scale-x-0"></div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT WRAPPER -->
-    <main class="max-w-7xl mx-auto px-6 md:px-10 w-full flex-grow pb-16 md:pb-24">
+    <!-- MAIN CINEMATIC SCROLL CONTAINER -->
+    <!-- Total scroll track height gives scroll headroom for continuous timeline scrubbing -->
+    <div id="scroll-track" class="relative w-full" style="height: 500vh;">
 
-        <!-- ================= HERO SECTION ================= -->
-        <section class="py-16 sm:py-24 lg:py-28 relative border-b border-surface-border/60">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <!-- Ambient Background Light -->
+        <div class="fixed inset-0 ambient-glow z-0"></div>
+
+        <!-- PINNED VIEWPORT STAGE -->
+        <div id="pinned-stage" class="sticky top-0 left-0 w-full pin-viewport z-10 flex items-center justify-center px-6 md:px-12">
+            
+            <div class="max-w-7xl w-full h-full relative flex items-center justify-center">
+
+                <!-- ================= SCENE 1 & 2: HERO & IDENTITY SHIFT ================= -->
                 
-                <!-- Hero Left: Typography & Identity -->
-                <div class="lg:col-span-7 flex flex-col justify-center space-y-6 z-10">
-                    
+                <!-- Main Dynamic Portrait Photo Frame -->
+                <div id="photo-container" class="absolute z-20 rounded-2xl overflow-hidden border border-surface-border bg-surface-card shadow-2xl transition-shadow duration-500">
+                    <img id="profile-photo" 
+                         src="https://github.com/melihsaridev.png" 
+                         alt="Melih Sarı" 
+                         class="w-full h-full object-cover object-center"
+                         loading="eager"
+                         onerror="this.onerror=null; this.src='https://avatars.githubusercontent.com/melihsaridev';"
+                    />
+                </div>
+
+                <!-- Hero Name & Lead Subtitle -->
+                <div id="hero-text-block" class="absolute z-30 flex flex-col items-start space-y-4 max-w-2xl pointer-events-auto">
                     <div class="inline-flex items-center gap-2 text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1.5 rounded-full border border-surface-border w-fit">
                         <svg class="w-3.5 h-3.5 text-typography-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -132,257 +194,198 @@
                         <span>COMPUTER ENGINEERING CANDIDATE</span>
                     </div>
 
-                    <div class="space-y-2">
-                        <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight leading-none text-typography-primary uppercase">
-                            Melih <br class="hidden sm:inline"/>Sarı
-                        </h1>
-                    </div>
+                    <h1 id="hero-title" class="font-display text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight uppercase text-typography-primary leading-none">
+                        MELIH <br class="hidden sm:inline"/>SARI
+                    </h1>
 
-                    <p class="text-lg md:text-xl text-typography-secondary font-light max-w-2xl leading-relaxed pt-2">
+                    <p id="hero-lead" class="text-base sm:text-lg text-typography-secondary font-light leading-relaxed max-w-xl">
                         Building my path through software engineering, computer systems, and technical curiosity. Focused on learning core fundamentals and clean implementation.
                     </p>
 
-                    <!-- Direct Contact & Social Links Bar -->
-                    <div class="pt-6 flex flex-wrap items-center gap-3 text-xs font-mono">
-                        <!-- GitHub -->
+                    <!-- Primary Hero Quick Action Links -->
+                    <div id="hero-links-bar" class="pt-4 flex flex-wrap items-center gap-3 text-xs font-mono">
                         <a href="https://github.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"
-                           class="flex items-center gap-2.5 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
-                            <svg class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-                            </svg>
+                           class="flex items-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3.5 py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
+                            <svg class="w-4 h-4 text-typography-secondary group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
                             <span>GITHUB</span>
-                            <svg class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
                         </a>
-
-                        <!-- LinkedIn -->
                         <a href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"
-                           class="flex items-center gap-2.5 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
-                            <svg class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-                            </svg>
+                           class="flex items-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3.5 py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
+                            <svg class="w-4 h-4 text-typography-secondary group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                             <span>LINKEDIN</span>
-                            <svg class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
                         </a>
-
-                        <!-- X (Twitter) -->
-                        <a href="https://x.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="X Profile"
-                           class="flex items-center gap-2.5 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
-                            <svg class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                            <span>X</span>
-                            <svg class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
-                        </a>
-
-                        <!-- Instagram -->
-                        <a href="https://www.instagram.com/melihsari.dev/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile"
-                           class="flex items-center gap-2.5 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
-                            <svg class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" clip-rule="evenodd"/>
-                            </svg>
-                            <span>INSTAGRAM</span>
-                            <svg class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
-                        </a>
-
-                        <!-- Email -->
                         <a href="mailto:melihsari.dev@gmail.com" aria-label="Email Direct"
-                           class="flex items-center gap-2.5 bg-surface-card hover:bg-surface-muted text-typography-primary px-4 py-3 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all duration-200 group">
-                            <svg class="w-4 h-4 text-typography-secondary group-hover:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
+                           class="flex items-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3.5 py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
+                            <svg class="w-4 h-4 text-typography-secondary group-hover:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             <span>EMAIL</span>
-                            <svg class="w-3.5 h-3.5 text-typography-muted group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- Hero Right: Profile Photo (Using melihsaridev GitHub Profile Picture) -->
-                <div class="lg:col-span-5 flex justify-center lg:justify-end items-center">
-                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[380px] lg:h-[380px] rounded-2xl overflow-hidden border border-surface-border shadow-2xl bg-surface-card shrink-0">
-                        <img src="https://github.com/melihsaridev.png" 
-                             alt="Melih Sarı" 
-                             class="w-full h-full object-cover object-center"
-                             loading="eager"
-                             onerror="this.onerror=null; this.src='https://avatars.githubusercontent.com/melihsaridev';"
-                        />
+                <!-- ================= SCENE 2: ABOUT / PHILOSOPHY ================= -->
+                <div id="about-content-block" class="absolute z-20 max-w-2xl opacity-0 pointer-events-none flex flex-col justify-center space-y-6">
+                    <span class="text-xs font-mono tracking-widest text-typography-muted uppercase block">01 / IDENTITY & PHILOSOPHY</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
+                        ENGINEERING MINDSET
+                    </h2>
+                    <div class="space-y-4 text-typography-secondary text-base sm:text-lg font-light leading-relaxed">
+                        <p>
+                            I am a <strong class="text-typography-primary font-medium">Computer Engineering Candidate</strong> focused on learning the core principles of computer science, software engineering, and hardware abstractions. My aim is to build a solid foundation across software development and system concepts.
+                        </p>
+                        <p>
+                            Rather than chasing temporary trends, I concentrate on understanding algorithms, fundamental programming paradigms, and clean problem-solving. Every topic I study is driven by curiosity, dedication, and a commitment to genuine growth.
+                        </p>
+                    </div>
+
+                    <!-- Attribute Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs font-mono">
+                        <div class="p-4 rounded-xl glass-card">
+                            <h3 class="text-typography-primary font-semibold mb-1">SYSTEMS</h3>
+                            <p class="text-typography-secondary text-[11px] font-light leading-normal">Developing deep understanding of low-level execution and computing fundamentals.</p>
+                        </div>
+                        <div class="p-4 rounded-xl glass-card">
+                            <h3 class="text-typography-primary font-semibold mb-1">CRAFT</h3>
+                            <p class="text-typography-secondary text-[11px] font-light leading-normal">Focusing on readable code, disciplined practice, and steady improvement.</p>
+                        </div>
+                        <div class="p-4 rounded-xl glass-card">
+                            <h3 class="text-typography-primary font-semibold mb-1">CURIOSITY</h3>
+                            <p class="text-typography-secondary text-[11px] font-light leading-normal">Actively exploring diverse computer science topics and practical engineering tools.</p>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-        </section>
-
-        <!-- ================= 01. ABOUT SECTION ================= -->
-        <section id="about" class="py-20 lg:py-24 border-b border-surface-border/60 reveal-on-scroll">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-                <div class="lg:col-span-4">
-                    <span class="text-xs font-mono tracking-widest text-typography-muted uppercase block mb-2">01 / IDENTITY & PHILOSOPHY</span>
-                    <h2 class="font-display text-3xl font-bold uppercase tracking-tight text-typography-primary">
-                        Engineering Mindset
-                    </h2>
-                </div>
-                
-                <div class="lg:col-span-8 space-y-6 text-typography-secondary text-base md:text-lg leading-relaxed font-light">
-                    <p>
-                        I am a <strong class="text-typography-primary font-medium">Computer Engineering Candidate</strong> focused on learning the core principles of computer science, software engineering, and hardware abstractions. My aim is to build a solid foundation across software development and system concepts.
-                    </p>
-                    <p>
-                        Rather than chasing temporary trends, I concentrate on understanding algorithms, fundamental programming paradigms, and clean problem-solving. Every topic I study is driven by curiosity, dedication, and a commitment to genuine growth.
-                    </p>
-
-                    <!-- Key Attributes Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 text-xs font-mono">
-                        <div class="p-5 rounded-xl bg-surface-card border border-surface-border">
-                            <svg class="w-5 h-5 text-typography-primary mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-                            </svg>
-                            <h3 class="text-typography-primary font-semibold mb-1.5">SYSTEMS</h3>
-                            <p class="text-typography-secondary font-light leading-normal">Developing understanding of low-level execution and computing fundamentals.</p>
-                        </div>
-                        <div class="p-5 rounded-xl bg-surface-card border border-surface-border">
-                            <svg class="w-5 h-5 text-typography-primary mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                            </svg>
-                            <h3 class="text-typography-primary font-semibold mb-1.5">CRAFT</h3>
-                            <p class="text-typography-secondary font-light leading-normal">Focusing on readable code, disciplined practice & steady improvement.</p>
-                        </div>
-                        <div class="p-5 rounded-xl bg-surface-card border border-surface-border">
-                            <svg class="w-5 h-5 text-typography-primary mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                            </svg>
-                            <h3 class="text-typography-primary font-semibold mb-1.5">CURIOSITY</h3>
-                            <p class="text-typography-secondary font-light leading-normal">Actively exploring diverse computer science topics and tools.</p>
-                        </div>
+                <!-- ================= SCENE 3: ACTIVE ROADMAP ================= -->
+                <div id="focus-content-block" class="absolute z-20 w-full max-w-3xl opacity-0 pointer-events-none flex flex-col space-y-6">
+                    <div>
+                        <span class="text-xs font-mono tracking-widest text-typography-muted uppercase block mb-1">02 / ACTIVE ROADMAP</span>
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
+                            CURRENT FOCUS
+                        </h2>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- ================= 02. CURRENTLY SECTION ================= -->
-        <section id="focus" class="py-20 lg:py-24 border-b border-surface-border/60 reveal-on-scroll">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-                <div class="lg:col-span-4">
-                    <span class="text-xs font-mono tracking-widest text-typography-muted uppercase block mb-2">02 / ACTIVE ROADMAP</span>
-                    <h2 class="font-display text-3xl font-bold uppercase tracking-tight text-typography-primary">
-                        Current Focus
-                    </h2>
-                </div>
-
-                <div class="lg:col-span-8">
-                    <div class="space-y-4">
-                        
-                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-surface-borderHover transition-colors">
+                    <div class="space-y-3 font-sans">
+                        <!-- Focus Card 1 -->
+                        <div class="focus-card p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-surface-borderHover transition-all">
                             <div class="space-y-1">
-                                <div class="flex items-center gap-2.5">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
                                     <h3 class="text-typography-primary font-medium text-base">Computer Engineering Core Academics</h3>
                                 </div>
-                                <p class="text-typography-secondary text-sm font-light">Studying foundational courses, programming fundamentals, and discrete mathematics.</p>
+                                <p class="text-typography-secondary text-xs sm:text-sm font-light">Studying foundational courses, programming fundamentals, and discrete mathematics.</p>
                             </div>
-                            <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">ACTIVE</span>
+                            <span class="text-[10px] font-mono text-typography-secondary bg-surface-muted px-2.5 py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">ACTIVE</span>
                         </div>
 
-                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-surface-borderHover transition-colors">
+                        <!-- Focus Card 2 -->
+                        <div class="focus-card p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-surface-borderHover transition-all">
                             <div class="space-y-1">
-                                <div class="flex items-center gap-2.5">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-blue-400"></span>
                                     <h3 class="text-typography-primary font-medium text-base">Data Structures & Problem Solving</h3>
                                 </div>
-                                <p class="text-typography-secondary text-sm font-light">Practicing algorithmic thinking and practicing code implementations.</p>
+                                <p class="text-typography-secondary text-xs sm:text-sm font-light">Practicing algorithmic thinking and practicing code implementations.</p>
                             </div>
-                            <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">ONGOING</span>
+                            <span class="text-[10px] font-mono text-typography-secondary bg-surface-muted px-2.5 py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">ONGOING</span>
                         </div>
 
-                        <div class="p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-surface-borderHover transition-colors">
+                        <!-- Focus Card 3 -->
+                        <div class="focus-card p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-surface-borderHover transition-all">
                             <div class="space-y-1">
-                                <div class="flex items-center gap-2.5">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-purple-400"></span>
                                     <h3 class="text-typography-primary font-medium text-base">Software Engineering Fundamentals</h3>
                                 </div>
-                                <p class="text-typography-secondary text-sm font-light">Building clean, small-scale personal projects and learning version control practices.</p>
+                                <p class="text-typography-secondary text-xs sm:text-sm font-light">Building clean, small-scale personal projects and learning version control practices.</p>
                             </div>
-                            <span class="text-xs font-mono text-typography-secondary bg-surface-muted px-3 py-1 rounded border border-surface-border w-fit shrink-0">EXPLORING</span>
+                            <span class="text-[10px] font-mono text-typography-secondary bg-surface-muted px-2.5 py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">EXPLORING</span>
                         </div>
-
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- ================= 03. CONNECT SECTION ================= -->
-        <section id="connect" class="pt-20 lg:pt-28 reveal-on-scroll">
-            <div class="max-w-3xl mx-auto text-center space-y-8">
-                
-                <span class="text-xs font-mono tracking-widest text-typography-muted uppercase">03 / INITIATE CONTACT</span>
-                
-                <h2 class="font-display text-4xl sm:text-6xl font-extrabold tracking-tight uppercase text-typography-primary">
-                    Let's Connect & Talk
-                </h2>
+                <!-- ================= SCENE 4: CONNECT & CONTACT ================= -->
+                <div id="connect-content-block" class="absolute z-20 w-full max-w-3xl opacity-0 pointer-events-none text-center flex flex-col items-center justify-center space-y-6">
+                    
+                    <span class="text-xs font-mono tracking-widest text-typography-muted uppercase">03 / INITIATE CONTACT</span>
+                    
+                    <h2 class="font-display text-4xl sm:text-6xl font-extrabold tracking-tight uppercase text-typography-primary">
+                        LET'S CONNECT & TALK
+                    </h2>
 
-                <p class="text-typography-secondary text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed">
-                    Always open to technical discussions, academic inquiries, student collaborations, and software engineering advice.
-                </p>
+                    <p class="text-typography-secondary text-sm sm:text-base font-light max-w-xl mx-auto leading-relaxed">
+                        Always open to technical discussions, academic inquiries, student collaborations, and software engineering advice.
+                    </p>
 
-                <!-- Interactive Email Copy Widget -->
-                <div class="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
-                    <button id="copy-email-btn" 
-                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-black hover:bg-zinc-200 font-mono text-xs tracking-wider px-8 py-4 rounded-xl font-semibold transition-all duration-200 active:scale-95">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                        </svg>
-                        <span id="copy-btn-text">COPY EMAIL ADDRESS</span>
-                    </button>
+                    <!-- Interactive Email Actions Container -->
+                    <div class="pt-2 flex flex-col sm:flex-row justify-center items-center gap-3 w-full max-w-md">
+                        <!-- Copy Email Button -->
+                        <button id="copy-email-btn" 
+                                class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2.5 bg-white text-black hover:bg-zinc-200 font-mono text-xs tracking-wider px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 active:scale-95 cursor-pointer">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                            <span id="copy-btn-text">COPY EMAIL ADDRESS</span>
+                        </button>
 
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=melihsari.dev@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Send me an email via Gmail"
-                       class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary font-mono text-xs tracking-wider px-8 py-4 rounded-xl border border-surface-border hover:border-surface-borderHover transition-all duration-200 cursor-pointer">
-                        <span>SEND ME AN EMAIL</span>
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                        </svg>
-                    </a>
+                        <!-- Direct Mailto Button -->
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=melihsari.dev@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Send me an email via Gmail"
+                           class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 glass-card hover:bg-surface-muted text-typography-primary font-mono text-xs tracking-wider px-6 py-3.5 rounded-xl border border-surface-border hover:border-surface-borderHover transition-all cursor-pointer">
+                            <span>SEND EMAIL</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Comprehensive Social Networks Footer Matrix -->
+                    <div class="pt-6 flex flex-wrap justify-center items-center gap-5 text-xs font-mono text-typography-secondary">
+                        <a href="https://github.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+                            <span>GITHUB</span>
+                        </a>
+                        <span class="text-typography-muted">&bull;</span>
+                        <a href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                            <span>LINKEDIN</span>
+                        </a>
+                        <span class="text-typography-muted">&bull;</span>
+                        <a href="https://x.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="X Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            <span>X</span>
+                        </a>
+                        <span class="text-typography-muted">&bull;</span>
+                        <a href="https://www.instagram.com/melihsari.dev/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" clip-rule="evenodd"/></svg>
+                            <span>INSTAGRAM</span>
+                        </a>
+                    </div>
+
                 </div>
 
-                <!-- Secondary Social Links -->
-                <div class="pt-12 flex flex-wrap justify-center items-center gap-6 sm:gap-8 text-xs font-mono text-typography-secondary">
-                    <a href="https://github.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1.5">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
-                        GITHUB
-                    </a>
-                    <span class="hidden sm:inline text-typography-muted">&bull;</span>
-                    <a href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1.5">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        LINKEDIN
-                    </a>
-                    <span class="hidden sm:inline text-typography-muted">&bull;</span>
-                    <a href="https://x.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="X Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1.5">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                        X
-                    </a>
-                    <span class="hidden sm:inline text-typography-muted">&bull;</span>
-                    <a href="https://www.instagram.com/melihsari.dev/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1.5">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" clip-rule="evenodd"/></svg>
-                        INSTAGRAM
-                    </a>
-                </div>
-
             </div>
-        </section>
+        </div>
+    </div>
 
-    </main>
-
-    <!-- INTERACTION LOGIC -->
     <script>
-        // 1. Live Time Update (Istanbul TRT / UTC+3)
-        function updateTime() {
+        let lenis;
+        try {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                wheelMultiplier: 1.0,
+                touchMultiplier: 1.5
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        } catch (e) {
+            console.warn("Lenis initialization skipped", e);
+        }
+
+        function updateClock() {
             const timeDisplay = document.getElementById('time-display');
             if (timeDisplay) {
                 const now = new Date();
@@ -397,10 +400,9 @@
                 timeDisplay.textContent = `${timeString} TRT`;
             }
         }
-        setInterval(updateTime, 1000);
-        updateTime();
+        setInterval(updateClock, 1000);
+        updateClock();
 
-        // 2. Email Clipboard Interaction
         const copyBtn = document.getElementById('copy-email-btn');
         const copyText = document.getElementById('copy-btn-text');
         const targetEmail = "melihsari.dev@gmail.com";
@@ -414,39 +416,230 @@
                 
                 try {
                     document.execCommand('copy');
-                    copyText.textContent = "COPIED TO CLIPBOARD!";
+                    if (copyText) copyText.textContent = "COPIED TO CLIPBOARD!";
                     copyBtn.classList.add('bg-emerald-400', 'text-black');
                     
                     setTimeout(() => {
-                        copyText.textContent = "COPY EMAIL ADDRESS";
+                        if (copyText) copyText.textContent = "COPY EMAIL ADDRESS";
                         copyBtn.classList.remove('bg-emerald-400', 'text-black');
-                    }, 2500);
+                    }, 2200);
                 } catch (err) {
-                    console.error('Failed to copy text', err);
+                    console.error('Failed to copy email', err);
                 }
                 
                 document.body.removeChild(tempInput);
             });
         }
 
-        // 3. Scroll Reveal Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        gsap.registerPlugin(ScrollTrigger);
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
+        // Responsive Dimensions Setup
+        const isMobile = window.innerWidth < 768;
+
+        // Elements
+        const scrollProgressBar = document.getElementById('scroll-progress-bar');
+        const photoContainer = document.getElementById('photo-container');
+        const heroTextBlock = document.getElementById('hero-text-block');
+        const aboutContentBlock = document.getElementById('about-content-block');
+        const focusContentBlock = document.getElementById('focus-content-block');
+        const connectContentBlock = document.getElementById('connect-content-block');
+
+        // Initial Responsive Placement
+        if (isMobile) {
+            gsap.set(photoContainer, {
+                width: '180px',
+                height: '180px',
+                xPercent: -50,
+                yPercent: -50,
+                left: '50%',
+                top: '26%',
+                borderRadius: '1rem'
+            });
+            gsap.set(heroTextBlock, {
+                xPercent: -50,
+                left: '50%',
+                top: '48%',
+                textAlign: 'center',
+                alignItems: 'center',
+                width: '90%'
+            });
+        } else {
+            gsap.set(photoContainer, {
+                width: '340px',
+                height: '340px',
+                xPercent: 0,
+                yPercent: -50,
+                left: '60%',
+                top: '50%',
+                borderRadius: '1.25rem'
+            });
+            gsap.set(heroTextBlock, {
+                xPercent: 0,
+                yPercent: -50,
+                left: '5%',
+                top: '50%',
+                textAlign: 'left',
+                alignItems: 'flex-start',
+                width: '50%'
+            });
+        }
+
+        // Set pointer-events toggle for active scene blocks
+        function setActivePointerEvents(element) {
+            [heroTextBlock, aboutContentBlock, focusContentBlock, connectContentBlock].forEach(el => {
+                if (el === element) {
+                    el.style.pointerEvents = 'auto';
+                } else {
+                    el.style.pointerEvents = 'none';
                 }
             });
-        }, observerOptions);
+        }
 
-        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
-            observer.observe(el);
+        // MAIN GSAP TIMELINE
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#scroll-track',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 0.8,
+                onUpdate: (self) => {
+                    if (scrollProgressBar) {
+                        gsap.set(scrollProgressBar, { scaleX: self.progress });
+                    }
+                }
+            }
+        });
+
+        /* ================= TIMELINE STEP 1 -> 2: HERO TO ABOUT ================= */
+        tl.to(heroTextBlock, {
+            opacity: 0,
+            y: -40,
+            duration: 1,
+            ease: "power2.inOut",
+            onStart: () => setActivePointerEvents(heroTextBlock),
+            onComplete: () => setActivePointerEvents(aboutContentBlock)
+        }, 0);
+
+        if (isMobile) {
+            tl.to(photoContainer, {
+                width: '140px',
+                height: '140px',
+                top: '15%',
+                left: '50%',
+                opacity: 0.85,
+                duration: 1,
+                ease: "power2.inOut"
+            }, 0);
+
+            tl.fromTo(aboutContentBlock, 
+                { opacity: 0, y: 50, left: '50%', top: '55%', xPercent: -50, yPercent: -50, width: '90%', textAlign: 'center' },
+                { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+                0.5
+            );
+        } else {
+            tl.to(photoContainer, {
+                width: '280px',
+                height: '280px',
+                left: '10%',
+                top: '50%',
+                opacity: 0.9,
+                duration: 1,
+                ease: "power2.inOut"
+            }, 0);
+
+            tl.fromTo(aboutContentBlock, 
+                { opacity: 0, y: 40, left: '42%', top: '50%', xPercent: 0, yPercent: -50, width: '55%' },
+                { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+                0.5
+            );
+        }
+
+        /* ================= TIMELINE STEP 2 -> 3: ABOUT TO FOCUS ================= */
+        tl.to(aboutContentBlock, {
+            opacity: 0,
+            y: -30,
+            duration: 1,
+            ease: "power2.inOut",
+            onComplete: () => setActivePointerEvents(focusContentBlock)
+        }, 1.8);
+
+        if (isMobile) {
+            tl.to(photoContainer, {
+                width: '100px',
+                height: '100px',
+                top: '12%',
+                opacity: 0.3,
+                duration: 1,
+                ease: "power2.inOut"
+            }, 1.8);
+
+            tl.fromTo(focusContentBlock,
+                { opacity: 0, y: 40, left: '50%', top: '56%', xPercent: -50, yPercent: -50, width: '90%' },
+                { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+                2.3
+            );
+        } else {
+            tl.to(photoContainer, {
+                width: '220px',
+                height: '220px',
+                left: '85%',
+                top: '50%',
+                xPercent: -50,
+                opacity: 0.25,
+                duration: 1,
+                ease: "power2.inOut"
+            }, 1.8);
+
+            tl.fromTo(focusContentBlock,
+                { opacity: 0, y: 40, left: '5%', top: '50%', xPercent: 0, yPercent: -50, width: '70%' },
+                { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+                2.3
+            );
+        }
+
+        /* ================= TIMELINE STEP 3 -> 4: FOCUS TO CONNECT ================= */
+        tl.to(focusContentBlock, {
+            opacity: 0,
+            y: -30,
+            duration: 1,
+            ease: "power2.inOut",
+            onComplete: () => setActivePointerEvents(connectContentBlock)
+        }, 3.5);
+
+        tl.to(photoContainer, {
+            width: isMobile ? '120px' : '180px',
+            height: isMobile ? '120px' : '180px',
+            left: '50%',
+            top: isMobile ? '18%' : '20%',
+            xPercent: -50,
+            yPercent: -50,
+            opacity: 0.95,
+            duration: 1.2,
+            ease: "power2.inOut"
+        }, 3.5);
+
+        tl.fromTo(connectContentBlock,
+            { opacity: 0, y: 50, left: '50%', top: isMobile ? '62%' : '60%', xPercent: -50, yPercent: -50, width: '90%' },
+            { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" },
+            4.0
+        );
+
+        /* Navigation Jump Helper */
+        window.jumpToScene = function(progressFraction) {
+            const track = document.getElementById('scroll-track');
+            if (!track) return;
+            const targetY = track.offsetTop + (track.offsetHeight - window.innerHeight) * progressFraction;
+            
+            if (lenis) {
+                lenis.scrollTo(targetY, { duration: 1.2 });
+            } else {
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+        };
+
+        // Window resize recalculation for ultra-responsive experience
+        window.addEventListener('resize', () => {
+            ScrollTrigger.refresh();
         });
     </script>
 </body>

@@ -1,28 +1,25 @@
-# melihsaridev.github.io
+# Melih Sarı
 
-Personal digital identity and portfolio of Melih Sarı, Computer Engineering Candidate. Built as a minimal, high-end editorial web experience.
+Personal website and digital identity of Melih Sarı, a Computer Engineering Candidate.
 
-## Overview
+This repository contains my personal website, built to serve as a simple place to learn more about me, my interests, projects, and ways to connect with me.
 
-A static, single-page digital identity designed for GitHub Pages. Built using semantic HTML, modern CSS / Tailwind styling, and clean JavaScript with zero heavy frameworks or backend dependencies.
+## About
 
-## Tech Stack
+I’m currently building my foundation in computer engineering and software development.
 
-* **HTML5** (Semantic structure)
-* **Tailwind CSS** (Utility-first styling & custom config)
-* **JavaScript** (Interactive features, live TRT timezone, clipboard handling)
-* **Lucide / SVG** (Minimal icons)
+This website will evolve alongside my learning journey, projects, and experience.
 
-## Structure
+## Website
 
-* `index.html` — Main single-page application structure and styles.
-* `favicon.png` — Custom browser tab icon.
-* `IMG-20260803-WA0023.png` — Asset reference.
+🌐 [melihsaridev.github.io](https://melihsaridev.github.io)
 
-## Local Development
+## Built With
 
-Clone the repository and open `index.html` directly in any modern browser, or serve it using a local static server:
+- HTML
+- CSS
+- JavaScript
 
-```bash
-git clone [https://github.com/melihsaridev/melihsaridev.github.io.git](https://github.com/melihsaridev/melihsaridev.github.io.git)
-cd melihsaridev.github.io
+## Repository
+
+This repository contains the source code and assets used for my personal website.

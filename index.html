@@ -55,31 +55,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
     <style>
-        /* Base Setup & Grid Pattern */
+        /* Base Setup & Scrollbar Cancellation */
         html, body {
             background-color: #050505;
             color: #f4f4f6;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow: hidden;
+            overflow: hidden !important;
             height: 100%;
             width: 100%;
             margin: 0;
             padding: 0;
             touch-action: none;
-            overscroll-behavior: none;
-            overscroll-behavior-y: none;
-            -webkit-overflow-scrolling: auto;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
+            overscroll-behavior: none !important;
+            overscroll-behavior-y: none !important;
+            -webkit-overflow-scrolling: auto !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            user-select: none !important;
+        }
+
+        /* Completely Disable Native Scrollbars & Overlays */
+        ::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
         }
 
         *, *::before, *::after {
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            user-select: none !important;
         }
 
         .bg-grid {
@@ -123,11 +130,19 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Solid Pure White Progress Indicator */
+        /* Timeline Progress Bar Style - Pure White, Exact 2px Height */
         #scroll-progress-bar {
+            height: 2px !important;
+            min-height: 2px !important;
+            max-height: 2px !important;
             background-color: #ffffff !important;
+            background: #ffffff !important;
             opacity: 1 !important;
-            height: 100%;
+            visibility: visible !important;
+            display: block !important;
+            box-shadow: none !important;
+            border: none !important;
+            outline: none !important;
         }
 
         /* Touch interaction optimizations */
@@ -164,9 +179,9 @@
             </div>
         </div>
 
-        <!-- Scroll Timeline Indicator Bar -->
+        <!-- Scroll Timeline Indicator Bar (Anchored at Header Bottom) -->
         <div class="absolute bottom-0 left-0 w-full h-[2px] bg-surface-border/50 z-50 pointer-events-none">
-            <div id="scroll-progress-bar" class="h-full bg-white w-0 transition-[width] duration-500 ease-out"></div>
+            <div id="scroll-progress-bar" class="w-0 transition-[width] duration-500 ease-out"></div>
         </div>
     </header>
 
@@ -491,7 +506,7 @@
                 }
             }
 
-            // Update Progress Bar Width
+            // Update Progress Bar Width (0%, 33.33%, 66.66%, 100%)
             if (scrollProgressBar) {
                 const progressPercentage = (index / (totalScenes - 1)) * 100;
                 scrollProgressBar.style.width = `${progressPercentage}%`;

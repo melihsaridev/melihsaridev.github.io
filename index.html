@@ -67,6 +67,16 @@
             padding: 0;
             touch-action: none;
             -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        *, *::before, *::after {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .bg-grid {
@@ -113,6 +123,8 @@
         /* Timeline Progress Indicator */
         .timeline-progress {
             will-change: width;
+            background-color: #ffffff !important;
+            opacity: 1 !important;
         }
 
         /* Touch interaction optimizations */
@@ -121,7 +133,7 @@
         }
     </style>
 </head>
-<body class="bg-surface text-typography-primary selection:bg-white selection:text-black h-full w-full bg-grid relative antialiased overflow-hidden select-none">
+<body class="bg-surface text-typography-primary h-full w-full bg-grid relative antialiased overflow-hidden select-none">
 
     <!-- FIXED SYSTEM HEADER & REAL-TIME CLOCK -->
     <header class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-surface-border/50 px-4 sm:px-6 md:px-10 py-3 sm:py-4 transition-all duration-300">
@@ -150,8 +162,8 @@
         </div>
 
         <!-- Scroll Timeline Indicator Bar -->
-        <div class="absolute bottom-0 left-0 w-full h-[2px] bg-surface-border">
-            <div id="scroll-progress-bar" class="h-full bg-white w-0 timeline-progress transition-[width] duration-500 ease-out"></div>
+        <div class="absolute bottom-0 left-0 w-full h-[2px] bg-white/10 z-50 pointer-events-none">
+            <div id="scroll-progress-bar" class="h-full bg-white w-0 timeline-progress transition-[width] duration-500 ease-out" style="background-color: #ffffff !important; opacity: 1 !important;"></div>
         </div>
     </header>
 

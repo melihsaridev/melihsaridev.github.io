@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" class="dark h-full overflow-hidden">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=5.0,
+                   viewport-fit=cover">
+
     <title>Melih Sarı — Computer Engineering Candidate</title>
-    <meta name="description" content="Personal digital identity of Melih Sarı, Computer Engineering Candidate. Focus on software development, computer systems, and continuous technical learning.">
+
+    <meta name="description"
+          content="Personal digital identity of Melih Sarı, Computer Engineering Candidate. Focus on software development, computer systems, and continuous technical learning.">
+
     <meta name="author" content="Melih Sarı">
-    
-    <!-- Open Graph / Social -->
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Melih Sarı — Computer Engineering Candidate">
-    <meta property="og:description" content="Building my path through Computer engineering, computer systems, and curiosity.">
-    <meta property="og:image" content="https://github.com/melihsaridev.png">
+    <meta property="og:description"
+          content="Building my path through Computer engineering, computer systems, and curiosity.">
+    <meta property="og:image"
+          content="https://github.com/melihsaridev.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./favicon.png">
 
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
+
             theme: {
                 extend: {
+
                     colors: {
                         surface: {
                             DEFAULT: '#050505',
@@ -30,12 +46,14 @@
                             border: '#1f1f24',
                             borderHover: '#32323a',
                         },
+
                         typography: {
                             primary: '#f4f4f6',
                             secondary: '#a1a1aa',
                             muted: '#52525b',
                         }
                     },
+
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
                         display: ['Syne', 'sans-serif'],
@@ -48,610 +66,2036 @@
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <!-- GSAP Animation Engine -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
     <style>
-        /* Base Setup & Scrollbar Cancellation */
-        html, body {
-            background-color: #050505;
-            color: #f4f4f6;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow: hidden !important;
-            height: 100%;
-            width: 100%;
+
+        /* =========================================================
+           GLOBAL RESET
+        ========================================================= */
+
+        html,
+        body {
             margin: 0;
             padding: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: #050505;
+            color: #f4f4f6;
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+
+            overflow: hidden !important;
+
             touch-action: none;
+
             overscroll-behavior: none !important;
-            overscroll-behavior-y: none !important;
+
             -webkit-overflow-scrolling: auto !important;
+
             -webkit-tap-highlight-color: transparent !important;
             -webkit-touch-callout: none !important;
+
             -webkit-user-select: none !important;
             user-select: none !important;
         }
 
-        /* Completely Disable Native Scrollbars & Overlays */
-        ::-webkit-scrollbar {
-            display: none !important;
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+
+            -webkit-tap-highlight-color: transparent !important;
+
+            -webkit-touch-callout: none !important;
+
+            -webkit-user-select: none !important;
+            user-select: none !important;
+        }
+
+
+        /* =========================================================
+           NATIVE SCROLLBAR — COMPLETELY OFF
+        ========================================================= */
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar,
+        *::-webkit-scrollbar {
             width: 0 !important;
             height: 0 !important;
+            display: none !important;
         }
 
-        *, *::before, *::after {
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
-            -webkit-user-select: none !important;
-            user-select: none !important;
+        html,
+        body {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
         }
+
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
 
         .bg-grid {
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-image:
+                linear-gradient(
+                    to right,
+                    rgba(255,255,255,0.02) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0.02) 1px,
+                    transparent 1px
+                );
+
             background-size: 40px 40px;
         }
 
         @media (min-width: 768px) {
+
             .bg-grid {
                 background-size: 50px 50px;
             }
+
         }
 
-        /* Ambient Glow Effect */
+
         .ambient-glow {
-            background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.035) 0%, rgba(5, 5, 5, 0) 70%);
+            background:
+                radial-gradient(
+                    circle at 50% 40%,
+                    rgba(255,255,255,0.035) 0%,
+                    rgba(5,5,5,0) 70%
+                );
+
             pointer-events: none;
         }
 
-        /* Viewport Stage Frame */
+
+        /* =========================================================
+           VIEWPORT
+        ========================================================= */
+
         .stage-viewport {
+            position: relative;
+
+            width: 100vw;
             height: 100vh;
             height: 100dvh;
-            width: 100vw;
-            position: relative;
+
             overflow: hidden;
         }
 
-        /* Visual Glass Card Effects */
+
+        /* =========================================================
+           GLASS
+        ========================================================= */
+
         .glass-card {
-            background: rgba(10, 10, 12, 0.88);
+            background: rgba(10,10,12,0.88);
+
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(31, 31, 36, 0.85);
+
+            border: 1px solid rgba(31,31,36,0.85);
         }
 
+
         .glass-nav {
-            background: rgba(5, 5, 5, 0.90);
+            background: rgba(5,5,5,0.90);
+
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Timeline Progress Bar Style - Pure White, Exact 2px Height */
-        #scroll-progress-bar {
-            height: 2px !important;
-            min-height: 2px !important;
-            max-height: 2px !important;
-            background-color: #ffffff !important;
-            background: #ffffff !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            display: block !important;
-            box-shadow: none !important;
-            border: none !important;
-            outline: none !important;
+
+        /* =========================================================
+           PROGRESS BAR
+           
+           IMPORTANT:
+           No width animation.
+           No gray background.
+           No Tailwind width classes.
+           No border.
+           No box-shadow.
+           
+           The entire visible bar is exactly 2px white.
+        ========================================================= */
+
+        #progress-track {
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 2px;
+
+            min-height: 2px;
+            max-height: 2px;
+
+            background: #ffffff;
+
+            opacity: 1;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+            z-index: 9999;
         }
 
-        /* Touch interaction optimizations */
-        button, a {
+
+        #scroll-progress-bar {
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            min-height: 2px;
+            max-height: 2px;
+
+            background: #ffffff;
+
+            border: 0;
+            outline: 0;
+            box-shadow: none;
+
+            opacity: 1;
+
+            transform-origin: left center;
+
+            transform: scaleX(0);
+
+            will-change: transform;
+
+            transition:
+                transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+
+            pointer-events: none;
+        }
+
+
+        /*
+         * IMPORTANT:
+         * The track itself remains white.
+         * The progress element is also white.
+         * At 0%, the progress element is invisible because
+         * scaleX(0), so there is no tiny 1-2px white artifact.
+         */
+
+        #scroll-progress-bar[data-progress="0"] {
+            transform: scaleX(0);
+        }
+
+        #scroll-progress-bar[data-progress="1"] {
+            transform: scaleX(0.333333);
+        }
+
+        #scroll-progress-bar[data-progress="2"] {
+            transform: scaleX(0.666666);
+        }
+
+        #scroll-progress-bar[data-progress="3"] {
+            transform: scaleX(1);
+        }
+
+
+        /* =========================================================
+           TOUCH
+        ========================================================= */
+
+        button,
+        a {
             touch-action: manipulation;
         }
+
     </style>
 </head>
+
+
 <body class="bg-surface text-typography-primary h-full w-full bg-grid relative antialiased overflow-hidden select-none">
 
-    <!-- FIXED SYSTEM HEADER & REAL-TIME CLOCK -->
-    <header class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-surface-border/50 px-4 sm:px-6 md:px-10 py-3 sm:py-4 transition-all duration-300">
-        <div class="max-w-7xl mx-auto flex justify-between items-center text-[10px] sm:text-xs font-mono tracking-widest text-typography-secondary uppercase">
-            
-            <!-- Real-Time Istanbul Clock -->
+
+    <!-- =========================================================
+         FIXED HEADER
+    ========================================================= -->
+
+    <header
+        id="site-header"
+        class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-surface-border/50 px-4 sm:px-6 md:px-10 py-3 sm:py-4">
+
+        <div
+            class="max-w-7xl mx-auto flex justify-between items-center text-[10px] sm:text-xs font-mono tracking-widest text-typography-secondary uppercase">
+
+            <!-- Istanbul Clock -->
+
             <div class="flex items-center gap-2 sm:gap-3">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-                <span class="font-medium text-typography-primary">ISTANBUL</span>
-                <span class="text-typography-muted">//</span>
-                <span id="time-display" class="text-typography-primary font-mono">00:00:00 TRT</span>
+
+                <span
+                    class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0">
+                </span>
+
+                <span
+                    class="font-medium text-typography-primary">
+                    ISTANBUL
+                </span>
+
+                <span class="text-typography-muted">
+                    //
+                </span>
+
+                <span
+                    id="time-display"
+                    class="text-typography-primary font-mono">
+                    00:00:00 TRT
+                </span>
+
             </div>
-            
-            <!-- Interactive Navigation Jumps -->
-            <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-[11px]">
-                <button onclick="goToScene(0)" id="nav-btn-0" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer text-white font-bold">/ 01 HERO</button>
-                <button onclick="goToScene(1)" id="nav-btn-1" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer opacity-70">/ 02 ABOUT</button>
-                <button onclick="goToScene(2)" id="nav-btn-2" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer opacity-70">/ 03 FOCUS</button>
-                <button onclick="goToScene(3)" id="nav-btn-3" class="hover:text-typography-primary transition-colors duration-200 cursor-pointer opacity-70">/ 04 CONNECT</button>
+
+
+            <!-- Desktop Navigation -->
+
+            <nav
+                class="hidden md:flex items-center gap-6 lg:gap-8 text-[11px]">
+
+                <button
+                    onclick="goToScene(0)"
+                    id="nav-btn-0"
+                    class="hover:text-typography-primary transition-colors duration-200 cursor-pointer text-white font-bold">
+                    / 01 HERO
+                </button>
+
+                <button
+                    onclick="goToScene(1)"
+                    id="nav-btn-1"
+                    class="hover:text-typography-primary transition-colors duration-200 cursor-pointer opacity-70">
+                    / 02 ABOUT
+                </button>
+
+                <button
+                    onclick="goToScene(2)"
+                    id="nav-btn-2"
+                    class="hover:text-typography-primary transition-colors duration-200 cursor-pointer opacity-70">
+                    / 03 FOCUS
+                </button>
+
+                <button
+                    onclick="goToScene(3)"
+                    id="nav-btn-3"
+                    class="hover:text-typography-primary transition-colors duration-200 cursor-pointer opacity-70">
+                    / 04 CONNECT
+                </button>
+
             </nav>
 
-            <!-- Directory Tag -->
+
+            <!-- Directory -->
+
             <div class="text-typography-muted text-[9px] sm:text-xs">
                 [ MELIHSARI.DEV ]
             </div>
+
         </div>
 
-        <!-- Scroll Timeline Indicator Bar (Anchored at Header Bottom) -->
-        <div class="absolute bottom-0 left-0 w-full h-[2px] bg-surface-border/50 z-50 pointer-events-none">
-            <div id="scroll-progress-bar" class="w-0 transition-[width] duration-500 ease-out"></div>
+
+        <!-- =====================================================
+             PROGRESS BAR
+             
+             THIS IS THE ONLY PROGRESS BAR IN THE DOCUMENT.
+        ====================================================== -->
+
+        <div id="progress-track">
+            <div id="scroll-progress-bar" data-progress="0"></div>
         </div>
+
     </header>
 
-    <!-- MAIN SCENE CONTAINER -->
-    <main id="stage" class="stage-viewport z-10 flex items-center justify-center px-4 sm:px-8 md:px-12">
-        
-        <!-- Ambient Background Light -->
-        <div class="fixed inset-0 ambient-glow z-0"></div>
 
-        <div class="max-w-7xl w-full h-full relative flex items-center justify-center">
+    <!-- =========================================================
+         MAIN STAGE
+    ========================================================= -->
 
-            <!-- ================= PORTRAIT PHOTO FRAME (PERSISTENT ANCHOR) ================= -->
-            <div id="photo-container" class="absolute z-20 rounded-2xl overflow-hidden border border-surface-border bg-surface-card shadow-2xl transition-shadow duration-500 shrink-0">
-                <img id="profile-photo" 
-                     src="https://github.com/melihsaridev.png" 
-                     alt="Melih Sarı" 
-                     class="w-full h-full object-cover object-center pointer-events-none"
-                     loading="eager"
-                     onerror="this.onerror=null; this.src='https://avatars.githubusercontent.com/melihsaridev';"
+    <main
+        id="stage"
+        class="stage-viewport z-10 flex items-center justify-center px-4 sm:px-8 md:px-12">
+
+        <!-- Ambient Background -->
+
+        <div
+            class="fixed inset-0 ambient-glow z-0">
+        </div>
+
+
+        <div
+            class="max-w-7xl w-full h-full relative flex items-center justify-center">
+
+
+            <!-- =================================================
+                 PHOTO
+            ================================================= -->
+
+            <div
+                id="photo-container"
+                class="absolute z-20 rounded-2xl overflow-hidden border border-surface-border bg-surface-card shadow-2xl shrink-0">
+
+                <img
+                    id="profile-photo"
+                    src="https://github.com/melihsaridev.png"
+                    alt="Melih Sarı"
+                    class="w-full h-full object-cover object-center pointer-events-none"
+                    loading="eager"
+                    onerror="this.onerror=null; this.src='https://avatars.githubusercontent.com/melihsaridev';"
                 />
+
             </div>
 
-            <!-- ================= SCENE 0: HERO & IDENTITY ================= -->
-            <div id="scene-0-text" class="absolute z-30 flex flex-col items-center md:items-start space-y-3 sm:space-y-4 max-w-xl w-full text-center md:text-left px-2 sm:px-0">
-                <div class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono text-typography-secondary bg-surface-muted px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-surface-border w-fit">
-                    <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-typography-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+
+            <!-- =================================================
+                 SCENE 0
+            ================================================= -->
+
+            <div
+                id="scene-0-text"
+                class="absolute z-30 flex flex-col items-center md:items-start space-y-3 sm:space-y-4 max-w-xl w-full text-center md:text-left px-2 sm:px-0">
+
+                <div
+                    class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono text-typography-secondary bg-surface-muted px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-surface-border w-fit">
+
+                    <svg
+                        class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-typography-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+
                     </svg>
-                    <span>01 / COMPUTER ENGINEERING CANDIDATE</span>
+
+                    <span>
+                        01 / COMPUTER ENGINEERING CANDIDATE
+                    </span>
+
                 </div>
 
-                <h1 class="font-display text-4xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight uppercase text-typography-primary leading-tight sm:leading-none">
-                    MELIH <br class="inline sm:inline"/>SARI
+
+                <h1
+                    class="font-display text-4xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight uppercase text-typography-primary leading-tight sm:leading-none">
+
+                    MELIH
+                    <br class="inline sm:inline"/>
+                    SARI
+
                 </h1>
 
-                <p class="text-xs sm:text-base md:text-lg text-typography-secondary font-light leading-relaxed max-w-xl">
-                    Building my path through computer engineering, computer systems, and technical curiosity. Focused on learning core fundamentals and clean implementation.
+
+                <p
+                    class="text-xs sm:text-base md:text-lg text-typography-secondary font-light leading-relaxed max-w-xl">
+
+                    Building my path through computer engineering,
+                    computer systems, and technical curiosity.
+                    Focused on learning core fundamentals and
+                    clean implementation.
+
                 </p>
 
-                <!-- Hero Links Bar -->
-                <div class="pt-2 sm:pt-4 flex flex-wrap justify-center md:justify-start items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono">
-                    <a href="https://github.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"
-                       class="flex items-center gap-1.5 sm:gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
-                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-typography-secondary group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+
+                <!-- Hero Links -->
+
+                <div
+                    class="pt-2 sm:pt-4 flex flex-wrap justify-center md:justify-start items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono">
+
+                    <a
+                        href="https://github.com/melihsaridev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub Profile"
+                        class="flex items-center gap-1.5 sm:gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
+
+                        <svg
+                            class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-typography-secondary group-hover:text-white"
+                            fill="currentColor"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd"/>
+
+                        </svg>
+
                         <span>GITHUB</span>
+
                     </a>
-                    <a href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"
-                       class="flex items-center gap-1.5 sm:gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
-                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-typography-secondary group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+
+
+                    <a
+                        href="https://www.linkedin.com/in/melihsaridev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn Profile"
+                        class="flex items-center gap-1.5 sm:gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
+
+                        <svg
+                            class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-typography-secondary group-hover:text-white"
+                            fill="currentColor"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+
+                        </svg>
+
                         <span>LINKEDIN</span>
+
                     </a>
-                    <a href="mailto:melihsari.dev@gmail.com" aria-label="Email Direct"
-                       class="flex items-center gap-1.5 sm:gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
-                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-typography-secondary group-hover:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+
+
+                    <a
+                        href="mailto:melihsari.dev@gmail.com"
+                        aria-label="Email Direct"
+                        class="flex items-center gap-1.5 sm:gap-2 bg-surface-card hover:bg-surface-muted text-typography-primary px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg border border-surface-border hover:border-surface-borderHover transition-all group">
+
+                        <svg
+                            class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-typography-secondary group-hover:text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+
+                        </svg>
+
                         <span>EMAIL</span>
+
                     </a>
+
                 </div>
+
             </div>
 
-            <!-- ================= SCENE 1: ABOUT / PHILOSOPHY ================= -->
-            <div id="scene-1-text" class="absolute z-30 max-w-xl w-full opacity-0 pointer-events-none flex flex-col justify-center space-y-3 sm:space-y-6 text-center md:text-left px-2 sm:px-0">
-                <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block">02 / IDENTITY & PHILOSOPHY</span>
-                <h2 class="font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
+
+            <!-- =================================================
+                 SCENE 1
+            ================================================= -->
+
+            <div
+                id="scene-1-text"
+                class="absolute z-30 max-w-xl w-full opacity-0 pointer-events-none flex flex-col justify-center space-y-3 sm:space-y-6 text-center md:text-left px-2 sm:px-0">
+
+                <span
+                    class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block">
+                    02 / IDENTITY & PHILOSOPHY
+                </span>
+
+                <h2
+                    class="font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
                     ENGINEERING MINDSET
                 </h2>
-                <div class="space-y-2 sm:space-y-4 text-typography-secondary text-xs sm:text-base md:text-lg font-light leading-relaxed">
+
+                <div
+                    class="space-y-2 sm:space-y-4 text-typography-secondary text-xs sm:text-base md:text-lg font-light leading-relaxed">
+
                     <p>
-                        I am a <strong class="text-typography-primary font-medium">Computer Engineering Candidate</strong> focused on learning the core principles of computer science, software engineering, and hardware abstractions. My aim is to build a solid foundation across software development and system concepts.
+                        I am a
+                        <strong class="text-typography-primary font-medium">
+                            Computer Engineering Candidate
+                        </strong>
+                        focused on learning the core principles of computer science,
+                        software engineering, and hardware abstractions.
+                        My aim is to build a solid foundation across software
+                        development and system concepts.
                     </p>
+
                     <p class="hidden sm:block">
-                        Rather than chasing temporary trends, I concentrate on understanding algorithms, fundamental programming paradigms, and clean problem-solving.
+                        Rather than chasing temporary trends, I concentrate on
+                        understanding algorithms, fundamental programming paradigms,
+                        and clean problem-solving.
                     </p>
+
                 </div>
 
-                <!-- Attribute Cards Grid -->
-                <div class="grid grid-cols-3 gap-2 sm:gap-3 pt-1 sm:pt-2 text-[10px] sm:text-xs font-mono">
+
+                <div
+                    class="grid grid-cols-3 gap-2 sm:gap-3 pt-1 sm:pt-2 text-[10px] sm:text-xs font-mono">
+
                     <div class="p-2.5 sm:p-4 rounded-xl glass-card">
-                        <h3 class="text-typography-primary font-semibold mb-0.5 sm:mb-1 text-[11px] sm:text-xs">SYSTEMS</h3>
-                        <p class="text-typography-secondary text-[9px] sm:text-[11px] font-light leading-tight sm:leading-normal">Low-level execution and computing fundamentals.</p>
+
+                        <h3
+                            class="text-typography-primary font-semibold mb-0.5 sm:mb-1 text-[11px] sm:text-xs">
+                            SYSTEMS
+                        </h3>
+
+                        <p
+                            class="text-typography-secondary text-[9px] sm:text-[11px] font-light leading-tight sm:leading-normal">
+                            Low-level execution and computing fundamentals.
+                        </p>
+
                     </div>
+
+
                     <div class="p-2.5 sm:p-4 rounded-xl glass-card">
-                        <h3 class="text-typography-primary font-semibold mb-0.5 sm:mb-1 text-[11px] sm:text-xs">CRAFT</h3>
-                        <p class="text-typography-secondary text-[9px] sm:text-[11px] font-light leading-tight sm:leading-normal">Readable code and disciplined practice.</p>
+
+                        <h3
+                            class="text-typography-primary font-semibold mb-0.5 sm:mb-1 text-[11px] sm:text-xs">
+                            CRAFT
+                        </h3>
+
+                        <p
+                            class="text-typography-secondary text-[9px] sm:text-[11px] font-light leading-tight sm:leading-normal">
+                            Readable code and disciplined practice.
+                        </p>
+
                     </div>
+
+
                     <div class="p-2.5 sm:p-4 rounded-xl glass-card">
-                        <h3 class="text-typography-primary font-semibold mb-0.5 sm:mb-1 text-[11px] sm:text-xs">CURIOSITY</h3>
-                        <p class="text-typography-secondary text-[9px] sm:text-[11px] font-light leading-tight sm:leading-normal">Exploring diverse CS topics and practical tools.</p>
+
+                        <h3
+                            class="text-typography-primary font-semibold mb-0.5 sm:mb-1 text-[11px] sm:text-xs">
+                            CURIOSITY
+                        </h3>
+
+                        <p
+                            class="text-typography-secondary text-[9px] sm:text-[11px] font-light leading-tight sm:leading-normal">
+                            Exploring diverse CS topics and practical tools.
+                        </p>
+
                     </div>
+
                 </div>
+
             </div>
 
-            <!-- ================= SCENE 2: ACTIVE ROADMAP ================= -->
-            <div id="scene-2-text" class="absolute z-30 w-full max-w-xl md:max-w-2xl opacity-0 pointer-events-none flex flex-col space-y-3 sm:space-y-5 px-2 sm:px-0">
+
+            <!-- =================================================
+                 SCENE 2
+            ================================================= -->
+
+            <div
+                id="scene-2-text"
+                class="absolute z-30 w-full max-w-xl md:max-w-2xl opacity-0 pointer-events-none flex flex-col space-y-3 sm:space-y-5 px-2 sm:px-0">
+
                 <div class="text-center md:text-left">
-                    <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block mb-1">03 / ACTIVE ROADMAP</span>
-                    <h2 class="font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
+
+                    <span
+                        class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase block mb-1">
+                        03 / ACTIVE ROADMAP
+                    </span>
+
+                    <h2
+                        class="font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-typography-primary">
                         CURRENT FOCUS
                     </h2>
+
                 </div>
+
 
                 <div class="space-y-2 sm:space-y-3 font-sans">
-                    <!-- Focus Card 1 -->
-                    <div class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+
+
+                    <div
+                        class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+
                         <div class="space-y-0.5 sm:space-y-1">
+
                             <div class="flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400"></span>
-                                <h3 class="text-typography-primary font-medium text-xs sm:text-base">Computer Engineering Core Academics</h3>
+
+                                <span
+                                    class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400">
+                                </span>
+
+                                <h3
+                                    class="text-typography-primary font-medium text-xs sm:text-base">
+                                    Computer Engineering Core Academics
+                                </h3>
+
                             </div>
-                            <p class="text-typography-secondary text-[11px] sm:text-sm font-light">Studying foundational courses, programming fundamentals, and discrete mathematics.</p>
+
+                            <p
+                                class="text-typography-secondary text-[11px] sm:text-sm font-light">
+                                Studying foundational courses, programming fundamentals,
+                                and discrete mathematics.
+                            </p>
+
                         </div>
-                        <span class="text-[9px] sm:text-[10px] font-mono text-typography-secondary bg-surface-muted px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">ACTIVE</span>
+
+                        <span
+                            class="text-[9px] sm:text-[10px] font-mono text-typography-secondary bg-surface-muted px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">
+                            ACTIVE
+                        </span>
+
                     </div>
 
-                    <!-- Focus Card 2 -->
-                    <div class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+
+                    <div
+                        class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+
                         <div class="space-y-0.5 sm:space-y-1">
+
                             <div class="flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400"></span>
-                                <h3 class="text-typography-primary font-medium text-xs sm:text-base">Data Structures & Problem Solving</h3>
+
+                                <span
+                                    class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400">
+                                </span>
+
+                                <h3
+                                    class="text-typography-primary font-medium text-xs sm:text-base">
+                                    Data Structures & Problem Solving
+                                </h3>
+
                             </div>
-                            <p class="text-typography-secondary text-[11px] sm:text-sm font-light">Practicing algorithmic thinking and practicing code implementations.</p>
+
+                            <p
+                                class="text-typography-secondary text-[11px] sm:text-sm font-light">
+                                Practicing algorithmic thinking and practicing code implementations.
+                            </p>
+
                         </div>
-                        <span class="text-[9px] sm:text-[10px] font-mono text-typography-secondary bg-surface-muted px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">ONGOING</span>
+
+                        <span
+                            class="text-[9px] sm:text-[10px] font-mono text-typography-secondary bg-surface-muted px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">
+                            ONGOING
+                        </span>
+
                     </div>
 
-                    <!-- Focus Card 3 -->
-                    <div class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+
+                    <div
+                        class="p-3.5 sm:p-4 md:p-5 rounded-xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 hover:border-surface-borderHover transition-all">
+
                         <div class="space-y-0.5 sm:space-y-1">
+
                             <div class="flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-400"></span>
-                                <h3 class="text-typography-primary font-medium text-xs sm:text-base">Software Engineering Fundamentals</h3>
+
+                                <span
+                                    class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-400">
+                                </span>
+
+                                <h3
+                                    class="text-typography-primary font-medium text-xs sm:text-base">
+                                    Software Engineering Fundamentals
+                                </h3>
+
                             </div>
-                            <p class="text-typography-secondary text-[11px] sm:text-sm font-light">Building clean personal projects and learning version control practices.</p>
+
+                            <p
+                                class="text-typography-secondary text-[11px] sm:text-sm font-light">
+                                Building clean personal projects and learning version control practices.
+                            </p>
+
                         </div>
-                        <span class="text-[9px] sm:text-[10px] font-mono text-typography-secondary bg-surface-muted px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">EXPLORING</span>
+
+                        <span
+                            class="text-[9px] sm:text-[10px] font-mono text-typography-secondary bg-surface-muted px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-surface-border shrink-0 self-start sm:self-center">
+                            EXPLORING
+                        </span>
+
                     </div>
+
                 </div>
+
             </div>
 
-            <!-- ================= SCENE 3: CONNECT & CONTACT ================= -->
-            <div id="scene-3-text" class="absolute z-30 w-full max-w-2xl lg:max-w-3xl opacity-0 pointer-events-none text-center flex flex-col items-center justify-center space-y-4 sm:space-y-6 px-2 sm:px-0">
-                
-                <span class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase">04 / INITIATE CONTACT</span>
-                
-                <h2 class="font-display text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase text-typography-primary">
+
+            <!-- =================================================
+                 SCENE 3
+            ================================================= -->
+
+            <div
+                id="scene-3-text"
+                class="absolute z-30 w-full max-w-2xl lg:max-w-3xl opacity-0 pointer-events-none text-center flex flex-col items-center justify-center space-y-4 sm:space-y-6 px-2 sm:px-0">
+
+                <span
+                    class="text-[10px] sm:text-xs font-mono tracking-widest text-typography-muted uppercase">
+                    04 / INITIATE CONTACT
+                </span>
+
+
+                <h2
+                    class="font-display text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase text-typography-primary">
                     LET'S CONNECT & TALK
                 </h2>
 
-                <p class="text-typography-secondary text-xs sm:text-base font-light max-w-xl mx-auto leading-relaxed">
-                    Always open to technical discussions, academic inquiries, student collaborations, and software engineering advice.
+
+                <p
+                    class="text-typography-secondary text-xs sm:text-base font-light max-w-xl mx-auto leading-relaxed">
+                    Always open to technical discussions, academic inquiries,
+                    student collaborations, and software engineering advice.
                 </p>
 
-                <!-- Interactive Email Actions Container -->
-                <div class="pt-1 sm:pt-2 flex flex-col sm:flex-row justify-center items-center gap-2.5 sm:gap-3 w-full max-w-md">
-                    <!-- Copy Email Button -->
-                    <button id="copy-email-btn" 
-                            class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 bg-white text-black hover:bg-zinc-200 font-mono text-[11px] sm:text-xs tracking-wider px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl font-semibold transition-all duration-200 active:scale-95 cursor-pointer">
-                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+
+                <div
+                    class="pt-1 sm:pt-2 flex flex-col sm:flex-row justify-center items-center gap-2.5 sm:gap-3 w-full max-w-md">
+
+                    <button
+                        id="copy-email-btn"
+                        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 bg-white text-black hover:bg-zinc-200 font-mono text-[11px] sm:text-xs tracking-wider px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl font-semibold transition-all duration-200 active:scale-95 cursor-pointer">
+
+                        <svg
+                            class="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+
                         </svg>
-                        <span id="copy-btn-text">COPY EMAIL ADDRESS</span>
+
+                        <span id="copy-btn-text">
+                            COPY EMAIL ADDRESS
+                        </span>
+
                     </button>
 
-                    <!-- Direct Mailto Button -->
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=melihsari.dev@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Send me an email via Gmail"
-                       class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 glass-card hover:bg-surface-muted text-typography-primary font-mono text-[11px] sm:text-xs tracking-wider px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl border border-surface-border hover:border-surface-borderHover transition-all cursor-pointer">
+
+                    <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=melihsari.dev@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Send me an email via Gmail"
+                        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 glass-card hover:bg-surface-muted text-typography-primary font-mono text-[11px] sm:text-xs tracking-wider px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl border border-surface-border hover:border-surface-borderHover transition-all cursor-pointer">
+
                         <span>SEND EMAIL</span>
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+
+                        <svg
+                            class="w-3.5 h-3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+
                         </svg>
+
                     </a>
+
                 </div>
 
-                <!-- Comprehensive Social Networks Footer Matrix -->
-                <div class="pt-3 sm:pt-6 flex flex-wrap justify-center items-center gap-3 sm:gap-5 text-[10px] sm:text-xs font-mono text-typography-secondary">
-                    <a href="https://github.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
-                        <span>GITHUB</span>
+
+                <div
+                    class="pt-3 sm:pt-6 flex flex-wrap justify-center items-center gap-3 sm:gap-5 text-[10px] sm:text-xs font-mono text-typography-secondary">
+
+                    <a
+                        href="https://github.com/melihsaridev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:text-typography-primary transition-colors">
+                        GITHUB
                     </a>
+
                     <span class="text-typography-muted">&bull;</span>
-                    <a href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        <span>LINKEDIN</span>
+
+                    <a
+                        href="https://www.linkedin.com/in/melihsaridev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:text-typography-primary transition-colors">
+                        LINKEDIN
                     </a>
+
                     <span class="text-typography-muted">&bull;</span>
-                    <a href="https://x.com/melihsaridev" target="_blank" rel="noopener noreferrer" aria-label="X Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                        <span>X</span>
+
+                    <a
+                        href="https://x.com/melihsaridev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:text-typography-primary transition-colors">
+                        X
                     </a>
+
                     <span class="text-typography-muted">&bull;</span>
-                    <a href="https://www.instagram.com/melihsari.dev/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" class="hover:text-typography-primary transition-colors flex items-center gap-1">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" clip-rule="evenodd"/></svg>
-                        <span>INSTAGRAM</span>
+
+                    <a
+                        href="https://www.instagram.com/melihsari.dev/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:text-typography-primary transition-colors">
+                        INSTAGRAM
                     </a>
+
                 </div>
 
             </div>
 
         </div>
+
     </main>
 
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
     <script>
-        // 1. Real-Time Clock (Istanbul / TRT)
+
+        /* =====================================================
+           CLOCK
+        ===================================================== */
+
         function updateClock() {
-            const el = document.getElementById('time-display');
-            if (el) {
-                const now = new Date();
-                const options = { timeZone: 'Europe/Istanbul', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-                el.textContent = new Intl.DateTimeFormat('en-GB', options).format(now) + ' TRT';
-            }
+
+            const el =
+                document.getElementById('time-display');
+
+            if (!el) return;
+
+            const now = new Date();
+
+            const options = {
+                timeZone: 'Europe/Istanbul',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+
+            el.textContent =
+                new Intl.DateTimeFormat(
+                    'en-GB',
+                    options
+                ).format(now) + ' TRT';
         }
+
         setInterval(updateClock, 1000);
+
         updateClock();
 
-        // 2. Email Clipboard Interaction
-        const copyBtn = document.getElementById('copy-email-btn');
-        const copyText = document.getElementById('copy-btn-text');
+
+        /* =====================================================
+           EMAIL COPY
+        ===================================================== */
+
+        const copyBtn =
+            document.getElementById('copy-email-btn');
+
+        const copyText =
+            document.getElementById('copy-btn-text');
+
+
         if (copyBtn) {
-            copyBtn.addEventListener('click', () => {
-                const temp = document.createElement('textarea');
-                temp.value = 'melihsari.dev@gmail.com';
-                document.body.appendChild(temp);
-                temp.select();
+
+            copyBtn.addEventListener('click', async () => {
+
+                const email =
+                    'melihsari.dev@gmail.com';
+
                 try {
-                    document.execCommand('copy');
-                    if (copyText) copyText.textContent = 'COPIED TO CLIPBOARD!';
-                    copyBtn.classList.add('bg-emerald-400', 'text-black');
+
+                    if (navigator.clipboard &&
+                        window.isSecureContext) {
+
+                        await navigator.clipboard.writeText(email);
+
+                    } else {
+
+                        const temp =
+                            document.createElement('textarea');
+
+                        temp.value = email;
+
+                        temp.style.position = 'fixed';
+                        temp.style.opacity = '0';
+
+                        document.body.appendChild(temp);
+
+                        temp.focus();
+                        temp.select();
+
+                        document.execCommand('copy');
+
+                        document.body.removeChild(temp);
+                    }
+
+
+                    if (copyText) {
+                        copyText.textContent =
+                            'COPIED TO CLIPBOARD!';
+                    }
+
+                    copyBtn.classList.add(
+                        'bg-emerald-400',
+                        'text-black'
+                    );
+
+
                     setTimeout(() => {
-                        if (copyText) copyText.textContent = 'COPY EMAIL ADDRESS';
-                        copyBtn.classList.remove('bg-emerald-400', 'text-black');
+
+                        if (copyText) {
+                            copyText.textContent =
+                                'COPY EMAIL ADDRESS';
+                        }
+
+                        copyBtn.classList.remove(
+                            'bg-emerald-400',
+                            'text-black'
+                        );
+
                     }, 2500);
-                } catch(err) {
-                    console.error('Copy failed:', err);
+
+                } catch (err) {
+
+                    console.error(
+                        'Copy failed:',
+                        err
+                    );
+
                 }
-                document.body.removeChild(temp);
+
             });
+
         }
 
-        // ================= SCENE CONTROLLER STATE & DEFINITIONS =================
+
+        /* =====================================================
+           SCENES
+        ===================================================== */
+
         const SCENES = [
-            { index: 0, number: "01", name: "HERO" },
-            { index: 1, number: "02", name: "ABOUT" },
-            { index: 2, number: "03", name: "FOCUS" },
-            { index: 3, number: "04", name: "CONNECT" }
+            {
+                index: 0,
+                number: "01",
+                name: "HERO"
+            },
+            {
+                index: 1,
+                number: "02",
+                name: "ABOUT"
+            },
+            {
+                index: 2,
+                number: "03",
+                name: "FOCUS"
+            },
+            {
+                index: 3,
+                number: "04",
+                name: "CONNECT"
+            }
         ];
 
+
         let currentScene = 0;
-        const totalScenes = SCENES.length; // 4
+
+        const totalScenes =
+            SCENES.length;
+
         let isAnimating = false;
 
-        const photoContainer = document.getElementById('photo-container');
-        const scene0Text = document.getElementById('scene-0-text');
-        const scene1Text = document.getElementById('scene-1-text');
-        const scene2Text = document.getElementById('scene-2-text');
-        const scene3Text = document.getElementById('scene-3-text');
-        const scrollProgressBar = document.getElementById('scroll-progress-bar');
 
-        const scenesText = [scene0Text, scene1Text, scene2Text, scene3Text];
+        const photoContainer =
+            document.getElementById(
+                'photo-container'
+            );
+
+        const scene0Text =
+            document.getElementById(
+                'scene-0-text'
+            );
+
+        const scene1Text =
+            document.getElementById(
+                'scene-1-text'
+            );
+
+        const scene2Text =
+            document.getElementById(
+                'scene-2-text'
+            );
+
+        const scene3Text =
+            document.getElementById(
+                'scene-3-text'
+            );
+
+        const scrollProgressBar =
+            document.getElementById(
+                'scroll-progress-bar'
+            );
+
+
+        const scenesText = [
+            scene0Text,
+            scene1Text,
+            scene2Text,
+            scene3Text
+        ];
+
+
+        /* =====================================================
+           DEVICE
+        ===================================================== */
 
         function isMobile() {
+
             return window.innerWidth < 768;
+
         }
 
-        // Layout specs for photo container & text elements per scene
+
+        /* =====================================================
+           SCENE PROPERTIES
+        ===================================================== */
+
         function getSceneProps(sceneIndex) {
-            const mobile = isMobile();
+
+            const mobile =
+                isMobile();
+
 
             if (sceneIndex === 0) {
-                // SCENE 0: HERO
+
                 return {
-                    photo: mobile 
-                        ? { width: '160px', height: '160px', top: '20%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '20px', zIndex: 20 }
-                        : { width: '340px', height: '340px', top: '50%', left: '72%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '24px', zIndex: 20 },
+
+                    photo: mobile
+
+                        ? {
+                            width: '160px',
+                            height: '160px',
+                            top: '20%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50,
+                            scale: 1,
+                            opacity: 1,
+                            borderRadius: '20px',
+                            zIndex: 20
+                        }
+
+                        : {
+                            width: '340px',
+                            height: '340px',
+                            top: '50%',
+                            left: '72%',
+                            xPercent: -50,
+                            yPercent: -50,
+                            scale: 1,
+                            opacity: 1,
+                            borderRadius: '24px',
+                            zIndex: 20
+                        },
+
+
                     textPos: mobile
-                        ? { top: '58%', left: '50%', xPercent: -50, yPercent: -50 }
-                        : { top: '50%', left: '0%', xPercent: 0, yPercent: -50 }
+
+                        ? {
+                            top: '58%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50
+                        }
+
+                        : {
+                            top: '50%',
+                            left: '0%',
+                            xPercent: 0,
+                            yPercent: -50
+                        }
                 };
-            } else if (sceneIndex === 1) {
-                // SCENE 1: ABOUT
-                return {
-                    photo: mobile 
-                        ? { width: '120px', height: '120px', top: '16%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 0.9, borderRadius: '20px', zIndex: 20 }
-                        : { width: '350px', height: '350px', top: '50%', left: '22%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '24px', zIndex: 20 },
-                    textPos: mobile
-                        ? { top: '56%', left: '50%', xPercent: -50, yPercent: -50 }
-                        : { top: '50%', left: '46%', xPercent: 0, yPercent: -50 }
-                };
-            } else if (sceneIndex === 2) {
-                // SCENE 2: FOCUS (Bigger, fully visible photo with proper contrast and spacing)
-                return {
-                    photo: mobile 
-                        ? { width: '100px', height: '100px', top: '15%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 0.9, borderRadius: '20px', zIndex: 20 }
-                        : { width: '320px', height: '320px', top: '50%', left: '78%', xPercent: -50, yPercent: -50, scale: 1, opacity: 0.95, borderRadius: '24px', zIndex: 20 },
-                    textPos: mobile
-                        ? { top: '56%', left: '50%', xPercent: -50, yPercent: -50 }
-                        : { top: '50%', left: '0%', xPercent: 0, yPercent: -50 }
-                };
-            } else if (sceneIndex === 3) {
-                // SCENE 3: CONNECT (Prominent centered avatar)
-                return {
-                    photo: mobile 
-                        ? { width: '130px', height: '130px', top: '17%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%', zIndex: 20 }
-                        : { width: '250px', height: '250px', top: '22%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 1, borderRadius: '50%', zIndex: 20 },
-                    textPos: mobile
-                        ? { top: '58%', left: '50%', xPercent: -50, yPercent: -50 }
-                        : { top: '62%', left: '50%', xPercent: -50, yPercent: -50 }
-                };
+
             }
+
+
+            if (sceneIndex === 1) {
+
+                return {
+
+                    photo: mobile
+
+                        ? {
+                            width: '120px',
+                            height: '120px',
+                            top: '16%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50,
+                            scale: 1,
+                            opacity: 0.9,
+                            borderRadius: '20px',
+                            zIndex: 20
+                        }
+
+                        : {
+                            width: '350px',
+                            height: '350px',
+                            top: '50%',
+                            left: '22%',
+                            xPercent: -50,
+                            yPercent: -50,
+                            scale: 1,
+                            opacity: 1,
+                            borderRadius: '24px',
+                            zIndex: 20
+                        },
+
+
+                    textPos: mobile
+
+                        ? {
+                            top: '56%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50
+                        }
+
+                        : {
+                            top: '50%',
+                            left: '46%',
+                            xPercent: 0,
+                            yPercent: -50
+                        }
+                };
+
+            }
+
+
+            if (sceneIndex === 2) {
+
+                return {
+
+                    photo: mobile
+
+                        ? {
+                            width: '100px',
+                            height: '100px',
+                            top: '15%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50,
+                            scale: 1,
+                            opacity: 0.9,
+                            borderRadius: '20px',
+                            zIndex: 20
+                        }
+
+                        : {
+                            width: '320px',
+                            height: '320px',
+                            top: '50%',
+                            left: '78%',
+                            xPercent: -50,
+                            yPercent: -50,
+                            scale: 1,
+                            opacity: 0.95,
+                            borderRadius: '24px',
+                            zIndex: 20
+                        },
+
+
+                    textPos: mobile
+
+                        ? {
+                            top: '56%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50
+                        }
+
+                        : {
+                            top: '50%',
+                            left: '0%',
+                            xPercent: 0,
+                            yPercent: -50
+                        }
+                };
+
+            }
+
+
+            if (sceneIndex === 3) {
+
+                return {
+
+                    photo: mobile
+
+                        ? {
+                            width: '130px',
+                            height: '130px',
+                            top: '17%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50,
+                            scale: 1,
+                            opacity: 1,
+                            borderRadius: '50%',
+                            zIndex: 20
+                        }
+
+                        : {
+                            width: '250px',
+                            height: '250px',
+                            top: '22%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50,
+                            scale: 1,
+                            opacity: 1,
+                            borderRadius: '50%',
+                            zIndex: 20
+                        },
+
+
+                    textPos: mobile
+
+                        ? {
+                            top: '58%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50
+                        }
+
+                        : {
+                            top: '62%',
+                            left: '50%',
+                            xPercent: -50,
+                            yPercent: -50
+                        }
+                };
+
+            }
+
         }
+
+
+        /* =====================================================
+           NAV + PROGRESS
+        ===================================================== */
 
         function updateNavState(index) {
-            for (let i = 0; i < totalScenes; i++) {
-                const btn = document.getElementById(`nav-btn-${i}`);
-                if (btn) {
-                    if (i === index) {
-                        btn.classList.add('text-white', 'font-bold');
-                        btn.classList.remove('opacity-70');
-                    } else {
-                        btn.classList.remove('text-white', 'font-bold');
-                        btn.classList.add('opacity-70');
-                    }
+
+            for (
+                let i = 0;
+                i < totalScenes;
+                i++
+            ) {
+
+                const btn =
+                    document.getElementById(
+                        `nav-btn-${i}`
+                    );
+
+                if (!btn) continue;
+
+
+                if (i === index) {
+
+                    btn.classList.add(
+                        'text-white',
+                        'font-bold'
+                    );
+
+                    btn.classList.remove(
+                        'opacity-70'
+                    );
+
+                } else {
+
+                    btn.classList.remove(
+                        'text-white',
+                        'font-bold'
+                    );
+
+                    btn.classList.add(
+                        'opacity-70'
+                    );
+
                 }
+
             }
 
-            // Update Progress Bar Width (0%, 33.33%, 66.66%, 100%)
+
+            /*
+             * IMPORTANT:
+             * Progress is controlled ONLY through data-progress.
+             * No width calculation.
+             * No inline width.
+             */
+
             if (scrollProgressBar) {
-                const progressPercentage = (index / (totalScenes - 1)) * 100;
-                scrollProgressBar.style.width = `${progressPercentage}%`;
+
+                scrollProgressBar.dataset.progress =
+                    String(index);
+
             }
 
-            // Pointer Events management
-            scenesText.forEach((el, idx) => {
-                if (el) {
-                    el.style.pointerEvents = (idx === index) ? 'auto' : 'none';
+
+            scenesText.forEach(
+                (el, idx) => {
+
+                    if (!el) return;
+
+                    el.style.pointerEvents =
+                        idx === index
+                            ? 'auto'
+                            : 'none';
+
                 }
-            });
+            );
+
         }
+
+
+        /* =====================================================
+           GO TO SCENE
+        ===================================================== */
 
         function goToScene(targetIndex) {
-            if (targetIndex < 0 || targetIndex >= totalScenes) return;
-            if (targetIndex === currentScene && gsap.getProperty(photoContainer, "xPercent") !== undefined && photoContainer.dataset.init === "true") return;
-            if (isAnimating) return;
+
+            if (
+                targetIndex < 0 ||
+                targetIndex >= totalScenes
+            ) {
+                return;
+            }
+
+
+            if (
+                targetIndex === currentScene &&
+                photoContainer.dataset.init === "true"
+            ) {
+                return;
+            }
+
+
+            if (isAnimating) {
+                return;
+            }
+
 
             isAnimating = true;
-            photoContainer.dataset.init = "true";
 
-            const prevIndex = currentScene;
-            currentScene = targetIndex;
+            photoContainer.dataset.init =
+                "true";
 
-            updateNavState(currentScene);
 
-            const prevText = scenesText[prevIndex];
-            const nextText = scenesText[currentScene];
-            const props = getSceneProps(currentScene);
+            const prevIndex =
+                currentScene;
 
-            const tl = gsap.timeline({
-                onComplete: () => {
-                    setTimeout(() => {
-                        isAnimating = false;
-                    }, 150); // Short debounce lock
-                }
-            });
+            currentScene =
+                targetIndex;
 
-            // 1. Animate Out Previous Text
-            if (prevText && prevIndex !== currentScene) {
-                tl.to(prevText, {
-                    opacity: 0,
-                    y: (currentScene > prevIndex) ? -24 : 24,
-                    duration: 0.4,
-                    ease: "power2.in"
-                }, 0);
-            }
 
-            // 2. Animate Photo Frame Transformation
-            tl.to(photoContainer, {
-                width: props.photo.width,
-                height: props.photo.height,
-                top: props.photo.top,
-                left: props.photo.left,
-                xPercent: props.photo.xPercent,
-                yPercent: props.photo.yPercent,
-                scale: props.photo.scale,
-                opacity: props.photo.opacity,
-                borderRadius: props.photo.borderRadius,
-                zIndex: props.photo.zIndex || 20,
-                duration: 0.75,
-                ease: "power3.inOut"
-            }, 0);
+            updateNavState(
+                currentScene
+            );
 
-            // 3. Position & Animate In Next Text
-            if (nextText) {
-                gsap.set(nextText, {
-                    top: props.textPos.top,
-                    left: props.textPos.left,
-                    xPercent: props.textPos.xPercent,
-                    yPercent: props.textPos.yPercent
+
+            const prevText =
+                scenesText[prevIndex];
+
+            const nextText =
+                scenesText[currentScene];
+
+            const props =
+                getSceneProps(
+                    currentScene
+                );
+
+
+            const tl =
+                gsap.timeline({
+
+                    onComplete: () => {
+
+                        setTimeout(() => {
+
+                            isAnimating =
+                                false;
+
+                        }, 100);
+
+                    }
+
                 });
 
-                tl.fromTo(nextText, 
-                    { opacity: 0, y: (currentScene > prevIndex) ? 28 : -28 },
-                    { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" },
-                    0.35
+
+            /* -----------------------------------------------
+               PREVIOUS TEXT OUT
+            ------------------------------------------------ */
+
+            if (
+                prevText &&
+                prevIndex !== currentScene
+            ) {
+
+                tl.to(
+                    prevText,
+                    {
+                        opacity: 0,
+
+                        y:
+                            currentScene > prevIndex
+                                ? -24
+                                : 24,
+
+                        duration: 0.4,
+
+                        ease: "power2.in"
+                    },
+                    0
                 );
+
             }
+
+
+            /* -----------------------------------------------
+               PHOTO
+            ------------------------------------------------ */
+
+            tl.to(
+                photoContainer,
+                {
+
+                    width:
+                        props.photo.width,
+
+                    height:
+                        props.photo.height,
+
+                    top:
+                        props.photo.top,
+
+                    left:
+                        props.photo.left,
+
+                    xPercent:
+                        props.photo.xPercent,
+
+                    yPercent:
+                        props.photo.yPercent,
+
+                    scale:
+                        props.photo.scale,
+
+                    opacity:
+                        props.photo.opacity,
+
+                    borderRadius:
+                        props.photo.borderRadius,
+
+                    zIndex:
+                        props.photo.zIndex || 20,
+
+                    duration:
+                        0.75,
+
+                    ease:
+                        "power3.inOut"
+
+                },
+                0
+            );
+
+
+            /* -----------------------------------------------
+               NEXT TEXT
+            ------------------------------------------------ */
+
+            if (nextText) {
+
+                gsap.set(
+                    nextText,
+                    {
+
+                        top:
+                            props.textPos.top,
+
+                        left:
+                            props.textPos.left,
+
+                        xPercent:
+                            props.textPos.xPercent,
+
+                        yPercent:
+                            props.textPos.yPercent
+
+                    }
+                );
+
+
+                tl.fromTo(
+
+                    nextText,
+
+                    {
+                        opacity: 0,
+
+                        y:
+                            currentScene > prevIndex
+                                ? 28
+                                : -28
+                    },
+
+                    {
+                        opacity: 1,
+
+                        y: 0,
+
+                        duration: 0.55,
+
+                        ease: "power2.out"
+                    },
+
+                    0.35
+
+                );
+
+            }
+
         }
 
-        // ================= GESTURE & INPUT EVENT LISTENERS =================
+
+        /* =====================================================
+           WHEEL
+        ===================================================== */
+
         let wheelThreshold = 0;
-        window.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            if (isAnimating) return;
 
-            wheelThreshold += e.deltaY;
+        window.addEventListener(
+            'wheel',
+            (e) => {
 
-            if (wheelThreshold > 35) {
-                wheelThreshold = 0;
-                goToScene(currentScene + 1);
-            } else if (wheelThreshold < -35) {
-                wheelThreshold = 0;
-                goToScene(currentScene - 1);
-            }
+                e.preventDefault();
 
-            // Reset threshold decay
-            clearTimeout(window.wheelTimer);
-            window.wheelTimer = setTimeout(() => { wheelThreshold = 0; }, 200);
-        }, { passive: false });
-
-        // Touch Swipe Handling for Mobile Devices
-        let touchStartY = 0;
-        window.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                touchStartY = e.touches[0].clientY;
-            }
-        }, { passive: true });
-
-        window.addEventListener('touchend', (e) => {
-            if (isAnimating || !e.changedTouches.length) return;
-            const touchEndY = e.changedTouches[0].clientY;
-            const diffY = touchStartY - touchEndY;
-
-            if (Math.abs(diffY) > 40) {
-                if (diffY > 0) {
-                    goToScene(currentScene + 1); // Swipe Up -> Next
-                } else {
-                    goToScene(currentScene - 1); // Swipe Down -> Prev
+                if (isAnimating) {
+                    return;
                 }
+
+
+                wheelThreshold +=
+                    e.deltaY;
+
+
+                if (
+                    wheelThreshold > 35
+                ) {
+
+                    wheelThreshold = 0;
+
+                    goToScene(
+                        currentScene + 1
+                    );
+
+                }
+
+                else if (
+                    wheelThreshold < -35
+                ) {
+
+                    wheelThreshold = 0;
+
+                    goToScene(
+                        currentScene - 1
+                    );
+
+                }
+
+
+                clearTimeout(
+                    window.wheelTimer
+                );
+
+
+                window.wheelTimer =
+                    setTimeout(
+                        () => {
+                            wheelThreshold = 0;
+                        },
+                        200
+                    );
+
+            },
+            {
+                passive: false
             }
-        }, { passive: true });
+        );
 
-        // Keyboard Arrow Navigation
-        window.addEventListener('keydown', (e) => {
-            if (isAnimating) return;
-            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
-                e.preventDefault();
-                goToScene(currentScene + 1);
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-                e.preventDefault();
-                goToScene(currentScene - 1);
+
+        /* =====================================================
+           MOBILE SWIPE
+        ===================================================== */
+
+        let touchStartY = 0;
+
+
+        window.addEventListener(
+            'touchstart',
+            (e) => {
+
+                if (
+                    e.touches.length === 1
+                ) {
+
+                    touchStartY =
+                        e.touches[0].clientY;
+
+                }
+
+            },
+            {
+                passive: true
             }
-        });
+        );
 
-        // Window Resize Handling
-        window.addEventListener('resize', () => {
-            goToScene(currentScene);
-        });
 
-        // Initialize Scene 0 on Load
-        window.addEventListener('DOMContentLoaded', () => {
-            goToScene(0);
-        });
+        window.addEventListener(
+            'touchend',
+            (e) => {
+
+                if (
+                    isAnimating ||
+                    !e.changedTouches.length
+                ) {
+                    return;
+                }
+
+
+                const touchEndY =
+                    e.changedTouches[0].clientY;
+
+
+                const diffY =
+                    touchStartY -
+                    touchEndY;
+
+
+                if (
+                    Math.abs(diffY) > 40
+                ) {
+
+                    if (diffY > 0) {
+
+                        goToScene(
+                            currentScene + 1
+                        );
+
+                    } else {
+
+                        goToScene(
+                            currentScene - 1
+                        );
+
+                    }
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        /* =====================================================
+           KEYBOARD
+        ===================================================== */
+
+        window.addEventListener(
+            'keydown',
+            (e) => {
+
+                if (isAnimating) {
+                    return;
+                }
+
+
+                if (
+                    e.key === 'ArrowDown' ||
+                    e.key === 'PageDown' ||
+                    e.key === ' '
+                ) {
+
+                    e.preventDefault();
+
+                    goToScene(
+                        currentScene + 1
+                    );
+
+                }
+
+                else if (
+                    e.key === 'ArrowUp' ||
+                    e.key === 'PageUp'
+                ) {
+
+                    e.preventDefault();
+
+                    goToScene(
+                        currentScene - 1
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           RESIZE
+           
+           IMPORTANT:
+           Don't trigger scene animation on resize.
+           Just reposition current scene immediately.
+        ===================================================== */
+
+        let resizeTimer = null;
+
+
+        window.addEventListener(
+            'resize',
+            () => {
+
+                clearTimeout(
+                    resizeTimer
+                );
+
+
+                resizeTimer =
+                    setTimeout(
+                        () => {
+
+                            const props =
+                                getSceneProps(
+                                    currentScene
+                                );
+
+
+                            gsap.set(
+                                photoContainer,
+                                {
+
+                                    width:
+                                        props.photo.width,
+
+                                    height:
+                                        props.photo.height,
+
+                                    top:
+                                        props.photo.top,
+
+                                    left:
+                                        props.photo.left,
+
+                                    xPercent:
+                                        props.photo.xPercent,
+
+                                    yPercent:
+                                        props.photo.yPercent,
+
+                                    scale:
+                                        props.photo.scale,
+
+                                    opacity:
+                                        props.photo.opacity,
+
+                                    borderRadius:
+                                        props.photo.borderRadius,
+
+                                    zIndex:
+                                        props.photo.zIndex
+
+                                }
+                            );
+
+
+                            const text =
+                                scenesText[
+                                    currentScene
+                                ];
+
+
+                            if (text) {
+
+                                gsap.set(
+                                    text,
+                                    {
+
+                                        top:
+                                            props.textPos.top,
+
+                                        left:
+                                            props.textPos.left,
+
+                                        xPercent:
+                                            props.textPos.xPercent,
+
+                                        yPercent:
+                                            props.textPos.yPercent,
+
+                                        opacity: 1
+
+                                    }
+                                );
+
+                            }
+
+                        },
+                        100
+                    );
+
+            }
+        );
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        window.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                /*
+                 * Force initial progress state.
+                 */
+
+                if (scrollProgressBar) {
+
+                    scrollProgressBar.dataset.progress =
+                        '0';
+
+                }
+
+
+                /*
+                 * Initialize scene directly,
+                 * without the "scene 0 -> scene 0"
+                 * animation that previously caused
+                 * unnecessary visual artifacts.
+                 */
+
+                const props =
+                    getSceneProps(0);
+
+
+                gsap.set(
+                    photoContainer,
+                    {
+
+                        width:
+                            props.photo.width,
+
+                        height:
+                            props.photo.height,
+
+                        top:
+                            props.photo.top,
+
+                        left:
+                            props.photo.left,
+
+                        xPercent:
+                            props.photo.xPercent,
+
+                        yPercent:
+                            props.photo.yPercent,
+
+                        scale:
+                            props.photo.scale,
+
+                        opacity:
+                            props.photo.opacity,
+
+                        borderRadius:
+                            props.photo.borderRadius,
+
+                        zIndex:
+                            props.photo.zIndex
+
+                    }
+                );
+
+
+                gsap.set(
+                    scene0Text,
+                    {
+
+                        top:
+                            props.textPos.top,
+
+                        left:
+                            props.textPos.left,
+
+                        xPercent:
+                            props.textPos.xPercent,
+
+                        yPercent:
+                            props.textPos.yPercent,
+
+                        opacity: 1,
+
+                        y: 0
+
+                    }
+                );
+
+
+                for (
+                    let i = 1;
+                    i < scenesText.length;
+                    i++
+                ) {
+
+                    if (
+                        scenesText[i]
+                    ) {
+
+                        gsap.set(
+                            scenesText[i],
+                            {
+                                opacity: 0
+                            }
+                        );
+
+                    }
+
+                }
+
+
+                updateNavState(0);
+
+                isAnimating = false;
+
+            }
+        );
+
     </script>
+
 </body>
+
 </html>

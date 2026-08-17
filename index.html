@@ -66,6 +66,9 @@
             margin: 0;
             padding: 0;
             touch-action: none;
+            overscroll-behavior: none;
+            overscroll-behavior-y: none;
+            -webkit-overflow-scrolling: auto;
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -118,18 +121,13 @@
             background: rgba(5, 5, 5, 0.90);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            transform: translateZ(0);
-            -webkit-backface-visibility: hidden;
         }
 
-        /* Timeline Progress Indicator */
-        .timeline-progress {
-            will-change: width, transform;
+        /* Solid Pure White Progress Indicator */
+        #scroll-progress-bar {
             background-color: #ffffff !important;
             opacity: 1 !important;
-            transform: translateZ(0);
-            -webkit-backface-visibility: hidden;
-            isolation: isolate;
+            height: 100%;
         }
 
         /* Touch interaction optimizations */
@@ -161,18 +159,18 @@
             </nav>
 
             <!-- Directory Tag -->
-        <div class="text-typography-muted text-[9px] sm:text-xs">
-            [ MELIHSARI.DEV ]
+            <div class="text-typography-muted text-[9px] sm:text-xs">
+                [ MELIHSARI.DEV ]
+            </div>
         </div>
-    </div>
 
-    <!-- Scroll Timeline Indicator Bar -->
-    <div class="absolute bottom-0 left-0 w-full h-[2px] bg-white/10 z-50 pointer-events-none">
-        <div id="scroll-progress-bar" class="h-full bg-white w-0 timeline-progress transition-[width] duration-500 ease-out"></div>
-    </div>
-</header>
+        <!-- Scroll Timeline Indicator Bar -->
+        <div class="absolute bottom-0 left-0 w-full h-[2px] bg-surface-border/50 z-50 pointer-events-none">
+            <div id="scroll-progress-bar" class="h-full bg-white w-0 transition-[width] duration-500 ease-out"></div>
+        </div>
+    </header>
 
-<!-- MAIN SCENE CONTAINER -->
+    <!-- MAIN SCENE CONTAINER -->
     <main id="stage" class="stage-viewport z-10 flex items-center justify-center px-4 sm:px-8 md:px-12">
         
         <!-- Ambient Background Light -->
@@ -493,7 +491,7 @@
                 }
             }
 
-            // Update Progress Bar
+            // Update Progress Bar Width
             if (scrollProgressBar) {
                 const progressPercentage = (index / (totalScenes - 1)) * 100;
                 scrollProgressBar.style.width = `${progressPercentage}%`;

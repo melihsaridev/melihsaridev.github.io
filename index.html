@@ -151,7 +151,7 @@
 
         <!-- Scroll Timeline Indicator Bar -->
         <div class="absolute bottom-0 left-0 w-full h-[2px] bg-surface-border">
-            <div id="scroll-progress-bar" class="h-full bg-white w-0 timeline-progress"></div>
+            <div id="scroll-progress-bar" class="h-full bg-white w-0 timeline-progress transition-[width] duration-500 ease-out"></div>
         </div>
     </header>
 
@@ -476,10 +476,10 @@
                 }
             }
 
-            // Mobile-Safe Progress Bar Update using width (0% -> 33.33% -> 66.67% -> 100%)
+            // Update Progress Bar
             if (scrollProgressBar) {
                 const progressPercentage = (index / (totalScenes - 1)) * 100;
-                gsap.to(scrollProgressBar, { width: `${progressPercentage}%`, duration: 0.6, ease: "power2.out" });
+                scrollProgressBar.style.width = `${progressPercentage}%`;
             }
 
             // Pointer Events management

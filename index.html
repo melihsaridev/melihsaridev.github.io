@@ -196,6 +196,7 @@
 
   .measure{ max-width: 60ch; }
 
+  section{ scroll-margin-top: 48px; }
   section + section{ margin-top: 84px; }
 
   .s-title{
@@ -615,20 +616,37 @@
     .map(function (a) { return document.querySelector(a.getAttribute("href")); })
     .filter(Boolean);
 
+  var isClickScrolling = false;
+  var clickTimer = null;
+
   var mark = function (id) {
     links.forEach(function (a) {
       a.setAttribute("aria-current", a.getAttribute("href") === "#" + id ? "true" : "false");
     });
   };
 
+  // Add click listeners to lock active state during user navigation click
+  links.forEach(function (a) {
+    a.addEventListener("click", function () {
+      var targetId = a.getAttribute("href").replace("#", "");
+      mark(targetId);
+      isClickScrolling = true;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(function () {
+        isClickScrolling = false;
+      }, 700);
+    });
+  });
+
   function updateActiveNav() {
-    if (!targets.length) return;
+    if (isClickScrolling || !targets.length) return;
+    
     var scrollPos = window.scrollY || document.documentElement.scrollTop;
     var windowHeight = window.innerHeight;
     var docHeight = document.documentElement.scrollHeight;
 
-    // Check if scrolled near bottom of page -> mark contact
-    if (scrollPos + windowHeight >= docHeight - 80) {
+    // Check if scrolled near absolute bottom of page -> mark contact
+    if (scrollPos + windowHeight >= docHeight - 15) {
       mark("contact");
       return;
     }
@@ -637,7 +655,7 @@
     for (var i = 0; i < targets.length; i++) {
       var target = targets[i];
       var rect = target.getBoundingClientRect();
-      if (rect.top <= windowHeight * 0.4) {
+      if (rect.top <= windowHeight * 0.35) {
         activeId = target.id;
       }
     }

@@ -93,8 +93,6 @@
   }
   .skip:focus { left: 12px; top: 12px; }
 
-  /* ---------- shell ---------- */
-
   .shell{
     max-width: 1180px;
     margin: 0 auto;
@@ -104,8 +102,6 @@
     column-gap: var(--gap);
     align-items: start;
   }
-
-  /* ---------- left rail ---------- */
 
   .rail{
     position: sticky;
@@ -190,8 +186,6 @@
     fill: currentColor;
   }
 
-  /* ---------- main column ---------- */
-
   main{ padding: 56px 0 120px; min-width: 0; }
 
   .measure{ max-width: 60ch; }
@@ -209,8 +203,6 @@
     padding-bottom: 12px;
     border-bottom: 1px solid var(--rule);
   }
-
-  /* ---------- hero & profile combined ---------- */
 
   .profile-hero h1{
     font-family: var(--serif);
@@ -265,8 +257,6 @@
 
   .btn.copied{ background: var(--live); border-color: var(--live); color: #fff; }
 
-  /* ---------- spec table ---------- */
-
   .spec{ border-top: 1px solid var(--rule); }
   .spec div{
     display: grid;
@@ -284,8 +274,6 @@
   .spec dd a{ color: var(--mark); text-decoration: none; border-bottom: 1px solid var(--mark-soft); }
   .spec dd a:hover{ border-bottom-color: var(--mark); }
 
-  /* ---------- focus rows ---------- */
-
   .rows{ border-top: 1px solid var(--rule); }
   .row{
     padding: 20px 0;
@@ -300,8 +288,6 @@
   }
   .row p{ margin: 0; color: var(--ink-soft); font-size: 15.5px; max-width: 54ch; }
 
-  /* ---------- toolkit ---------- */
-
   .kit{ display: grid; gap: 16px; }
   .kit div{
     display: grid;
@@ -310,8 +296,6 @@
   }
   .kit dt{ color: var(--ink-faint); font-size: 14.5px; }
   .kit dd{ margin: 0; }
-
-  /* ---------- contact ---------- */
 
   .mail{
     font-family: var(--serif);
@@ -353,8 +337,6 @@
     color: var(--ink-faint);
   }
 
-  /* ---------- one page-load reveal ---------- */
-
   .reveal > *{
     opacity: 0;
     transform: translateY(10px);
@@ -365,8 +347,6 @@
   .reveal > *:nth-child(3){ animation-delay: .21s; }
   .reveal > *:nth-child(4){ animation-delay: .29s; }
   @keyframes rise { to { opacity: 1; transform: none; } }
-
-  /* ---------- responsive ---------- */
 
   @media (max-width: 940px){
     :root{ --gap: 48px; --rail: 200px; }
@@ -498,7 +478,7 @@
       </dl>
     </section>
 
-    <!-- Current work -->
+    <!-- Current Work -->
     <section id="focus">
       <h2 class="s-title">What I Am Working On</h2>
       <div class="rows">

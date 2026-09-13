@@ -192,7 +192,7 @@
 
   /* ---------- main column ---------- */
 
-  main{ padding: 56px 0 240px; min-width: 0; }
+  main{ padding: 56px 0 220px; min-width: 0; }
 
   .measure{ max-width: 60ch; }
 
@@ -494,7 +494,7 @@
           <button class="btn terminal-btn" id="copy-email" type="button" data-email="melihsari.dev@gmail.com">
             <span id="copy-label">Copy Email Address</span>
           </button>
-          <a class="btn quiet" href="cv.pdf?v=2" target="_blank" rel="noopener">Download CV <span class="ext-link-icon">↗</span></a>
+          <a class="btn quiet" href="cv.pdf" target="_blank" rel="noopener">Download CV <span class="ext-link-icon">↗</span></a>
         </div>
       </div>
 
@@ -645,11 +645,14 @@
     });
   }
 
-  /* Seamless Navigation & Focal Intersection ScrollSpy Algorithm */
+  /* Bulletproof Focal Intersection ScrollSpy Algorithm */
   var links = Array.prototype.slice.call(document.querySelectorAll(".rail-nav a"));
   var targets = links
     .map(function (a) { return document.querySelector(a.getAttribute("href")); })
     .filter(Boolean);
+
+  var isClickScrolling = false;
+  var clickTimer = null;
 
   var mark = function (id) {
     links.forEach(function (a) {
@@ -657,40 +660,44 @@
     });
   };
 
-  /* Prevent URL hash changing and enable smooth scrolling on click */
   links.forEach(function (a) {
-    a.addEventListener("click", function (e) {
-      e.preventDefault();
+    a.addEventListener("click", function () {
       var targetId = a.getAttribute("href").replace("#", "");
-      var targetEl = document.getElementById(targetId);
-      if (targetEl) {
-        mark(targetId);
-        targetEl.scrollIntoView({ behavior: "smooth" });
-      }
+      mark(targetId);
+      isClickScrolling = true;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(function () {
+        isClickScrolling = false;
+      }, 700);
     });
   });
 
   function updateActiveNav() {
-    if (!targets.length) return;
+    if (isClickScrolling || !targets.length) return;
     
     var scrollPos = window.scrollY || document.documentElement.scrollTop;
     var windowHeight = window.innerHeight;
     var docHeight = document.documentElement.scrollHeight;
 
-    /* If scrolled to absolute bottom of page, mark Contact */
-    if (scrollPos + windowHeight >= docHeight - 20) {
-      mark("contact");
-      return;
+    // Contact bottom check: only if contact section top is visible in the viewport
+    var contactEl = document.getElementById("contact");
+    if (contactEl && (scrollPos + windowHeight >= docHeight - 15)) {
+      var contactRect = contactEl.getBoundingClientRect();
+      if (contactRect.top <= windowHeight * 0.5) {
+        mark("contact");
+        return;
+      }
     }
 
-    /* Focal line detection threshold for sections */
+    // Focal point intersection line (30% down viewport)
+    var focalLine = windowHeight * 0.3;
     var activeId = targets[0].id;
+
     for (var i = 0; i < targets.length; i++) {
       var target = targets[i];
       var rect = target.getBoundingClientRect();
       
-      /* Section top is above 160px from viewport top */
-      if (rect.top <= 160) {
+      if (rect.top <= focalLine) {
         activeId = target.id;
       }
     }

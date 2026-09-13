@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Melih Sarı — Computer engineering</title>
-<meta name="description" content="Melih Sarı, computer engineering undergraduate in Istanbul. Algorithms, systems and clean implementation. Contact details and current work.">
+<title>Melih Sarı — Computer Engineering</title>
+<meta name="description" content="Melih Sarı, Computer Engineering undergraduate in Istanbul. Algorithms, systems and clean implementation. Contact details and current work.">
 <meta name="author" content="Melih Sarı">
 
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Melih Sarı — Computer engineering">
-<meta property="og:description" content="Computer engineering undergraduate in Istanbul. Algorithms, systems and clean implementation.">
+<meta property="og:title" content="Melih Sarı — Computer Engineering">
+<meta property="og:description" content="Computer Engineering undergraduate in Istanbul. Algorithms, systems and clean implementation.">
 <meta property="og:image" content="https://github.com/melihsaridev.png">
 <meta property="og:url" content="https://melihsari.net">
 <meta name="twitter:card" content="summary">
@@ -30,7 +30,7 @@
   "url": "https://melihsari.net",
   "email": "melihsari.dev@gmail.com",
   "image": "https://github.com/melihsaridev.png",
-  "jobTitle": "Computer engineering undergraduate",
+  "jobTitle": "Computer Engineering undergraduate",
   "address": { "@type": "PostalAddress", "addressLocality": "Istanbul", "addressCountry": "TR" },
   "sameAs": [
     "https://github.com/melihsaridev",
@@ -111,8 +111,15 @@
     position: sticky;
     top: 0;
     height: 100vh;
-    height: 100dvh;
     padding: 56px 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    will-change: transform;
+  }
+
+  .rail-top{
     display: flex;
     flex-direction: column;
     gap: 28px;
@@ -153,7 +160,12 @@
     font-weight: 500;
   }
 
-  .rail-foot{ margin-top: auto; display: flex; align-items: center; gap: 16px; padding-top: 16px; }
+  .rail-foot{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 16px;
+  }
 
   .social-icon {
     color: var(--ink-soft);
@@ -193,11 +205,9 @@
     border-bottom: 1px solid var(--rule);
   }
 
-  /* ---------- hero ---------- */
+  /* ---------- hero & profile combined ---------- */
 
-  .hero{ padding-top: 26px; }
-
-  .hero h1{
+  .profile-hero h1{
     font-family: var(--serif);
     font-weight: 600;
     font-size: clamp(46px, 8.2vw, 92px);
@@ -216,13 +226,13 @@
     max-width: 26ch;
   }
 
-  .hero p.body{
+  p.body{
     margin: 0 0 34px;
     color: var(--ink-soft);
     max-width: 56ch;
   }
 
-  .actions{ display: flex; flex-wrap: wrap; gap: 10px; }
+  .actions{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px; }
 
   .btn{
     font: inherit;
@@ -358,6 +368,11 @@
     .shell{ padding: 0 32px; }
   }
 
+  @media (max-height: 740px) and (min-width: 761px){
+    .rail{ padding: 36px 0 28px; gap: 18px; }
+    main{ padding: 36px 0 80px; }
+  }
+
   @media (max-width: 760px){
     body{ font-size: 16.5px; }
     .shell{
@@ -374,9 +389,9 @@
       justify-content: space-between;
       gap: 16px;
     }
+    .rail-top{ flex-direction: row; align-items: center; }
     .rail-nav{ display: none; }
-    .rail-foot{ margin-top: 0; }
-    .rail-links{ display: none; }
+    .rail-foot{ margin-top: 0; padding-top: 0; }
     .portrait{ width: 60px; height: 60px; }
     main{ padding: 34px 0 84px; }
     section + section{ margin-top: 62px; }
@@ -407,18 +422,19 @@
 
   <!-- ============ LEFT RAIL ============ -->
   <aside class="rail">
-    <div class="portrait">
-      <img src="https://github.com/melihsaridev.png" alt="Portrait of Melih Sarı" width="82" height="82"
-           onerror="this.onerror=null;this.src='https://avatars.githubusercontent.com/melihsaridev';">
-    </div>
+    <div class="rail-top">
+      <div class="portrait">
+        <img src="https://github.com/melihsaridev.png" alt="Portrait of Melih Sarı" width="82" height="82"
+             onerror="this.onerror=null;this.src='https://avatars.githubusercontent.com/melihsaridev';">
+      </div>
 
-    <nav class="rail-nav" aria-label="Sections">
-      <a href="#intro">Intro</a>
-      <a href="#profile">Profile</a>
-      <a href="#focus">Current work</a>
-      <a href="#toolkit">Toolkit</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <nav class="rail-nav" aria-label="Sections">
+        <a href="#profile">Profile</a>
+        <a href="#focus">Current Work</a>
+        <a href="#toolkit">Toolkit</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
 
     <div class="rail-foot">
       <a class="social-icon" href="https://github.com/melihsaridev" target="_blank" rel="noopener" aria-label="GitHub">
@@ -439,30 +455,27 @@
   <!-- ============ MAIN ============ -->
   <main id="main">
 
-    <!-- Intro -->
-    <section class="hero" id="intro">
-      <div class="reveal">
+    <!-- Profile & Hero Combined -->
+    <section id="profile" style="padding-top: 0;">
+      <div class="reveal profile-hero">
         <h1>Melih&nbsp;Sarı</h1>
-        <p class="lede">Computer engineering undergraduate in Istanbul.</p>
+        <p class="lede">Computer Engineering undergraduate in Istanbul.</p>
         <p class="body">I study how machines actually run a program — from data structures and algorithms up through the systems that execute them — and I write code the way I want to read it a year from now.</p>
         <div class="actions">
           <button class="btn" id="copy-email" type="button" data-email="melihsari.dev@gmail.com">
-            <span id="copy-label">Copy email address</span>
+            <span id="copy-label">Copy Email Address</span>
           </button>
         </div>
       </div>
-    </section>
 
-    <!-- Profile -->
-    <section id="profile">
-      <h2 class="s-title">Profile</h2>
+      <h2 class="s-title" style="margin-top: 40px;">Profile</h2>
       <dl class="spec">
         <div>
           <dt>Discipline</dt>
-          <dd>Computer engineering</dd>
+          <dd>Computer Engineering</dd>
         </div>
         <div>
-          <dt>Based in</dt>
+          <dt>Based In</dt>
           <dd>Istanbul, Turkey (UTC+3)</dd>
         </div>
         <div>
@@ -470,11 +483,11 @@
           <dd>Algorithms, computer systems, software engineering practice</dd>
         </div>
         <div>
-          <dt>Open to</dt>
+          <dt>Open To</dt>
           <dd>Internships, student projects, technical conversation</dd>
         </div>
         <div>
-          <dt>Best reached by</dt>
+          <dt>Best Reached By</dt>
           <dd><a href="mailto:melihsari.dev@gmail.com">melihsari.dev@gmail.com</a></dd>
         </div>
       </dl>
@@ -482,21 +495,21 @@
 
     <!-- Current work -->
     <section id="focus">
-      <h2 class="s-title">What I am working on</h2>
+      <h2 class="s-title">What I Am Working On</h2>
       <div class="rows">
 
         <article class="row">
-          <h3>Core coursework</h3>
+          <h3>Core Coursework</h3>
           <p>Programming fundamentals, discrete mathematics and the theory the rest of the degree is built on.</p>
         </article>
 
         <article class="row">
-          <h3>Data structures and problem solving</h3>
+          <h3>Data Structures and Problem Solving</h3>
           <p>Working through problems by hand first, then implementing them and measuring what the choice of structure costs.</p>
         </article>
 
         <article class="row">
-          <h3>Software practice</h3>
+          <h3>Software Practice</h3>
           <p>Small personal projects kept in version control, with readable commits and code I can hand to someone else.</p>
         </article>
 
@@ -516,7 +529,7 @@
           <dd>Git, Linux, VS Code</dd>
         </div>
         <div>
-          <dt>Reading into</dt>
+          <dt>Reading Into</dt>
           <dd>Computer architecture, operating systems, algorithm analysis</dd>
         </div>
       </dl>
@@ -529,7 +542,7 @@
       <p class="body measure" style="color:var(--ink-soft); margin:0 0 26px;">Write about a project, a course, an opening, or a problem you are stuck on. Short messages are welcome; a line of context about what you need helps me answer properly.</p>
 
       <div class="actions">
-        <a class="btn" href="mailto:melihsari.dev@gmail.com">Write an email</a>
+        <a class="btn" href="mailto:melihsari.dev@gmail.com">Write an Email</a>
         <a class="btn quiet" href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener">Connect on LinkedIn</a>
       </div>
 
@@ -620,7 +633,6 @@
     for (var i = 0; i < targets.length; i++) {
       var target = targets[i];
       var rect = target.getBoundingClientRect();
-      // If section top is above 40% of viewport height
       if (rect.top <= windowHeight * 0.4) {
         activeId = target.id;
       }

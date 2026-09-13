@@ -124,6 +124,7 @@
     gap: 28px;
   }
 
+  /* Hover color effect on portrait */
   .portrait{
     width: 82px;
     height: 82px;
@@ -191,7 +192,7 @@
 
   /* ---------- main column ---------- */
 
-  main{ padding: 56px 0 160px; min-width: 0; }
+  main{ padding: 56px 0 220px; min-width: 0; }
 
   .measure{ max-width: 60ch; }
 
@@ -398,7 +399,7 @@
 
   @media (max-height: 740px) and (min-width: 761px){
     .rail{ padding: 36px 0 28px; gap: 18px; }
-    main{ padding: 36px 0 100px; }
+    main{ padding: 36px 0 140px; }
   }
 
   @media (max-width: 760px){
@@ -493,6 +494,7 @@
           <button class="btn terminal-btn" id="copy-email" type="button" data-email="melihsari.dev@gmail.com">
             <span id="copy-label">Copy Email Address</span>
           </button>
+          <a class="btn quiet" href="cv.pdf" target="_blank" rel="noopener">Download CV <span class="ext-link-icon">↗</span></a>
         </div>
       </div>
 
@@ -599,7 +601,7 @@
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
-  /* Copy email with Terminal-style Feedback */
+  /* Copy email with Clean Feedback */
   var btn = document.getElementById("copy-email");
   var label = document.getElementById("copy-label");
   if (btn && label) {
@@ -607,7 +609,7 @@
     btn.addEventListener("click", function () {
       var value = btn.getAttribute("data-email");
       var done = function (ok) {
-        label.textContent = ok ? "$ copied to clipboard" : "! copy failed";
+        label.textContent = ok ? "Copied to Clipboard" : "Copy Failed";
         btn.classList.toggle("copied", ok);
         clearTimeout(timer);
         timer = setTimeout(function () {
@@ -677,25 +679,25 @@
     var windowHeight = window.innerHeight;
     var docHeight = document.documentElement.scrollHeight;
 
-    // Absolute bottom check
-    if (scrollPos + windowHeight >= docHeight - 15) {
-      mark("contact");
-      return;
+    // Contact bottom check: only if contact section top is visible in the viewport
+    var contactEl = document.getElementById("contact");
+    if (contactEl && (scrollPos + windowHeight >= docHeight - 15)) {
+      var contactRect = contactEl.getBoundingClientRect();
+      if (contactRect.top <= windowHeight * 0.5) {
+        mark("contact");
+        return;
+      }
     }
 
-    // Focal point intersection line (35% down viewport)
-    var focalLine = windowHeight * 0.35;
+    // Focal point intersection line (30% down viewport)
+    var focalLine = windowHeight * 0.3;
     var activeId = targets[0].id;
 
     for (var i = 0; i < targets.length; i++) {
       var target = targets[i];
       var rect = target.getBoundingClientRect();
       
-      // If focal line intersects this section, or if top is above focal line
-      if (rect.top <= focalLine && rect.bottom >= focalLine) {
-        activeId = target.id;
-        break;
-      } else if (rect.top <= focalLine) {
+      if (rect.top <= focalLine) {
         activeId = target.id;
       }
     }

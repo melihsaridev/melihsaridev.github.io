@@ -1,25 +1,25 @@
-# Melih Sarı
+# Melih Sarı — Personal Portfolio
 
-Personal website and digital identity of Melih Sarı, a Computer Engineering Candidate.
+Minimalist, performance-oriented personal website of Melih Sarı, a Computer Engineering undergraduate based in Istanbul. Designed with an editorial, Swiss-style aesthetic and a systems-level engineering focus.
 
-This repository contains my personal website, built to serve as a simple place to learn more about me, my interests, projects, and ways to connect with me.
+🌐 Live Site: [melihsari.net](https://melihsari.net)
 
-## About
+---
 
-I’m currently building my foundation in computer engineering and software development.
+## 🛠 Tech Stack & Architecture
 
-This website will evolve alongside my learning journey, projects, and experience.
+- **Markup & Styling:** Vanilla HTML5, CSS3 (Custom Properties, CSS Grid, Flexbox)
+- **Typography:** IBM Plex Family (Serif, Sans, Mono)
+- **Scripting:** Vanilla JavaScript (Focal-Intersection ScrollSpy, Native Clipboard API with fallback)
+- **Hosting & Infrastructure:** GitHub Pages, Custom Domain Setup
 
-## Website
+---
 
-🌐 [melihsaridev.github.io](https://melihsaridev.github.io)
+## 📌 Project Structure
 
-## Built With
-
-- HTML
-- CSS
-- JavaScript
-
-## Repository
-
-This repository contains the source code and assets used for my personal website.
+```text
+.
+├── index.html       # Single-page application source & styles
+├── cv.pdf           # Latest Curriculum Vitae
+├── favicon.png      # Site icon asset
+└── CNAME            # Custom domain configuration (melihsari.net)

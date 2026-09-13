@@ -93,6 +93,8 @@
   }
   .skip:focus { left: 12px; top: 12px; }
 
+  /* ---------- shell ---------- */
+
   .shell{
     max-width: 1180px;
     margin: 0 auto;
@@ -103,6 +105,8 @@
     align-items: start;
   }
 
+  /* ---------- left rail ---------- */
+
   .rail{
     position: sticky;
     top: 0;
@@ -112,7 +116,6 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 28px;
-    will-change: transform;
   }
 
   .rail-top{
@@ -186,11 +189,13 @@
     fill: currentColor;
   }
 
-  main{ padding: 56px 0 120px; min-width: 0; }
+  /* ---------- main column ---------- */
+
+  main{ padding: 56px 0 160px; min-width: 0; }
 
   .measure{ max-width: 60ch; }
 
-  section{ scroll-margin-top: 48px; }
+  section{ scroll-margin-top: 56px; }
   section + section{ margin-top: 84px; }
 
   .s-title{
@@ -203,6 +208,8 @@
     padding-bottom: 12px;
     border-bottom: 1px solid var(--rule);
   }
+
+  /* ---------- profile & hero combined ---------- */
 
   .profile-hero h1{
     font-family: var(--serif);
@@ -248,6 +255,12 @@
   }
   .btn:hover { background: var(--mark); border-color: var(--mark); }
 
+  .btn.terminal-btn {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: -0.01em;
+  }
+
   .btn.quiet{
     background: transparent;
     color: var(--ink);
@@ -255,7 +268,24 @@
   }
   .btn.quiet:hover { border-color: var(--ink); background: transparent; color: var(--ink); }
 
-  .btn.copied{ background: var(--live); border-color: var(--live); color: #fff; }
+  .btn.copied{
+    background: var(--live);
+    border-color: var(--live);
+    color: #fff;
+  }
+
+  .ext-link-icon {
+    display: inline-block;
+    font-size: 12px;
+    opacity: 0.65;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+  }
+  a:hover .ext-link-icon, .btn:hover .ext-link-icon {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+
+  /* ---------- spec table ---------- */
 
   .spec{ border-top: 1px solid var(--rule); }
   .spec div{
@@ -274,6 +304,8 @@
   .spec dd a{ color: var(--mark); text-decoration: none; border-bottom: 1px solid var(--mark-soft); }
   .spec dd a:hover{ border-bottom-color: var(--mark); }
 
+  /* ---------- focus rows ---------- */
+
   .rows{ border-top: 1px solid var(--rule); }
   .row{
     padding: 20px 0;
@@ -288,6 +320,8 @@
   }
   .row p{ margin: 0; color: var(--ink-soft); font-size: 15.5px; max-width: 54ch; }
 
+  /* ---------- toolkit ---------- */
+
   .kit{ display: grid; gap: 16px; }
   .kit div{
     display: grid;
@@ -296,6 +330,8 @@
   }
   .kit dt{ color: var(--ink-faint); font-size: 14.5px; }
   .kit dd{ margin: 0; }
+
+  /* ---------- contact ---------- */
 
   .mail{
     font-family: var(--serif);
@@ -320,6 +356,9 @@
     color: var(--ink-soft);
     text-decoration: none;
     border-bottom: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
   .elsewhere a:hover{ color: var(--ink); border-bottom-color: var(--rule); }
   .elsewhere span{ color: var(--ink-faint); font-size: 13.5px; }
@@ -337,6 +376,8 @@
     color: var(--ink-faint);
   }
 
+  /* ---------- one page-load reveal ---------- */
+
   .reveal > *{
     opacity: 0;
     transform: translateY(10px);
@@ -348,6 +389,8 @@
   .reveal > *:nth-child(4){ animation-delay: .29s; }
   @keyframes rise { to { opacity: 1; transform: none; } }
 
+  /* ---------- responsive ---------- */
+
   @media (max-width: 940px){
     :root{ --gap: 48px; --rail: 200px; }
     .shell{ padding: 0 32px; }
@@ -355,7 +398,7 @@
 
   @media (max-height: 740px) and (min-width: 761px){
     .rail{ padding: 36px 0 28px; gap: 18px; }
-    main{ padding: 36px 0 80px; }
+    main{ padding: 36px 0 100px; }
   }
 
   @media (max-width: 760px){
@@ -447,7 +490,7 @@
         <p class="lede">Computer Engineering undergraduate in Istanbul.</p>
         <p class="body">I study how machines actually run a program — from data structures and algorithms up through the systems that execute them — and I write code the way I want to read it a year from now.</p>
         <div class="actions">
-          <button class="btn" id="copy-email" type="button" data-email="melihsari.dev@gmail.com">
+          <button class="btn terminal-btn" id="copy-email" type="button" data-email="melihsari.dev@gmail.com">
             <span id="copy-label">Copy Email Address</span>
           </button>
         </div>
@@ -473,7 +516,7 @@
         </div>
         <div>
           <dt>Best Reached By</dt>
-          <dd><a href="mailto:melihsari.dev@gmail.com">melihsari.dev@gmail.com</a></dd>
+          <dd><a href="mailto:melihsari.dev@gmail.com">melihsari.dev@gmail.com <span class="ext-link-icon">↗</span></a></dd>
         </div>
       </dl>
     </section>
@@ -523,20 +566,20 @@
     <!-- Contact -->
     <section id="contact">
       <h2 class="s-title">Contact</h2>
-      <p class="mail"><a href="mailto:melihsari.dev@gmail.com">melihsari.dev@gmail.com</a></p>
+      <p class="mail"><a href="mailto:melihsari.dev@gmail.com">melihsari.dev@gmail.com <span class="ext-link-icon">↗</span></a></p>
       <p class="body measure" style="color:var(--ink-soft); margin:0 0 26px;">Write about a project, a course, an opening, or a problem you are stuck on. Short messages are welcome; a line of context about what you need helps me answer properly.</p>
 
       <div class="actions">
-        <a class="btn" href="mailto:melihsari.dev@gmail.com">Write an Email</a>
-        <a class="btn quiet" href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener">Connect on LinkedIn</a>
+        <a class="btn" href="mailto:melihsari.dev@gmail.com">Write an Email <span class="ext-link-icon">↗</span></a>
+        <a class="btn quiet" href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener">Connect on LinkedIn <span class="ext-link-icon">↗</span></a>
       </div>
 
       <div class="elsewhere">
         <span>Elsewhere</span>
-        <a href="https://github.com/melihsaridev" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://x.com/melihsaridev" target="_blank" rel="noopener">X</a>
-        <a href="https://www.instagram.com/melihsari.dev/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://github.com/melihsaridev" target="_blank" rel="noopener">GitHub <span class="ext-link-icon">↗</span></a>
+        <a href="https://www.linkedin.com/in/melihsaridev" target="_blank" rel="noopener">LinkedIn <span class="ext-link-icon">↗</span></a>
+        <a href="https://x.com/melihsaridev" target="_blank" rel="noopener">X <span class="ext-link-icon">↗</span></a>
+        <a href="https://www.instagram.com/melihsari.dev/" target="_blank" rel="noopener">Instagram <span class="ext-link-icon">↗</span></a>
       </div>
 
       <footer>
@@ -556,7 +599,7 @@
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
-  /* Copy email */
+  /* Copy email with Terminal-style Feedback */
   var btn = document.getElementById("copy-email");
   var label = document.getElementById("copy-label");
   if (btn && label) {
@@ -564,7 +607,7 @@
     btn.addEventListener("click", function () {
       var value = btn.getAttribute("data-email");
       var done = function (ok) {
-        label.textContent = ok ? "Copied to clipboard" : "Copy failed — use the address below";
+        label.textContent = ok ? "$ copied to clipboard" : "! copy failed";
         btn.classList.toggle("copied", ok);
         clearTimeout(timer);
         timer = setTimeout(function () {
@@ -572,25 +615,35 @@
           btn.classList.remove("copied");
         }, 2400);
       };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(value).then(function () { done(true); }, function () { done(false); });
-      } else {
+
+      var execCopy = function () {
         var t = document.createElement("textarea");
         t.value = value;
-        t.setAttribute("readonly", "");
         t.style.position = "fixed";
-        t.style.opacity = "0";
+        t.style.left = "-9999px";
+        t.style.top = "0";
         document.body.appendChild(t);
+        t.focus();
         t.select();
         var ok = false;
         try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
         document.body.removeChild(t);
-        done(ok);
+        return ok;
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(function () {
+          done(true);
+        }).catch(function () {
+          done(execCopy());
+        });
+      } else {
+        done(execCopy());
       }
     });
   }
 
-  /* Robust ScrollSpy for Rail Navigation */
+  /* Bulletproof Focal Intersection ScrollSpy Algorithm */
   var links = Array.prototype.slice.call(document.querySelectorAll(".rail-nav a"));
   var targets = links
     .map(function (a) { return document.querySelector(a.getAttribute("href")); })
@@ -605,7 +658,6 @@
     });
   };
 
-  // Add click listeners to lock active state during user navigation click
   links.forEach(function (a) {
     a.addEventListener("click", function () {
       var targetId = a.getAttribute("href").replace("#", "");
@@ -625,17 +677,25 @@
     var windowHeight = window.innerHeight;
     var docHeight = document.documentElement.scrollHeight;
 
-    // Check if scrolled near absolute bottom of page -> mark contact
+    // Absolute bottom check
     if (scrollPos + windowHeight >= docHeight - 15) {
       mark("contact");
       return;
     }
 
+    // Focal point intersection line (35% down viewport)
+    var focalLine = windowHeight * 0.35;
     var activeId = targets[0].id;
+
     for (var i = 0; i < targets.length; i++) {
       var target = targets[i];
       var rect = target.getBoundingClientRect();
-      if (rect.top <= windowHeight * 0.35) {
+      
+      // If focal line intersects this section, or if top is above focal line
+      if (rect.top <= focalLine && rect.bottom >= focalLine) {
+        activeId = target.id;
+        break;
+      } else if (rect.top <= focalLine) {
         activeId = target.id;
       }
     }
